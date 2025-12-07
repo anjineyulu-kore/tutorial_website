@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenkins CI/CD Tutorial - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="robotframework.html">Robot Framework</a></li>
+                <li><a href="selenium.html">Selenium</a></li>
+                <li><a href="api-testing.html">API Testing</a></li>
+                <li><a href="playwright.html">Playwright</a></li>
+                <li><a href="jenkins.html">Jenkins</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section style="background: white; padding: 2rem 0;">
+        <div class="container">
+            <div class="tutorial-content">
+                <h1>🔄 Complete Jenkins CI/CD Tutorial for Test Automation</h1>
+                
+                <div class="toc">
+                    <h4>Table of Contents</h4>
+                    <ul>
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#installation">Installation & Setup</a></li>
+                        <li><a href="#basics">Jenkins Basics</a></li>
+                        <li><a href="#jobs">Creating Jobs</a></li>
+                        <li><a href="#pipelines">Jenkins Pipelines</a></li>
+                        <li><a href="#testing">Integrating Tests</a></li>
+                        <li><a href="#automation">Test Automation Integration</a></li>
+                        <li><a href="#examples">Practical Examples</a></li>
+                        <li><a href="#best">Best Practices</a></li>
+                    </ul>
+                </div>
+
+                <!-- Introduction -->
+                <h2 id="intro">1. Introduction to Jenkins CI/CD</h2>
+                <p>Jenkins is an open-source automation server that helps automate parts of software development like building, testing, and deploying. It's widely used for implementing Continuous Integration (CI) and Continuous Deployment (CD) pipelines.</p>
+
+                <h3>What is CI/CD?</h3>
+                <ul>
+                    <li><strong>Continuous Integration (CI):</strong> Automatically build and test code changes frequently</li>
+                    <li><strong>Continuous Deployment (CD):</strong> Automatically deploy tested code to production</li>
+                    <li><strong>Continuous Delivery:</strong> Prepare code for production deployment</li>
+                </ul>
+
+                <h3>Why Jenkins for Test Automation?</h3>
+                <ul>
+                    <li><strong>Free & Open Source:</strong> No licensing costs</li>
+                    <li><strong>Extensible:</strong> 1000+ plugins for various tools</li>
+                    <li><strong>Distributed:</strong> Run tests across multiple agents</li>
+                    <li><strong>Pipeline Support:</strong> Sophisticated workflow definitions</li>
+                    <li><strong>Wide Adoption:</strong> Industry standard in many companies</li>
+                    <li><strong>Integration:</strong> Works with Git, Docker, Kubernetes, and more</li>
+                </ul>
+
+                <!-- Installation -->
+                <h2 id="installation">2. Installation & Setup</h2>
+
+                <h3>Install Jenkins on Windows</h3>
+                <div class="code-block"><code"># Option 1: Using Installer
+# Download from: https://www.jenkins.io/download/
+# Run the Windows installer
+# Jenkins will start on http://localhost:8080
+
+# Option 2: Using Java directly
+# First install Java JDK 11 or higher
+# Download jenkins.war from jenkins.io
+java -jar jenkins.war</code></div>
+
+                <h3>Install Jenkins on Linux/macOS</h3>
+                <div class="code-block"><code"># Ubuntu/Debian
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+
+# Start Jenkins
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+
+# macOS (using Homebrew)
+brew install jenkins
+brew services start jenkins</code></div>
+
+                <h3>Initial Setup</h3>
+                <ol>
+                    <li>Open browser: <span class="highlight">http://localhost:8080</span></li>
+                    <li>Get initial admin password from: <span class="highlight">/var/lib/jenkins/secrets/initialAdminPassword</span></li>
+                    <li>Install recommended plugins</li>
+                    <li>Create first admin user</li>
+                    <li>Configure Jenkins URL</li>
+                </ol>
+
+                <h3>Essential Plugins for Test Automation</h3>
+                <div class="code-block"><code"># Install these plugins:
+- Git Plugin (for version control)
+- Pipeline (for declarative/scripted pipelines)
+- Python Plugin (for Python tests)
+- Robot Framework Plugin (for Robot tests)
+- JUnit Plugin (for test reporting)
+- Selenium Plugin
+- Email Plugin (for notifications)
+- Docker Plugin (for containerized tests)
+- Blue Ocean (for pipeline visualization)</code></div>
+
+                <!-- Basics -->
+                <h2 id="basics">3. Jenkins Basics</h2>
+
+                <h3>Jenkins Architecture</h3>
+                <ul>
+                    <li><strong>Master/Controller:</strong> Manages jobs and coordinates agents</li>
+                    <li><strong>Agents/Nodes:</strong> Execute jobs (jobs are distributed here)</li>
+                    <li><strong>Jobs:</strong> Work units that run builds</li>
+                    <li><strong>Builds:</strong> Individual executions of a job</li>
+                    <li><strong>Plugins:</strong> Extend Jenkins functionality</li>
+                </ul>
+
+                <h3>Job Lifecycle</h3>
+                <div class="code-block"><code">1. Trigger
+   ├─ Manual trigger
+   ├─ SCM polling (GitHub webhook)
+   ├─ Build trigger (another job)
+   └─ Scheduled trigger (cron)
+
+2. Build
+   ├─ Checkout source code
+   ├─ Install dependencies
+   ├─ Build application
+   └─ Run tests
+
+3. Post-Build Actions
+   ├─ Archive artifacts
+   ├─ Generate reports
+   ├─ Send notifications
+   └─ Deploy (if tests pass)</code></div>
+
+                <h3>Job Configuration Basics</h3>
+                <ul>
+                    <li><strong>General:</strong> Job name, description, parameters</li>
+                    <li><strong>Source Code:</strong> Git, SVN, etc.</li>
+                    <li><strong>Build Triggers:</strong> When to run the job</li>
+                    <li><strong>Build Steps:</strong> Commands to execute</li>
+                    <li><strong>Post-Build:</strong> Actions after build completes</li>
+                </ul>
+
+                <!-- Creating Jobs -->
+                <h2 id="jobs">4. Creating Jenkins Jobs</h2>
+
+                <h3>Freestyle Job</h3>
+                <p>Simple GUI-based job configuration:</p>
+                <div class="code-block"><code">Steps to Create:
+1. Click "New Item"
+2. Enter job name
+3. Select "Freestyle job"
+4. Configure:
+   - Description
+   - GitHub project URL
+   - Git repository
+   - Build triggers
+   - Build steps (Execute shell)
+   - Post-build actions
+5. Save and Build</code></div>
+
+                <h3>Parameterized Build</h3>
+                <div class="code-block"><code"># Jenkins UI: Enable "This project is parameterized"
+# Add parameters:
+
+String Parameter:
+  Name: BROWSER
+  Default: Chrome
+  Description: Browser to run tests on
+
+Choice Parameter:
+  Name: TEST_ENV
+  Choices: dev
+           staging
+           production
+  Description: Environment to test
+
+Boolean Parameter:
+  Name: RUN_FULL_SUITE
+  Checked
+  Description: Run full test suite or smoke tests</code></div>
+
+                <h3>Scheduled Job (Cron)</h3>
+                <div class="code-block"><code"># Jenkins Build Triggers - Build periodically
+# Cron syntax: MINUTE HOUR DAY MONTH DAY_OF_WEEK
+
+# Every day at 2 AM
+0 2 * * *
+
+# Every weekday at 9 AM
+0 9 * * 1-5
+
+# Every 30 minutes
+*/30 * * * *
+
+# Every Monday at midnight
+0 0 * * 1
+
+# Multiple times per day
+0 */6 * * *  # Every 6 hours</code></div>
+
+                <!-- Pipelines -->
+                <h2 id="pipelines">5. Jenkins Pipelines</h2>
+
+                <h3>Declarative Pipeline</h3>
+                <div class="code-block"><code">pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        
+        stage('Run Tests') {
+            steps {
+                sh 'pytest tests/ -v'
+            }
+        }
+        
+        stage('Generate Report') {
+            steps {
+                junit 'test-results.xml'
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Cleaning up...'
+        }
+        success {
+            echo 'Tests passed!'
+        }
+        failure {
+            echo 'Tests failed!'
+        }
+    }
+}</code></div>
+
+                <h3>Pipeline with Multiple Stages</h3>
+                <div class="code-block"><code">pipeline {
+    agent any
+    
+    options {
+        timestamps()
+        timeout(time: 1, unit: 'HOURS')
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+    
+    environment {
+        PYTHON_ENV = 'venv'
+        TEST_REPORTS = 'reports/'
+    }
+    
+    stages {
+        stage('Setup') {
+            steps {
+                sh 'python -m venv ${PYTHON_ENV}'
+                sh '. ${PYTHON_ENV}/bin/activate && pip install -r requirements.txt'
+            }
+        }
+        
+        stage('Code Quality') {
+            steps {
+                sh 'pylint src/'
+            }
+        }
+        
+        stage('Unit Tests') {
+            steps {
+                sh 'pytest tests/unit -v --junitxml=${TEST_REPORTS}unit-results.xml'
+            }
+        }
+        
+        stage('Integration Tests') {
+            steps {
+                sh 'pytest tests/integration -v --junitxml=${TEST_REPORTS}integration-results.xml'
+            }
+        }
+        
+        stage('Selenium Tests') {
+            steps {
+                sh 'pytest tests/selenium -v --junitxml=${TEST_REPORTS}selenium-results.xml'
+            }
+        }
+        
+        stage('API Tests') {
+            steps {
+                sh 'pytest tests/api -v --junitxml=${TEST_REPORTS}api-results.xml'
+            }
+        }
+    }
+    
+    post {
+        always {
+            junit testResults: '${TEST_REPORTS}*.xml', allowEmptyResults: true
+            publishHTML([
+                reportDir: 'htmlcov',
+                reportFiles: 'index.html',
+                reportName: 'Code Coverage'
+            ])
+        }
+    }
+}</code></div>
+
+                <!-- Testing Integration -->
+                <h2 id="testing">6. Integrating Tests in Jenkins</h2>
+
+                <h3>Pytest Integration</h3>
+                <div class="code-block"><code">#!/bin/bash
+# Install test dependencies
+pip install pytest pytest-cov pytest-xdist
+
+# Run tests with JUnit XML output
+pytest tests/ -v \
+    --junitxml=test-results.xml \
+    --cov=src \
+    --cov-report=html \
+    --cov-report=xml
+
+# Run tests in parallel
+pytest tests/ -n auto -v --junitxml=test-results.xml</code></div>
+
+                <h3>Selenium Tests in Jenkins</h3>
+                <div class="code-block"><code">#!/bin/bash
+# Install dependencies
+pip install selenium pytest
+
+# Run Selenium tests
+pytest tests/selenium/ -v \
+    --junitxml=selenium-results.xml \
+    --tb=short
+
+# Generate Allure report
+pip install allure-pytest
+pytest tests/selenium/ --alluredir=allure-results
+allure generate allure-results -o allure-report</code></div>
+
+                <h3>Robot Framework in Jenkins</h3>
+                <div class="code-block"><code">#!/bin/bash
+# Install Robot Framework
+pip install robotframework robotframework-seleniumlibrary
+
+# Run Robot tests
+robot --outputdir results/ \
+    --xunit results/xunit.xml \
+    --log NONE \
+    --report NONE \
+    tests/
+
+# Or in Jenkins Pipeline:
+sh '''
+    robot --outputdir results/ \\
+        --xunit results/xunit.xml \\
+        tests/
+'''</code></div>
+
+                <h3>API Tests in Jenkins</h3>
+                <div class="code-block"><code">#!/bin/bash
+# Run API tests with pytest
+pip install requests pytest pytest-json-report
+
+pytest tests/api/ -v \
+    --junitxml=api-results.xml \
+    --html=api-report.html \
+    --self-contained-html
+
+# With environment variables
+export API_URL=https://api.example.com
+export API_KEY=secret_key_123
+pytest tests/api/ -v --junitxml=api-results.xml</code></div>
+
+                <!-- Automation Integration -->
+                <h2 id="automation">7. Test Automation Integration</h2>
+
+                <h3>Complete Selenium Pipeline</h3>
+                <div class="code-block"><code">pipeline {
+    agent any
+    
+    parameters {
+        choice(name: 'BROWSER', choices: ['Chrome', 'Firefox', 'Safari'], description: 'Browser to test')
+        choice(name: 'ENVIRONMENT', choices: ['dev', 'staging', 'prod'], description: 'Target environment')
+    }
+    
+    environment {
+        CHROME_BIN = '/usr/bin/google-chrome'
+        GECKODRIVER = '/usr/local/bin/geckodriver'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Setup') {
+            steps {
+                sh '''
+                    python -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+        
+        stage('Run Selenium Tests') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    pytest tests/selenium/ -v \\
+                        --junitxml=selenium-results.xml \\
+                        -m browser_${BROWSER} \\
+                        -m env_${ENVIRONMENT}
+                '''
+            }
+        }
+        
+        stage('Generate HTML Report') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    pytest tests/selenium/ \\
+                        --html=report.html \\
+                        --self-contained-html
+                '''
+            }
+        }
+    }
+    
+    post {
+        always {
+            junit 'selenium-results.xml'
+            publishHTML([
+                reportDir: '.',
+                reportFiles: 'report.html',
+                reportName: 'Selenium Test Report'
+            ])
+            archiveArtifacts artifacts: 'screenshots/**', allowEmptyArchive: true
+        }
+        failure {
+            echo 'Tests failed - Check logs and artifacts'
+        }
+    }
+}</code></div>
+
+                <h3>Robot Framework Pipeline</h3>
+                <div class="code-block"><code">pipeline {
+    agent any
+    
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                    pip install robotframework
+                    pip install robotframework-seleniumlibrary
+                    pip install robotframework-requests
+                '''
+            }
+        }
+        
+        stage('Run Robot Tests') {
+            steps {
+                sh '''
+                    robot --outputdir results/ \\
+                        --log NONE \\
+                        --report NONE \\
+                        --variable BROWSER:chrome \\
+                        --variable ENV:dev \\
+                        tests/
+                '''
+            }
+        }
+    }
+    
+    post {
+        always {
+            robot outputPath: 'results',
+                  logFileName: 'log.html',
+                  reportFileName: 'report.html',
+                  otherFiles: 'output.xml'
+        }
+    }
+}</code></div>
+
+                <!-- Practical Examples -->
+                <h2 id="examples">8. Practical Examples</h2>
+
+                <h3>Complete Test Pipeline</h3>
+                <div class="code-block"><code">pipeline {
+    agent any
+    
+    options {
+        timestamps()
+        timeout(time: 2, unit: 'HOURS')
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+    }
+    
+    triggers {
+        githubPush()  // Trigger on GitHub push
+        cron('0 2 * * *')  // Daily at 2 AM
+    }
+    
+    environment {
+        REPO = 'https://github.com/user/test-repo.git'
+        BRANCH = 'main'
+        PYTHON = 'python3'
+        VENV = 'venv'
+    }
+    
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo 'Cloning repository...'
+                sh 'git clone -b ${BRANCH} ${REPO} .'
+            }
+        }
+        
+        stage('Setup Environment') {
+            steps {
+                echo 'Setting up Python environment...'
+                sh '''
+                    ${PYTHON} -m venv ${VENV}
+                    . ${VENV}/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+        
+        stage('Lint & Code Quality') {
+            steps {
+                echo 'Running code quality checks...'
+                sh '''
+                    . ${VENV}/bin/activate
+                    pylint src/ || true
+                    black --check src/ || true
+                '''
+            }
+        }
+        
+        stage('Unit Tests') {
+            steps {
+                echo 'Running unit tests...'
+                sh '''
+                    . ${VENV}/bin/activate
+                    pytest tests/unit/ -v \\
+                        --junitxml=unit-results.xml \\
+                        --cov=src \\
+                        --cov-report=html \\
+                        --cov-report=xml
+                '''
+            }
+        }
+        
+        stage('API Tests') {
+            steps {
+                echo 'Running API tests...'
+                sh '''
+                    . ${VENV}/bin/activate
+                    pytest tests/api/ -v \\
+                        --junitxml=api-results.xml \\
+                        -m api
+                '''
+            }
+        }
+        
+        stage('Selenium Tests') {
+            parallel {
+                stage('Chrome Tests') {
+                    steps {
+                        sh '''
+                            . ${VENV}/bin/activate
+                            pytest tests/selenium/ -v \\
+                                -m chrome \\
+                                --junitxml=chrome-results.xml
+                        '''
+                    }
+                }
+                stage('Firefox Tests') {
+                    steps {
+                        sh '''
+                            . ${VENV}/bin/activate
+                            pytest tests/selenium/ -v \\
+                                -m firefox \\
+                                --junitxml=firefox-results.xml
+                        '''
+                    }
+                }
+            }
+        }
+        
+        stage('Robot Framework Tests') {
+            steps {
+                echo 'Running Robot Framework tests...'
+                sh '''
+                    robot --outputdir results/ \\
+                        --log NONE \\
+                        --report NONE \\
+                        --xunit results/robot-results.xml \\
+                        tests/robot/
+                '''
+            }
+        }
+        
+        stage('Generate Reports') {
+            steps {
+                echo 'Generating test reports...'
+                sh '''
+                    . ${VENV}/bin/activate
+                    pytest tests/ \\
+                        --html=report.html \\
+                        --self-contained-html || true
+                '''
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Collecting test results...'
+            junit testResults: '*-results.xml', allowEmptyResults: true
+            
+            publishHTML([
+                reportDir: '.',
+                reportFiles: 'report.html',
+                reportName: 'Test Report'
+            ])
+            
+            publishHTML([
+                reportDir: 'htmlcov',
+                reportFiles: 'index.html',
+                reportName: 'Code Coverage'
+            ])
+            
+            archiveArtifacts artifacts: 'results/**', allowEmptyArchive: true
+            
+            cleanWs()
+        }
+        success {
+            echo '✅ All tests passed!'
+            emailext(
+                subject: "Build #${BUILD_NUMBER} - Success",
+                body: "All tests passed successfully!",
+                to: 'team@example.com'
+            )
+        }
+        failure {
+            echo '❌ Tests failed!'
+            emailext(
+                subject: "Build #${BUILD_NUMBER} - Failed",
+                body: "Some tests failed. Check Jenkins logs for details.",
+                to: 'team@example.com'
+            )
+        }
+    }
+}</code></div>
+
+                <h3>GitHub Integration</h3>
+                <div class="code-block"><code">pipeline {
+    agent any
+    
+    triggers {
+        githubPush()  // Trigger on push
+        pullRequest()  // Trigger on PR
+    }
+    
+    options {
+        gitLabConnection('gitlab-instance')
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Build & Test') {
+            steps {
+                sh 'python -m pytest tests/'
+            }
+        }
+    }
+    
+    post {
+        always {
+            // Update GitHub with status
+            step([$class: 'GHStatusContextBuilder',
+                context: 'continuous-integration/jenkins'])
+        }
+    }
+}</code></div>
+
+                <h3>Docker Integration</h3>
+                <div class="code-block"><code">pipeline {
+    agent any
+    
+    environment {
+        DOCKER_IMAGE = 'test-automation:latest'
+    }
+    
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t ${DOCKER_IMAGE} .'
+            }
+        }
+        
+        stage('Run Tests in Docker') {
+            steps {
+                sh '''
+                    docker run --rm \\
+                        -v ${WORKSPACE}/results:/app/results \\
+                        ${DOCKER_IMAGE} \\
+                        pytest tests/ -v --junitxml=results/test-results.xml
+                '''
+            }
+        }
+    }
+    
+    post {
+        always {
+            sh 'docker rmi ${DOCKER_IMAGE}'
+            junit 'results/test-results.xml'
+        }
+    }
+}</code></div>
+
+                <!-- Best Practices -->
+                <h2 id="best">9. Best Practices</h2>
+
+                <h3>Jenkins Configuration Best Practices</h3>
+                <ul>
+                    <li><span class="highlight">Use Declarative Pipelines:</span> Easier to read and maintain</li>
+                    <li><span class="highlight">Store Secrets Securely:</span> Use Jenkins credentials store</li>
+                    <li><span class="highlight">Version Control Pipeline:</span> Keep Jenkinsfile in Git</li>
+                    <li><span class="highlight">Use Environment Variables:</span> For configuration management</li>
+                    <li><span class="highlight">Implement Timeouts:</span> Prevent hanging builds</li>
+                    <li><span class="highlight">Parallel Execution:</span> Run independent tests in parallel</li>
+                    <li><span class="highlight">Clean Up:</span> Archive artifacts and clean workspace</li>
+                    <li><span class="highlight">Notifications:</span> Alert on success/failure</li>
+                </ul>
+
+                <h3>Test Automation Best Practices</h3>
+                <ul>
+                    <li><span class="highlight">Separate Test Suites:</span> Unit, API, UI, Integration</li>
+                    <li><span class="highlight">Use Test Markers:</span> Tag tests for selective execution</li>
+                    <li><span class="highlight">Parallel Testing:</span> Run tests concurrently</li>
+                    <li><span class="highlight">Headless Browsers:</span> For faster web testing</li>
+                    <li><span class="highlight">Retry Flaky Tests:</span> Handle intermittent failures</li>
+                    <li><span class="highlight">Generate Reports:</span> HTML, JUnit, Allure reports</li>
+                    <li><span class="highlight">Database Cleanup:</span> Reset state between test runs</li>
+                    <li><span class="highlight">Configuration Management:</span> Environment-specific configs</li>
+                </ul>
+
+                <h3>Securing Jenkins</h3>
+                <div class="code-block"><code"># Jenkins Configuration:
+
+1. Enable Security:
+   - Manage Jenkins > Configure Global Security
+   - Enable authentication
+   - Set authorization strategy
+
+2. Use Credentials:
+   - Manage Jenkins > Manage Credentials
+   - Store API keys, passwords securely
+   - Reference in pipeline using ${CREDENTIAL}
+
+3. Restrict Access:
+   - Use role-based access control
+   - Limit who can create/modify jobs
+   - Restrict agent access
+
+4. Audit Logging:
+   - Enable audit logging
+   - Monitor job executions
+   - Track configuration changes
+
+# Example: Using credentials in pipeline
+pipeline {
+    agent any
+    
+    environment {
+        API_KEY = credentials('api-key-credential-id')
+        DB_PASSWORD = credentials('db-password-credential-id')
+    }
+    
+    stages {
+        stage('Run Tests') {
+            steps {
+                sh '''
+                    export API_KEY=${API_KEY}
+                    pytest tests/ -v
+                '''
+            }
+        }
+    }
+}</code></div>
+
+                <h3>Monitoring & Maintenance</h3>
+                <div class="code-block"><code"># Regular Maintenance Tasks:
+
+1. Monitor Disk Space:
+   - Archive old builds
+   - Clean up workspace regularly
+   - Use build discarder
+
+2. Update Plugins:
+   - Check for plugin updates
+   - Test updates in dev environment
+   - Schedule updates during maintenance window
+
+3. Backup Configuration:
+   - Regularly backup Jenkins configuration
+   - Store backups securely
+   - Test restore procedure
+
+4. Performance Tuning:
+   - Monitor executor utilization
+   - Adjust number of executors
+   - Add agents for distributed testing
+
+5. Logging & Alerts:
+   - Monitor build failures
+   - Set up email/Slack notifications
+   - Analyze logs for issues</code></div>
+
+                <h3>Troubleshooting Common Issues</h3>
+                <div class="code-block"><code"># Common Jenkins Issues:
+
+1. Build Timeout
+   Problem: Builds hang indefinitely
+   Solution: Add timeout(time: X, unit: 'HOURS') to pipeline
+
+2. Out of Disk Space
+   Problem: Jenkins fails to archive artifacts
+   Solution: Enable build discarder, clean old builds
+
+3. Authentication Failed
+   Problem: Git/API authentication issues
+   Solution: Check credentials, regenerate tokens
+
+4. Flaky Tests
+   Problem: Tests pass sometimes, fail other times
+   Solution: Implement retry logic, fix test isolation
+
+5. Slow Builds
+   Problem: Pipeline takes too long
+   Solution: Parallelize stages, optimize test suite
+
+6. Agent Connection Issues
+   Problem: Agents disconnect from master
+   Solution: Check network, increase timeouts, restart agents</code></div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section style="background: #f9f9f9; padding: 3rem 0;">
+        <div class="container" style="text-align: center;">
+            <h3 style="margin-bottom: 2rem;">Continue Learning</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="python.html" class="btn btn-primary">Python Guide</a>
+                <a href="selenium.html" class="btn btn-primary">Web Testing</a>
+                <a href="api-testing.html" class="btn btn-primary">API Testing</a>
+                <a href="robotframework.html" class="btn btn-primary">Robot Framework</a>
+                <a href="playwright.html" class="btn btn-primary">Playwright</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <a href="python.html">Python</a>
+                    <a href="robotframework.html">Robot Framework</a>
+                    <a href="selenium.html">Selenium</a>
+                    <a href="api-testing.html">API Testing</a>
+                    <a href="playwright.html">Playwright</a>
+                    <a href="jenkins.html">Jenkins CI/CD</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="../getting-started.html">Getting Started</a>
+                    <a href="#">Code Examples</a>
+                    <a href="#">Best Practices</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

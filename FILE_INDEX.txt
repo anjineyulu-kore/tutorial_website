@@ -1,0 +1,334 @@
+📚 TEST AUTOMATION TUTORIAL WEBSITE - COMPLETE FILE INDEX
+=========================================================
+
+MAIN FILES:
+-----------
+✅ index.html                 - Homepage with tutorial overview and navigation
+✅ getting-started.html       - Quick start guide and learning paths
+✅ README.md                  - Complete documentation and project info
+✅ SUMMARY.txt               - Project overview and statistics
+
+TUTORIAL PAGES (in /pages folder):
+-----------------------------------
+✅ pages/python.html             - Python Programming Tutorial
+✅ pages/robotframework.html      - Robot Framework Tutorial
+✅ pages/selenium.html           - Selenium WebDriver Tutorial
+✅ pages/api-testing.html        - REST API Testing Tutorial
+✅ pages/playwright.html         - Playwright Automation Tutorial
+✅ pages/jenkins.html            - Jenkins CI/CD Tutorial ⭐ NEW
+
+ASSETS (in /assets folder):
+---------------------------
+✅ assets/css/style.css          - Main stylesheet (800+ lines)
+✅ assets/js/script.js           - Interactive features and functions
+
+REFERENCE DOCUMENTS:
+--------------------
+✅ JENKINS_QUICK_REFERENCE.txt   - Quick lookup guide for Jenkins ⭐ NEW
+✅ JENKINS_UPDATE.txt            - Jenkins addition documentation ⭐ NEW
+✅ FILE_INDEX.txt               - This file (you are here)
+
+==========================================
+📊 WEBSITE STATISTICS
+==========================================
+
+Number of Tutorials:        6
+├─ Python
+├─ Robot Framework
+├─ Selenium
+├─ API Testing
+├─ Playwright
+└─ Jenkins CI/CD ⭐ NEW
+
+Total Code Examples:        100+
+├─ Python: 15+
+├─ Robot Framework: 12+
+├─ Selenium: 18+
+├─ API Testing: 20+
+├─ Playwright: 16+
+└─ Jenkins: 25+ ⭐ NEW
+
+Total Content Lines:        6000+
+Total Pages:               8 (index + 6 tutorials + getting-started)
+Responsive Design:         Yes (Mobile, Tablet, Desktop)
+Interactive Features:      Copy buttons, Smooth scrolling, TOC
+
+==========================================
+🚀 HOW TO USE
+==========================================
+
+1. OPEN THE WEBSITE:
+   - Navigate to: f:\AI\New folder\tutorial_website\
+   - Double-click: index.html
+   - Opens in default browser
+
+2. NAVIGATE TUTORIALS:
+   - Use top menu to go to different tutorials
+   - Or click tutorial cards on homepage
+   - Each page has Table of Contents for quick navigation
+
+3. COPY CODE EXAMPLES:
+   - Every code block has "Copy" button
+   - Click to copy code to clipboard
+   - Paste into your editor
+   - Modify and run!
+
+4. FOLLOW LEARNING PATH:
+   - Start with Python Basics
+   - Move to API Testing
+   - Learn Selenium or Playwright
+   - Master Robot Framework
+   - Set up Jenkins CI/CD
+
+==========================================
+📚 TUTORIAL CONTENTS SUMMARY
+==========================================
+
+PYTHON TUTORIAL:
+✓ Introduction and setup
+✓ Variables, data types, operations
+✓ Control flow (if/else, loops)
+✓ Functions and modules
+✓ Object-Oriented Programming
+✓ Important modules
+✓ Testing with pytest
+✓ Best practices
+→ 15+ Code Examples
+
+ROBOT FRAMEWORK TUTORIAL:
+✓ Framework introduction
+✓ Installation and setup
+✓ Syntax and structure
+✓ Built-in keywords
+✓ Popular libraries
+✓ Writing test cases
+✓ Running and reporting
+✓ Best practices
+→ 12+ Code Examples
+
+SELENIUM TUTORIAL:
+✓ Setup and basics
+✓ Browser operations
+✓ Element locators
+✓ Waits and timeouts
+✓ User interactions
+✓ Advanced features
+✓ Page Object Model
+✓ Best practices
+→ 18+ Code Examples
+
+API TESTING TUTORIAL:
+✓ API fundamentals
+✓ HTTP methods
+✓ Requests library
+✓ Request validation
+✓ Authentication
+✓ Error handling
+✓ API testing tools
+✓ Best practices
+→ 20+ Code Examples
+
+PLAYWRIGHT TUTORIAL:
+✓ Modern automation
+✓ Installation
+✓ Basic operations
+✓ Selectors and locators
+✓ User interactions
+✓ Waits and timeouts
+✓ Advanced features
+✓ Best practices
+→ 16+ Code Examples
+
+JENKINS CI/CD TUTORIAL: ⭐ NEW
+✓ Introduction to CI/CD
+✓ Installation on all OS
+✓ Job creation
+✓ Pipeline syntax
+✓ Test integration
+✓ GitHub/Docker integration
+✓ Reporting and monitoring
+✓ Best practices
+→ 25+ Code Examples
+
+==========================================
+🔄 JENKINS TUTORIAL QUICK START
+==========================================
+
+ACCESS:
+- Click "Jenkins CI/CD" on homepage
+- Or navigate to: pages/jenkins.html
+
+SECTIONS:
+1. Introduction to Jenkins & CI/CD
+2. Installation & Setup (Windows/Linux/Mac)
+3. Jenkins Basics & Architecture
+4. Creating Jobs (Freestyle & Parameterized)
+5. Jenkins Pipelines (Declarative & Scripted)
+6. Integrating Tests (Pytest, Selenium, Robot)
+7. Test Automation Integration
+8. Practical Complete Examples
+9. Best Practices & Troubleshooting
+
+KEY EXAMPLES:
+- Basic pipeline setup
+- Selenium test execution
+- API test integration
+- Robot Framework tests
+- Parallel test execution
+- GitHub webhook triggers
+- Docker containerization
+- Test reporting
+- Email notifications
+- Credentials management
+
+==========================================
+✨ FEATURES
+==========================================
+
+DESIGN:
+✓ Modern gradient colors
+✓ Responsive layout
+✓ Mobile-friendly
+✓ Smooth animations
+✓ Professional typography
+✓ Clean navigation
+
+FUNCTIONALITY:
+✓ Copy to clipboard buttons
+✓ Smooth scrolling
+✓ Table of Contents navigation
+✓ Active page highlighting
+✓ Scroll-to-top button
+✓ Keyboard shortcuts
+
+CONTENT:
+✓ Step-by-step explanations
+✓ Production-ready code
+✓ Real-world examples
+✓ Best practices
+✓ Common pitfalls
+✓ Quick reference guides
+
+==========================================
+🎓 LEARNING RECOMMENDATIONS
+==========================================
+
+FOR BEGINNERS:
+Week 1-2:  Python Basics
+Week 3-4:  API Testing
+Week 5-6:  Selenium WebDriver
+Week 7:    Playwright
+Week 8:    Robot Framework
+Week 9:    Jenkins CI/CD
+
+FOR EXPERIENCED PROGRAMMERS:
+Days 1-3:   Selenium WebDriver
+Days 4-5:   API Testing
+Days 6-7:   Playwright
+Days 8-9:   Robot Framework
+Days 10-11: Jenkins CI/CD
+
+FOR DEVOPS/INFRASTRUCTURE:
+Days 1-3:   Jenkins Installation & Setup
+Days 4-5:   Pipeline Configuration
+Days 6-7:   Docker Integration
+Days 8-10:  CI/CD Best Practices
+
+==========================================
+📁 FILE STRUCTURE
+==========================================
+
+tutorial_website/
+│
+├── index.html                      (Homepage)
+├── getting-started.html            (Quick start guide)
+├── README.md                        (Documentation)
+├── SUMMARY.txt                      (Project overview)
+├── JENKINS_QUICK_REFERENCE.txt     (Jenkins quick lookup)
+├── JENKINS_UPDATE.txt              (Jenkins addition info)
+├── FILE_INDEX.txt                  (This file)
+│
+├── pages/                           (Tutorial pages)
+│   ├── python.html
+│   ├── robotframework.html
+│   ├── selenium.html
+│   ├── api-testing.html
+│   ├── playwright.html
+│   └── jenkins.html
+│
+└── assets/                          (Static files)
+    ├── css/
+    │   └── style.css
+    └── js/
+        └── script.js
+
+==========================================
+🔐 SECURITY & CREDITS
+==========================================
+
+All code examples follow:
+✓ Security best practices
+✓ OWASP guidelines
+✓ Industry standards
+✓ Production-ready patterns
+
+Includes tutorials on:
+✓ Secure Jenkins configuration
+✓ Credentials management
+✓ API authentication
+✓ Test environment security
+
+==========================================
+🚀 QUICK LINKS
+==========================================
+
+WEBSITE FILES:
+- Homepage: index.html
+- Python: pages/python.html
+- Selenium: pages/selenium.html
+- API Testing: pages/api-testing.html
+- Robot Framework: pages/robotframework.html
+- Playwright: pages/playwright.html
+- Jenkins: pages/jenkins.html ⭐ NEW
+
+REFERENCE DOCS:
+- Getting Started: getting-started.html
+- Documentation: README.md
+- Quick Ref: JENKINS_QUICK_REFERENCE.txt
+- Update Info: JENKINS_UPDATE.txt
+
+==========================================
+✅ WHAT'S INCLUDED
+==========================================
+
+✓ 6 Complete Tutorials
+✓ 100+ Code Examples
+✓ 150+ Concepts
+✓ Best Practices
+✓ Real-World Scenarios
+✓ Professional Design
+✓ Responsive Layout
+✓ Mobile Friendly
+✓ Quick Reference Guides
+✓ Learning Paths
+✓ Complete Documentation
+✓ Production-Ready Code
+
+==========================================
+🎉 YOU'RE ALL SET!
+==========================================
+
+Your test automation tutorial website is
+complete and ready to use!
+
+→ Open index.html to get started
+→ Choose your learning path
+→ Copy code examples
+→ Build amazing test automation
+
+Happy Learning! 🚀
+
+==========================================
+Last Updated: December 7, 2025
+Tutorial Website v2.0 (with Jenkins CI/CD)
+=========================================================

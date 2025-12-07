@@ -1,0 +1,26 @@
+[
+  {
+    "id": "2325e330-0c48-4047-a128-674e2cae9213",
+    "name": "anji",
+    "email": "anji@gmail.com",
+    "course": "general",
+    "status": "approved",
+    "registered_at": "2025-12-07T11:31:14.744188Z",
+    "approved_at": "2025-12-07T11:43:44.474314Z",
+    "access_token": "5f1d0158-fea6-4f4b-9c84-3d23b081ecb3",
+    "rejected_at": "2025-12-07T11:43:34.734431Z",
+    "progress": {
+      "python": 55
+    }
+  },
+  {
+    "id": "c9583f0f-55ab-416c-943b-90b904636e0b",
+    "name": "kore",
+    "email": "kore@gmail.com",
+    "course": "playwright",
+    "status": "approved",
+    "registered_at": "2025-12-07T12:16:00.959965Z",
+    "approved_at": "2025-12-07T12:16:14.165360Z",
+    "access_token": "f73ef671-9c91-4620-b1fd-8b79e01ea903"
+  }
+]

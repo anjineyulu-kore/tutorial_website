@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Glossary & Reference Guide - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .glossary-item {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .glossary-item h3 {
+            margin-top: 0;
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .glossary-item .term-category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .glossary-item .term-category.python {
+            background: #3776ab;
+        }
+
+        .glossary-item .term-category.selenium {
+            background: #04a142;
+        }
+
+        .glossary-item .term-category.api {
+            background: #e34c26;
+        }
+
+        .glossary-item .term-category.jenkins {
+            background: #d24939;
+        }
+
+        .glossary-item .term-category.playwright {
+            background: #2eae5e;
+        }
+
+        .glossary-item .term-category.robot {
+            background: #000;
+        }
+
+        .search-box {
+            position: sticky;
+            top: 80px;
+            background: white;
+            padding: 1rem;
+            margin: 0 0 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .glossary-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .glossary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .glossary-card h4 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .definition {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        .example-code {
+            background: #f8f9fa;
+            border-left: 3px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .related-terms {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .related-terms strong {
+            color: #667eea;
+        }
+
+        .related-terms a {
+            display: inline-block;
+            margin: 0.25rem 0.5rem 0.25rem 0;
+            padding: 0.25rem 0.75rem;
+            background: #f0f4ff;
+            border: 1px solid #667eea;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #667eea;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .related-terms a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .toc-glossary {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .toc-glossary h4 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .toc-glossary ul {
+            columns: 2;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .toc-glossary ul {
+                columns: 1;
+            }
+
+            .glossary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="robotframework.html">Robot Framework</a></li>
+                <li><a href="selenium.html">Selenium</a></li>
+                <li><a href="api-testing.html">API Testing</a></li>
+                <li><a href="playwright.html">Playwright</a></li>
+                <li><a href="jenkins.html">Jenkins CI/CD</a></li>
+                <li><a href="advanced-concepts.html">Advanced</a></li>
+                <li><a href="glossary.html" style="color: #667eea; font-weight: bold;">Glossary</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section style="background: white; padding: 2rem 0;">
+        <div class="container">
+            <div class="tutorial-content">
+                <h1>📚 Complete Glossary & Technical Reference</h1>
+                <p style="font-size: 1.1rem; color: #555;">A comprehensive dictionary of terms, concepts, and abbreviations used throughout test automation frameworks and QA engineering.</p>
+
+                <!-- Search Box -->
+                <div class="search-box">
+                    <input type="text" id="glossarySearch" placeholder="🔍 Search glossary terms (e.g., 'locator', 'API', 'fixture')...">
+                </div>
+
+                <!-- Table of Contents -->
+                <div class="toc-glossary">
+                    <h4>📑 Glossary Sections</h4>
+                    <ul>
+                        <li><a href="#general">General Testing Terms</a></li>
+                        <li><a href="#python">Python Concepts</a></li>
+                        <li><a href="#selenium">Selenium & Web Automation</a></li>
+                        <li><a href="#api">API Testing</a></li>
+                        <li><a href="#robot">Robot Framework</a></li>
+                        <li><a href="#playwright">Playwright</a></li>
+                        <li><a href="#jenkins">Jenkins & CI/CD</a></li>
+                        <li><a href="#abbreviations">Common Abbreviations</a></li>
+                    </ul>
+                </div>
+
+                <!-- General Testing Terms -->
+                <h2 id="general" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">🎯 General Testing Terms</h2>
+
+                <div class="glossary-item">
+                    <h3>Assertion</h3>
+                    <span class="term-category">Testing</span>
+                    <div class="definition">
+                        <p>A statement that verifies whether a condition is true. If false, the test fails. Assertions are the core of validation in automated tests.</p>
+                        <div class="example-code">assert actual_value == expected_value
+assert user.is_logged_in() == True
+assert response.status_code in [200, 201]</div>
+                    </div>
+                    <div class="related-terms">
+                        <strong>See also:</strong>
+                        <a href="#test-case">Test Case</a>
+                        <a href="#validation">Validation</a>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Test Case</h3>
+                    <span class="term-category">Testing</span>
+                    <div class="definition">
+                        <p>A set of conditions or steps used to verify a specific functionality. Each test case has inputs, steps, and expected outcomes.</p>
+                        <div class="example-code">
+def test_user_login():
+    # Setup
+    # Execute
+    # Assert
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Test Fixture</h3>
+                    <span class="term-category">Testing</span>
+                    <div class="definition">
+                        <p>A setup of preconditions before running a test. Includes database initialization, test data creation, and resource allocation.</p>
+                        <div class="example-code">
+@pytest.fixture
+def user_data():
+    return {"name": "John", "email": "john@test.com"}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Mock / Mocking</h3>
+                    <span class="term-category">Testing</span>
+                    <div class="definition">
+                        <p>Creating a fake object that simulates real behavior. Used to isolate units of code and test without external dependencies.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Stub</h3>
+                    <span class="term-category">Testing</span>
+                    <div class="definition">
+                        <p>A minimal implementation of a function or method. Returns hardcoded values without actual logic.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Test Coverage</h3>
+                    <span class="term-category">Testing</span>
+                    <div class="definition">
+                        <p>Percentage of code executed by tests. High coverage (>80%) indicates more functionality is being tested.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Flaky Test</h3>
+                    <span class="term-category">Testing</span>
+                    <div class="definition">
+                        <p>A test that produces inconsistent results - sometimes passing, sometimes failing under same conditions. Usually caused by timing issues or external dependencies.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Test Suite</h3>
+                    <span class="term-category">Testing</span>
+                    <div class="definition">
+                        <p>A collection of multiple test cases grouped together. Can be organized by feature, module, or functionality.</p>
+                    </div>
+                </div>
+
+                <!-- Python Section -->
+                <h2 id="python" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">🐍 Python Concepts</h2>
+
+                <div class="glossary-item">
+                    <h3>Virtual Environment</h3>
+                    <span class="term-category python">Python</span>
+                    <div class="definition">
+                        <p>An isolated Python environment where you can install packages without affecting the system Python. Essential for project dependency management.</p>
+                        <div class="example-code">
+python -m venv env
+source env/bin/activate  # Linux/Mac
+env\Scripts\activate     # Windows
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Decorator</h3>
+                    <span class="term-category python">Python</span>
+                    <div class="definition">
+                        <p>A function that modifies another function or class. Used to add functionality without changing the original code.</p>
+                        <div class="example-code">
+@pytest.fixture
+@retry(max_attempts=3)
+def test_function():
+    pass
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>List Comprehension</h3>
+                    <span class="term-category python">Python</span>
+                    <div class="definition">
+                        <p>Concise way to create lists using a single line of code. More efficient than using loops.</p>
+                        <div class="example-code">
+# Traditional
+results = []
+for test in tests:
+    results.append(test.run())
+
+# List comprehension
+results = [test.run() for test in tests]
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Context Manager</h3>
+                    <span class="term-category python">Python</span>
+                    <div class="definition">
+                        <p>Manages setup and teardown of resources using 'with' statement. Ensures resources are properly released.</p>
+                        <div class="example-code">
+with open('file.txt') as f:
+    data = f.read()  # File auto-closes
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Lambda Function</h3>
+                    <span class="term-category python">Python</span>
+                    <div class="definition">
+                        <p>Anonymous function defined in one line. Useful for simple operations and callbacks.</p>
+                        <div class="example-code">
+# Regular function
+def double(x):
+    return x * 2
+
+# Lambda equivalent
+double = lambda x: x * 2
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Generator</h3>
+                    <span class="term-category python">Python</span>
+                    <div class="definition">
+                        <p>A function that returns values one at a time using 'yield'. Memory efficient for large datasets.</p>
+                        <div class="example-code">
+def test_data_generator():
+    for i in range(100):
+        yield {"id": i, "value": i*2}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selenium Section -->
+                <h2 id="selenium" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">🌐 Selenium & Web Automation</h2>
+
+                <div class="glossary-item">
+                    <h3>Locator</h3>
+                    <span class="term-category selenium">Selenium</span>
+                    <div class="definition">
+                        <p>A strategy to find elements on a web page. Types include ID, CSS Selector, XPath, Name, Class, etc.</p>
+                        <div class="example-code">
+# By ID
+(By.ID, "username")
+
+# By CSS Selector
+(By.CSS_SELECTOR, ".login-button")
+
+# By XPath
+(By.XPATH, "//button[@type='submit']")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>XPath</h3>
+                    <span class="term-category selenium">Selenium</span>
+                    <div class="definition">
+                        <p>XML Path Language used to navigate and select elements in a DOM. Most powerful but slower locator strategy.</p>
+                        <div class="example-code">
+# Absolute XPath
+/html/body/div/form/input
+
+# Relative XPath (Recommended)
+//input[@id="username"]
+//button[contains(text(), 'Login')]
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>WebDriver</h3>
+                    <span class="term-category selenium">Selenium</span>
+                    <div class="definition">
+                        <p>The core interface that communicates with the browser. Provides methods to navigate, find elements, and perform actions.</p>
+                        <div class="example-code">
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+driver.find_element(By.ID, "username")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>WebDriverWait</h3>
+                    <span class="term-category selenium">Selenium</span>
+                    <div class="definition">
+                        <p>Explicitly waits for an element to appear or condition to be true before proceeding. Prevents timing issues.</p>
+                        <div class="example-code">
+wait = WebDriverWait(driver, 10)
+element = wait.until(EC.presence_of_element_located((By.ID, "button")))
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Page Object Model (POM)</h3>
+                    <span class="term-category selenium">Selenium</span>
+                    <div class="definition">
+                        <p>Design pattern that creates a class for each page/component. Encapsulates locators and page interactions.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Stale Element Reference</h3>
+                    <span class="term-category selenium">Selenium</span>
+                    <div class="definition">
+                        <p>Error when an element reference is no longer attached to the DOM. Occurs when page reloads or DOM changes.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>ActionChains</h3>
+                    <span class="term-category selenium">Selenium</span>
+                    <div class="definition">
+                        <p>Class for simulating complex user interactions like mouse movements, drag-drop, and multi-key presses.</p>
+                        <div class="example-code">
+actions = ActionChains(driver)
+actions.move_to_element(element)
+actions.click()
+actions.perform()
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Section -->
+                <h2 id="api" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">📡 API Testing</h2>
+
+                <div class="glossary-item">
+                    <h3>REST API</h3>
+                    <span class="term-category api">API</span>
+                    <div class="definition">
+                        <p>Representational State Transfer API. Uses standard HTTP methods (GET, POST, PUT, DELETE) to perform operations on resources.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>HTTP Status Code</h3>
+                    <span class="term-category api">API</span>
+                    <div class="definition">
+                        <p>Three-digit code indicating the result of an HTTP request. 2xx=Success, 3xx=Redirect, 4xx=Client Error, 5xx=Server Error.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>JSON (JavaScript Object Notation)</h3>
+                    <span class="term-category api">API</span>
+                    <div class="definition">
+                        <p>Lightweight data format for transmitting structured data. Human-readable and widely used in APIs.</p>
+                        <div class="example-code">
+{
+  "name": "John",
+  "age": 30,
+  "active": true
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Request Header</h3>
+                    <span class="term-category api">API</span>
+                    <div class="definition">
+                        <p>Metadata sent with an HTTP request. Contains information like Content-Type, Authorization, etc.</p>
+                        <div class="example-code">
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer token123"
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Request Body</h3>
+                    <span class="term-category api">API</span>
+                    <div class="definition">
+                        <p>Data sent with HTTP request. Used in POST and PUT requests to send data to the server.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Response</h3>
+                    <span class="term-category api">API</span>
+                    <div class="definition">
+                        <p>Data returned by the server after processing a request. Contains status code, headers, and body.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>OAuth</h3>
+                    <span class="term-category api">API</span>
+                    <div class="definition">
+                        <p>Open standard for authentication and authorization. Allows secure access to resources without exposing passwords.</p>
+                    </div>
+                </div>
+
+                <!-- Robot Framework Section -->
+                <h2 id="robot" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">🤖 Robot Framework</h2>
+
+                <div class="glossary-item">
+                    <h3>Keyword</h3>
+                    <span class="term-category robot">Robot</span>
+                    <div class="definition">
+                        <p>A reusable action in Robot Framework. Keywords are either built-in, from libraries, or user-defined.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Test Case</h3>
+                    <span class="term-category robot">Robot</span>
+                    <div class="definition">
+                        <p>A sequence of keywords that test a specific feature. Structured in a readable table format.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Test Suite</h3>
+                    <span class="term-category robot">Robot</span>
+                    <div class="definition">
+                        <p>A directory or file containing test cases. Can be nested to create hierarchical test structure.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Variable</h3>
+                    <span class="term-category robot">Robot</span>
+                    <div class="definition">
+                        <p>A named container for data. Types include scalars, lists, and dictionaries. Prefixed with $ for scalars.</p>
+                        <div class="example-code">
+${USERNAME}    admin
+@{BROWSERS}    Chrome    Firefox
+&{USER}        name=John    age=30
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Library</h3>
+                    <span class="term-category robot">Robot</span>
+                    <div class="definition">
+                        <p>A collection of keywords. Built-in libraries (BuiltIn, Collections) or external (SeleniumLibrary, RequestsLibrary).</p>
+                    </div>
+                </div>
+
+                <!-- Playwright Section -->
+                <h2 id="playwright" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">🎭 Playwright</h2>
+
+                <div class="glossary-item">
+                    <h3>Playwright Browser</h3>
+                    <span class="term-category playwright">Playwright</span>
+                    <div class="definition">
+                        <p>Browser automation framework supporting Chromium, Firefox, and WebKit. Provides unified API across all browsers.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Page Object</h3>
+                    <span class="term-category playwright">Playwright</span>
+                    <div class="definition">
+                        <p>Represents a webpage. Provides methods to interact with elements, navigate, and retrieve page information.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Locator</h3>
+                    <span class="term-category playwright">Playwright</span>
+                    <div class="definition">
+                        <p>A query language to find elements. Supports CSS, XPath, and Playwright-specific selectors.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Network Interception</h3>
+                    <span class="term-category playwright">Playwright</span>
+                    <div class="definition">
+                        <p>Ability to monitor, mock, and modify network requests. Used for testing error scenarios and API responses.</p>
+                    </div>
+                </div>
+
+                <!-- Jenkins Section -->
+                <h2 id="jenkins" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">🔄 Jenkins & CI/CD</h2>
+
+                <div class="glossary-item">
+                    <h3>Jenkins Pipeline</h3>
+                    <span class="term-category jenkins">Jenkins</span>
+                    <div class="definition">
+                        <p>Defines build, test, and deployment process as code. Two types: Declarative (simple) and Scripted (flexible).</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Declarative Pipeline</h3>
+                    <span class="term-category jenkins">Jenkins</span>
+                    <div class="definition">
+                        <p>Simplified pipeline syntax with predefined structure. Easier to read and maintain.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Scripted Pipeline</h3>
+                    <span class="term-category jenkins">Jenkins</span>
+                    <div class="definition">
+                        <p>Groovy-based pipeline syntax. More powerful and flexible but requires programming knowledge.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Build Stage</h3>
+                    <span class="term-category jenkins">Jenkins</span>
+                    <div class="definition">
+                        <p>A distinct phase in the pipeline (Build, Test, Deploy). Each stage has specific steps and responsibilities.</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Job</h3>
+                    <span class="term-category jenkins">Jenkins</span>
+                    <div class="definition">
+                        <p>A unit of work in Jenkins. Can be Freestyle (UI-configured) or Pipeline (code-based).</p>
+                    </div>
+                </div>
+
+                <div class="glossary-item">
+                    <h3>Webhook</h3>
+                    <span class="term-category jenkins">Jenkins</span>
+                    <div class="definition">
+                        <p>Trigger that activates Jenkins job when event occurs (e.g., GitHub push). Automates CI/CD workflow.</p>
+                    </div>
+                </div>
+
+                <!-- Abbreviations Section -->
+                <h2 id="abbreviations" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">🔤 Common Abbreviations</h2>
+
+                <div class="glossary-grid">
+                    <div class="glossary-item">
+                        <h3>API</h3>
+                        <p><strong>Application Programming Interface</strong> - Interface for software to communicate with each other</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>QA</h3>
+                        <p><strong>Quality Assurance</strong> - Process of ensuring software meets quality standards</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>CI/CD</h3>
+                        <p><strong>Continuous Integration/Continuous Deployment</strong> - Automated testing and deployment pipeline</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>E2E</h3>
+                        <p><strong>End-to-End Testing</strong> - Testing complete user workflows from start to finish</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>TDD</h3>
+                        <p><strong>Test Driven Development</strong> - Write tests before implementing functionality</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>BDD</h3>
+                        <p><strong>Behavior Driven Development</strong> - Write tests in human-readable format (Gherkin)</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>UI</h3>
+                        <p><strong>User Interface</strong> - Visual elements users interact with in an application</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>DOM</h3>
+                        <p><strong>Document Object Model</strong> - Tree structure representing HTML elements</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>CSS</h3>
+                        <p><strong>Cascading Style Sheets</strong> - Used to locate elements; also for styling web pages</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>JSON</h3>
+                        <p><strong>JavaScript Object Notation</strong> - Data format for APIs and configuration</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>HTTP</h3>
+                        <p><strong>HyperText Transfer Protocol</strong> - Protocol for transferring data over web</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>REST</h3>
+                        <p><strong>Representational State Transfer</strong> - Architectural style for web APIs</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>OAuth</h3>
+                        <p><strong>Open Authorization</strong> - Protocol for secure authentication and authorization</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>SSH</h3>
+                        <p><strong>Secure Shell</strong> - Protocol for secure remote access to servers</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>VM</h3>
+                        <p><strong>Virtual Machine</strong> - Virtualized computer system running on physical hardware</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>IDE</h3>
+                        <p><strong>Integrated Development Environment</strong> - Software for writing and debugging code</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>YAML</h3>
+                        <p><strong>YAML Ain't Markup Language</strong> - Human-readable data format for configuration</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>XML</h3>
+                        <p><strong>eXtensible Markup Language</strong> - Markup language for storing structured data</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>HTTP 200</h3>
+                        <p><strong>OK</strong> - Request succeeded, response contains data</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>HTTP 404</h3>
+                        <p><strong>Not Found</strong> - Requested resource doesn't exist on server</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>HTTP 500</h3>
+                        <p><strong>Internal Server Error</strong> - Server encountered unexpected error processing request</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>POM</h3>
+                        <p><strong>Page Object Model</strong> - Design pattern for organizing test code by pages</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <a href="python.html">Python</a>
+                    <a href="robotframework.html">Robot Framework</a>
+                    <a href="selenium.html">Selenium</a>
+                    <a href="api-testing.html">API Testing</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="playwright.html">Playwright</a>
+                    <a href="jenkins.html">Jenkins</a>
+                    <a href="advanced-concepts.html">Advanced Concepts</a>
+                    <a href="glossary.html">Glossary</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Pages</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="../getting-started.html">Getting Started</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. Complete guide for test automation frameworks and concepts.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+    <script>
+        // Search functionality for glossary
+        const searchInput = document.getElementById('glossarySearch');
+        const glossaryItems = document.querySelectorAll('.glossary-item');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+
+                glossaryItems.forEach(item => {
+                    const text = item.innerText.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Framework Tutorial - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="robotframework.html">Robot Framework</a></li>
+                <li><a href="selenium.html">Selenium</a></li>
+                <li><a href="api-testing.html">API Testing</a></li>
+                <li><a href="playwright.html">Playwright</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section style="background: white; padding: 2rem 0;">
+        <div class="container">
+            <div class="tutorial-content">
+                <h1>🤖 Complete Robot Framework Tutorial</h1>
+                
+                <div class="toc">
+                    <h4>Table of Contents</h4>
+                    <ul>
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#setup">Setup & Installation</a></li>
+                        <li><a href="#syntax">Syntax Basics</a></li>
+                        <li><a href="#keywords">Built-in Keywords</a></li>
+                        <li><a href="#libraries">Popular Libraries</a></li>
+                        <li><a href="#testcases">Writing Test Cases</a></li>
+                        <li><a href="#examples">Practical Examples</a></li>
+                        <li><a href="#best">Best Practices</a></li>
+                    </ul>
+                </div>
+
+                <!-- Introduction -->
+                <h2 id="intro">1. Introduction to Robot Framework</h2>
+                <p>Robot Framework is a generic open-source automation framework for acceptance testing, acceptance test-driven development (ATDD), and robotic process automation (RPA). It uses a keyword-driven approach and is written in Python.</p>
+
+                <h3>Why Robot Framework?</h3>
+                <ul>
+                    <li><strong>Keyword-Driven:</strong> Easy-to-read test cases using keywords</li>
+                    <li><strong>No Programming Required:</strong> Non-technical users can write tests</li>
+                    <li><strong>Extensible:</strong> Create custom keywords with Python or Java</li>
+                    <li><strong>Multiple Formats:</strong> Support for .robot files, TSV, and HTML</li>
+                    <li><strong>Rich Reporting:</strong> Automatic HTML test reports</li>
+                    <li><strong>CI/CD Integration:</strong> Easy integration with Jenkins, GitLab, GitHub Actions</li>
+                </ul>
+
+                <!-- Setup -->
+                <h2 id="setup">2. Setup & Installation</h2>
+
+                <h3>Installation</h3>
+                <div class="code-block"><code"># Install Robot Framework
+pip install robotframework
+
+# Install SeleniumLibrary for web testing
+pip install robotframework-seleniumlibrary
+
+# Install RequestsLibrary for API testing
+pip install robotframework-requests
+
+# Install DatabaseLibrary
+pip install robotframework-databaselibrary
+
+# Verify installation
+robot --version</code></div>
+
+                <h3>IDE Setup</h3>
+                <p>Install Robot Framework Language Server for VS Code:</p>
+                <div class="code-block"><code">pip install robotframework-lsp
+pip install robotframework-lsp[pygls]</code></div>
+
+                <!-- Syntax -->
+                <h2 id="syntax">3. Robot Framework Syntax Basics</h2>
+
+                <h3>File Structure</h3>
+                <div class="code-block"><code">*** Settings ***
+Library    SeleniumLibrary
+
+*** Variables ***
+${BROWSER}    Chrome
+${URL}        https://example.com
+
+*** Test Cases ***
+Test Case Name
+    [Documentation]    This test does something
+    [Tags]    smoke    login
+    Given User Opens Application
+    When User Enters Valid Credentials
+    Then User Should See Dashboard
+
+*** Keywords ***
+User Opens Application
+    Open Browser    ${URL}    ${BROWSER}</code></div>
+
+                <h3>Test Case Structure</h3>
+                <div class="code-block"><code">*** Test Cases ***
+Valid User Can Login
+    [Documentation]    Verify that valid user can login successfully
+    [Tags]    login    smoke    high-priority
+    [Setup]    Open Browser    https://example.com    Chrome
+    
+    Enter Username    testuser@example.com
+    Enter Password    Password123
+    Click Login Button
+    Verify Dashboard Is Displayed
+    
+    [Teardown]    Close Browser</code></div>
+
+                <!-- Keywords -->
+                <h2 id="keywords">4. Built-in Keywords</h2>
+
+                <h3>Common Control Structures</h3>
+                <div class="code-block"><code">*** Keywords ***
+Loop Example Keyword
+    FOR    ${i}    IN RANGE    5
+        Log    Current iteration: ${i}
+    END
+
+Conditional Example Keyword
+    ${age}    Set Variable    25
+    IF    ${age} > 18
+        Log    User is an adult
+    ELSE
+        Log    User is a minor
+    END
+
+Switch Case Example
+    ${status}    Set Variable    active
+    IF    '${status}' == 'active'
+        Log    Status is active
+    ELSE IF    '${status}' == 'inactive'
+        Log    Status is inactive
+    ELSE
+        Log    Unknown status
+    END</code></div>
+
+                <h3>Variables</h3>
+                <div class="code-block"><code">*** Variables ***
+${BROWSER}              Chrome
+${LOGIN_URL}            https://example.com/login
+${VALID_USERNAME}       testuser
+${VALID_PASSWORD}       Test@123
+@{TEST_USERS}           user1    user2    user3
+&{USER_DETAILS}         name=John    age=30    email=john@example.com
+
+*** Keywords ***
+Using Variables Example
+    Log    Browser: ${BROWSER}
+    Log    URL: ${LOGIN_URL}
+    Log    First user: ${TEST_USERS}[0]
+    Log    User name: ${USER_DETAILS}[name]</code></div>
+
+                <!-- Libraries -->
+                <h2 id="libraries">5. Popular Libraries</h2>
+
+                <h3>SeleniumLibrary (Web Automation)</h3>
+                <div class="code-block"><code">*** Settings ***
+Library    SeleniumLibrary
+
+*** Keywords ***
+Open Login Page
+    Open Browser    https://example.com/login    Chrome
+    
+Enter Username
+    [Arguments]    ${username}
+    Input Text    id=username    ${username}
+    
+Enter Password
+    [Arguments]    ${password}
+    Input Password    id=password    ${password}
+    
+Click Login Button
+    Click Button    xpath=//button[@type='submit']
+    
+Verify Dashboard Page
+    Wait Until Element Is Visible    id=dashboard    10s
+    Element Should Contain    xpath=//h1    Welcome</code></div>
+
+                <h3>RequestsLibrary (API Testing)</h3>
+                <div class="code-block"><code">*** Settings ***
+Library    RequestsLibrary
+
+*** Keywords ***
+Get User Data
+    [Arguments]    ${user_id}
+    ${response}    GET    https://api.example.com/users/${user_id}
+    Should Be Equal As Integers    ${response.status_code}    200
+    [Return]    ${response.json()}
+
+Create New User
+    [Arguments]    ${user_data}
+    ${response}    POST    https://api.example.com/users
+    ...    json=${user_data}
+    Should Be Equal As Integers    ${response.status_code}    201
+    [Return]    ${response.json()}</code></div>
+
+                <h3>Built-in Library (Utilities)</h3>
+                <div class="code-block"><code">*** Keywords ***
+Log Multiple Messages
+    Log    First message
+    Log    Second message    DEBUG
+    Log    Third message    INFO
+    
+Sleep And Continue
+    Sleep    2s
+    Log    Resumed after 2 seconds
+    
+Convert And Compare
+    ${string_number}    Set Variable    123
+    ${integer_number}    Convert To Integer    ${string_number}
+    Should Be Equal As Integers    ${integer_number}    123
+    
+Create Collections
+    @{list}    Create List    item1    item2    item3
+    &{dict}    Create Dictionary    key1=value1    key2=value2
+    Log    List: ${list}
+    Log    Dict: ${dict}</code></div>
+
+                <!-- Test Cases -->
+                <h2 id="testcases">6. Writing Test Cases</h2>
+
+                <h3>Complete Login Test Example</h3>
+                <div class="code-block"><code">*** Settings ***
+Library    SeleniumLibrary
+Resource   common_keywords.robot
+
+Suite Setup    Open Application
+Suite Teardown    Close Browser
+
+*** Variables ***
+${LOGIN_URL}            https://example.com/login
+${VALID_USERNAME}       testuser@example.com
+${VALID_PASSWORD}       SecurePass123!
+${INVALID_PASSWORD}     WrongPass123
+
+*** Test Cases ***
+Valid User Login Test
+    [Documentation]    Verify valid user can login
+    [Tags]    login    smoke
+    Enter Credentials    ${VALID_USERNAME}    ${VALID_PASSWORD}
+    Click Login Button
+    Verify User Is Logged In
+    Close Session
+
+Invalid Password Login Test
+    [Documentation]    Verify login fails with invalid password
+    [Tags]    login    negative
+    Enter Credentials    ${VALID_USERNAME}    ${INVALID_PASSWORD}
+    Click Login Button
+    Verify Error Message Is Displayed
+    Close Session
+
+Multiple Users Login
+    [Documentation]    Test login for multiple users
+    [Tags]    login    data-driven
+    FOR    ${user}    ${password}    IN
+    ...    user1@example.com    Pass123
+    ...    user2@example.com    Pass456
+    ...    user3@example.com    Pass789
+        Test Single User Login    ${user}    ${password}
+    END
+
+*** Keywords ***
+Test Single User Login
+    [Arguments]    ${username}    ${password}
+    Enter Credentials    ${username}    ${password}
+    Click Login Button
+    Verify User Is Logged In
+    Log Out</code></div>
+
+                <!-- Practical Examples -->
+                <h2 id="examples">7. Practical Examples</h2>
+
+                <h3>Web Testing with Keywords</h3>
+                <div class="code-block"><code">*** Settings ***
+Library    SeleniumLibrary
+Library    Collections
+
+*** Test Cases ***
+E2E Shopping Cart Test
+    [Setup]    Open Browser    https://shop.example.com    Chrome
+    
+    Search Product    Laptop
+    Select First Product
+    Verify Product Details
+    Add To Cart
+    
+    Proceed To Checkout
+    Fill Shipping Address    123 Main St    Springfield    IL    62701
+    Select Shipping Method    Express
+    Enter Payment Details    4532    1234    5678    9010    12/25    123
+    
+    Submit Order
+    Verify Order Confirmation
+    
+    [Teardown]    Close Browser
+
+*** Keywords ***
+Search Product
+    [Arguments]    ${product_name}
+    Input Text    id=search    ${product_name}
+    Click Button    xpath=//button[text()='Search']
+    Wait Until Element Is Visible    xpath=//div[@class='product-list']
+
+Select First Product
+    Click Element    xpath=//div[@class='product-item'][1]
+    Wait Until Element Is Visible    id=product-details
+
+Add To Cart
+    Click Button    xpath=//button[text()='Add to Cart']
+    Wait Until Element Is Visible    xpath=//span[@class='cart-count']
+    
+Proceed To Checkout
+    Click Link    Cart
+    Click Button    Checkout
+
+Submit Order
+    Click Button    xpath=//button[@name='submit-order']
+    
+Verify Order Confirmation
+    Wait Until Element Is Visible    xpath=//h2[text()='Order Confirmed']
+    Element Should Contain    id=order-number    ORD-</code></div>
+
+                <h3>API Testing Example</h3>
+                <div class="code-block"><code">*** Settings ***
+Library    RequestsLibrary
+Library    Collections
+Library    JSONLibrary
+
+*** Test Cases ***
+Create And Verify User
+    ${user_data}    Create Dictionary
+    ...    name=John Doe
+    ...    email=john@example.com
+    ...    age=30
+    
+    ${response}    Create User    ${user_data}
+    ${user_id}    Get From Dictionary    ${response}    id
+    
+    ${user}    Get User    ${user_id}
+    Verify User Data    ${user}    ${user_data}
+    
+    Delete User    ${user_id}
+    Verify User Deleted    ${user_id}
+
+*** Keywords ***
+Create User
+    [Arguments]    ${user_data}
+    ${response}    POST
+    ...    https://api.example.com/users
+    ...    json=${user_data}
+    Should Be Equal As Integers    ${response.status_code}    201
+    [Return]    ${response.json()}
+
+Get User
+    [Arguments]    ${user_id}
+    ${response}    GET    https://api.example.com/users/${user_id}
+    Should Be Equal As Integers    ${response.status_code}    200
+    [Return]    ${response.json()}
+
+Delete User
+    [Arguments]    ${user_id}
+    ${response}    DELETE    https://api.example.com/users/${user_id}
+    Should Be Equal As Integers    ${response.status_code}    204
+
+Verify User Deleted
+    [Arguments]    ${user_id}
+    ${response}    GET    https://api.example.com/users/${user_id}
+    Should Be Equal As Integers    ${response.status_code}    404</code></div>
+
+                <!-- Best Practices -->
+                <h2 id="best">8. Best Practices</h2>
+
+                <h3>Key Guidelines</h3>
+                <ul>
+                    <li><span class="highlight">Meaningful Names:</span> Use descriptive test and keyword names</li>
+                    <li><span class="highlight">Documentation:</span> Add [Documentation] to test cases and keywords</li>
+                    <li><span class="highlight">Modular Keywords:</span> Create reusable, single-purpose keywords</li>
+                    <li><span class="highlight">Resource Files:</span> Organize keywords in separate resource files</li>
+                    <li><span class="highlight">Variables:</span> Define variables in separate files for reusability</li>
+                    <li><span class="highlight">Tagging:</span> Use meaningful tags for test categorization</li>
+                    <li><span class="highlight">Error Messages:</span> Provide clear assertion error messages</li>
+                </ul>
+
+                <h3>Project Structure</h3>
+                <div class="code-block"><code">project/
+├── tests/
+│   ├── login_tests.robot
+│   ├── user_tests.robot
+│   └── api_tests.robot
+├── keywords/
+│   ├── common.robot
+│   ├── login_keywords.robot
+│   └── api_keywords.robot
+├── resources/
+│   ├── variables.robot
+│   └── config.robot
+├── results/
+│   ├── report.html
+│   └── log.html
+└── robot.ini</code></div>
+
+                <h3>Running Tests</h3>
+                <div class="code-block"><code"># Run all tests
+robot .
+
+# Run specific test file
+robot tests/login_tests.robot
+
+# Run tests with specific tag
+robot -i smoke .
+
+# Exclude tests with tag
+robot -e slow .
+
+# Set variable
+robot -v BROWSER:Firefox .
+
+# Generate report with name
+robot -d results --name "Login Tests" tests/login_tests.robot</code></div>
+
+                <h3>Common Assertions</h3>
+                <div class="code-block"><code">*** Keywords ***
+Test Assertions
+    Should Be Equal    ${value1}    ${value2}
+    Should Be Equal As Strings    ${text1}    ${text2}
+    Should Be Equal As Integers    ${num1}    ${num2}
+    
+    Should Contain    ${text}    substring
+    Should Start With    ${text}    prefix
+    Should End With    ${text}    suffix
+    
+    Should Be Empty    ${list}
+    Should Not Be Empty    ${list}
+    
+    Length Should Be    ${list}    3
+    List Should Contain Value    ${list}    item
+    
+    Should Be True    ${condition}
+    Should Not Be True    ${condition}</code></div>
+
+                <h3>Tips for Success</h3>
+                <ul>
+                    <li>Start with simple tests and gradually increase complexity</li>
+                    <li>Use Page Object Model pattern for web automation</li>
+                    <li>Implement proper waits instead of hard sleeps</li>
+                    <li>Review generated HTML reports regularly</li>
+                    <li>Maintain separate environments for dev, test, and prod</li>
+                    <li>Use version control for all test files</li>
+                    <li>Implement CI/CD pipeline for automated test execution</li>
+                </ul>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section style="background: #f9f9f9; padding: 3rem 0;">
+        <div class="container" style="text-align: center;">
+            <h3 style="margin-bottom: 2rem;">Related Tutorials</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="selenium.html" class="btn btn-primary">Learn Selenium</a>
+                <a href="api-testing.html" class="btn btn-primary">Learn API Testing</a>
+                <a href="python.html" class="btn btn-primary">Python Basics</a>
+                <a href="playwright.html" class="btn btn-primary">Learn Playwright</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <a href="python.html">Python</a>
+                    <a href="robotframework.html">Robot Framework</a>
+                    <a href="selenium.html">Selenium</a>
+                    <a href="api-testing.html">API Testing</a>
+                    <a href="playwright.html">Playwright</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="#">Code Examples</a>
+                    <a href="#">Best Practices</a>
+                    <a href="#">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

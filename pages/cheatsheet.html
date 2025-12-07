@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Reference & Cheat Sheets - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .cheatsheet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .cheatsheet-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cheatsheet-card:hover {
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .cheatsheet-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .cheatsheet-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .cheatsheet-content {
+            padding: 1.5rem;
+        }
+
+        .cheatsheet-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .cheatsheet-section h4 {
+            color: #667eea;
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .cheatsheet-item {
+            margin: 0.75rem 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .cheatsheet-code {
+            background: #f8f9fa;
+            border-left: 3px solid #667eea;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .comparison-item {
+            background: #f8f9fa;
+            padding: 0.75rem;
+            border-radius: 4px;
+            border-left: 3px solid #667eea;
+        }
+
+        .comparison-item strong {
+            color: #667eea;
+        }
+
+        .shortcut-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .shortcut-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .shortcut-list li:last-child {
+            border-bottom: none;
+        }
+
+        .key {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        .downloadable {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .downloadable a {
+            color: white;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .tip-box strong {
+            color: #667eea;
+        }
+
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+
+            .cheatsheet-card {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="robotframework.html">Robot Framework</a></li>
+                <li><a href="selenium.html">Selenium</a></li>
+                <li><a href="api-testing.html">API Testing</a></li>
+                <li><a href="playwright.html">Playwright</a></li>
+                <li><a href="jenkins.html">Jenkins CI/CD</a></li>
+                <li><a href="advanced-concepts.html">Advanced</a></li>
+                <li><a href="glossary.html">Glossary</a></li>
+                <li><a href="cheatsheet.html" style="color: #667eea; font-weight: bold;">Cheatsheet</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section style="background: white; padding: 2rem 0;">
+        <div class="container">
+            <div class="tutorial-content">
+                <h1>📋 Quick Reference & Cheat Sheets</h1>
+                <p style="font-size: 1.1rem; color: #555;">Quick lookup guides for commonly used commands, syntax, and patterns across all test automation frameworks.</p>
+
+                <!-- Python Cheatsheet -->
+                <div class="cheatsheet-grid">
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>🐍 Python Essentials</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Setup & Installation</h4>
+                                <div class="cheatsheet-code">
+python --version
+pip install pytest
+pip install -r requirements.txt
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Virtual Environment</h4>
+                                <div class="cheatsheet-code">
+# Create
+python -m venv env
+
+# Activate (Windows)
+env\Scripts\activate
+
+# Activate (Linux/Mac)
+source env/bin/activate
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Data Types</h4>
+                                <div class="cheatsheet-code">
+# String
+text = "Hello"
+
+# Number
+num = 42
+float_num = 3.14
+
+# List
+items = [1, 2, 3]
+
+# Dict
+data = {"key": "value"}
+
+# Boolean
+flag = True
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Common Methods</h4>
+                                <ul class="shortcut-list">
+                                    <li>len(obj) - Get length</li>
+                                    <li>range(n) - Generate numbers</li>
+                                    <li>str.format() - String formatting</li>
+                                    <li>list.append() - Add element</li>
+                                    <li>dict.keys() - Get dictionary keys</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pytest Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>🧪 Pytest Essentials</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Running Tests</h4>
+                                <div class="cheatsheet-code">
+# Run all tests
+pytest
+
+# Run specific file
+pytest test_login.py
+
+# Run specific test
+pytest test_login.py::test_valid_login
+
+# Verbose output
+pytest -v
+
+# Show print statements
+pytest -s
+
+# Parallel execution
+pytest -n 4
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Fixtures</h4>
+                                <div class="cheatsheet-code">
+@pytest.fixture
+def user_data():
+    return {"name": "John"}
+
+def test_login(user_data):
+    assert user_data["name"] == "John"
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Assertions</h4>
+                                <div class="cheatsheet-code">
+assert a == b
+assert a != b
+assert a > b
+assert a in list
+assert isinstance(a, str)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selenium Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>🌐 Selenium Essentials</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Setup</h4>
+                                <div class="cheatsheet-code">
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Finding Elements</h4>
+                                <div class="cheatsheet-code">
+# By ID
+element = driver.find_element(By.ID, "id")
+
+# By CSS
+element = driver.find_element(By.CSS_SELECTOR, ".class")
+
+# By XPath
+element = driver.find_element(By.XPATH, "//button")
+
+# Multiple elements
+elements = driver.find_elements(By.TAG_NAME, "button")
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Element Actions</h4>
+                                <div class="cheatsheet-code">
+element.click()
+element.send_keys("text")
+element.submit()
+element.clear()
+element.is_displayed()
+element.is_enabled()
+element.get_attribute("href")
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Navigation</h4>
+                                <div class="cheatsheet-code">
+driver.get(url)
+driver.back()
+driver.forward()
+driver.refresh()
+driver.quit()
+driver.close()
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Waits Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>⏱️ Selenium Waits</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Explicit Wait</h4>
+                                <div class="cheatsheet-code">
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+wait = WebDriverWait(driver, 10)
+element = wait.until(
+    EC.presence_of_element_located((By.ID, "id"))
+)
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Common Conditions</h4>
+                                <ul class="shortcut-list">
+                                    <li>EC.presence_of_element_located()</li>
+                                    <li>EC.visibility_of_element_located()</li>
+                                    <li>EC.element_to_be_clickable()</li>
+                                    <li>EC.invisibility_of_element_located()</li>
+                                    <li>EC.text_to_be_present_in_element()</li>
+                                </ul>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Implicit Wait</h4>
+                                <div class="cheatsheet-code">
+# ⚠️ Not recommended
+driver.implicitly_wait(10)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API Testing Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>📡 Requests Library</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>HTTP Methods</h4>
+                                <div class="cheatsheet-code">
+import requests
+
+# GET
+response = requests.get(url)
+
+# POST
+response = requests.post(url, json=data)
+
+# PUT
+response = requests.put(url, json=data)
+
+# DELETE
+response = requests.delete(url)
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Headers & Auth</h4>
+                                <div class="cheatsheet-code">
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer token"
+}
+
+response = requests.get(url, headers=headers)
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Response Handling</h4>
+                                <div class="cheatsheet-code">
+response.status_code
+response.json()
+response.text
+response.headers
+response.elapsed
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- XPath Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>🔍 XPath Patterns</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Basic XPath</h4>
+                                <div class="cheatsheet-code">
+# Absolute path
+/html/body/div
+
+# Relative path
+//button
+
+# By attribute
+//button[@id='login']
+
+# By text
+//button[text()='Login']
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Advanced XPath</h4>
+                                <div class="cheatsheet-code">
+# Contains
+//button[contains(@class, 'btn')]
+
+# Starts with
+//div[starts-with(@id, 'form')]
+
+# Following
+//input/following-sibling::button
+
+# Child
+//form/input
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Position</h4>
+                                <div class="cheatsheet-code">
+# First element
+//button[1]
+
+# Last element
+//button[last()]
+
+# All buttons
+//button[*]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Robot Framework Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>🤖 Robot Framework</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Running Tests</h4>
+                                <div class="cheatsheet-code">
+robot test.robot
+robot -t "Test Name" test.robot
+robot --exclude skip test.robot
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Variables</h4>
+                                <div class="cheatsheet-code">
+${SCALAR}    value
+@{LIST}      item1    item2
+&{DICT}      key=value    foo=bar
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Keywords</h4>
+                                <div class="cheatsheet-code">
+Log    Message
+Sleep    2s
+Should Be Equal    ${a}    ${b}
+Should Contain    ${list}    item
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Control Flow</h4>
+                                <ul class="shortcut-list">
+                                    <li>IF - Conditional execution</li>
+                                    <li>FOR - Loop iteration</li>
+                                    <li>WHILE - Conditional loop</li>
+                                    <li>RETURN - Return value</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Playwright Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>🎭 Playwright</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Setup</h4>
+                                <div class="cheatsheet-code">
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto("https://example.com")
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Locators</h4>
+                                <div class="cheatsheet-code">
+# By role
+page.locator("role=button")
+
+# By CSS
+page.locator(".button")
+
+# By XPath
+page.locator("//button")
+
+# By text
+page.locator("text=Login")
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Actions</h4>
+                                <div class="cheatsheet-code">
+page.fill(selector, text)
+page.click(selector)
+page.type(selector, text)
+page.screenshot()
+page.wait_for_load_state()
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jenkins Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>🔄 Jenkins Pipeline</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Declarative Pipeline</h4>
+                                <div class="cheatsheet-code">
+pipeline {
+    agent any
+    stages {
+        stage('Test') {
+            steps {
+                sh 'pytest'
+            }
+        }
+    }
+}
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Groovy Commands</h4>
+                                <ul class="shortcut-list">
+                                    <li>sh 'command' - Execute shell</li>
+                                    <li>bat 'command' - Windows command</li>
+                                    <li>echo 'message' - Print message</li>
+                                    <li>archiveArtifacts - Save files</li>
+                                </ul>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Post Actions</h4>
+                                <div class="cheatsheet-code">
+post {
+    always { }
+    success { }
+    failure { }
+    unstable { }
+}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Git Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>🔗 Git Commands</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Basic Git</h4>
+                                <div class="cheatsheet-code">
+git init
+git add .
+git commit -m "message"
+git push origin main
+git pull origin main
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Branching</h4>
+                                <div class="cheatsheet-code">
+git branch feature
+git checkout feature
+git merge feature
+git branch -d feature
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Status & History</h4>
+                                <div class="cheatsheet-code">
+git status
+git log
+git diff
+git reset HEAD file
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CLI Tools Cheatsheet -->
+                    <div class="cheatsheet-card">
+                        <div class="cheatsheet-header">
+                            <h3>💻 Terminal Commands</h3>
+                        </div>
+                        <div class="cheatsheet-content">
+                            <div class="cheatsheet-section">
+                                <h4>Navigation</h4>
+                                <div class="cheatsheet-code">
+pwd              # Current directory
+ls               # List files
+cd folder        # Change directory
+mkdir folder     # Create directory
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>File Operations</h4>
+                                <div class="cheatsheet-code">
+cat file.txt     # Show file content
+cp file1 file2   # Copy file
+mv file new      # Move/rename
+rm file          # Delete file
+find . -name "*.py"
+                                </div>
+                            </div>
+
+                            <div class="cheatsheet-section">
+                                <h4>Python Commands</h4>
+                                <div class="cheatsheet-code">
+python main.py
+python -m pytest
+pip install package
+pip list
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips & Tricks Section -->
+                <h2 style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">💡 Pro Tips & Tricks</h2>
+
+                <div class="tip-box">
+                    <strong>🎯 Selenium Locator Strategy:</strong> Use ID > Name > CSS Selector > XPath in order of preference. IDs are most reliable, XPath is slowest.
+                </div>
+
+                <div class="tip-box">
+                    <strong>⚡ Always Use Explicit Waits:</strong> Replace implicitly_wait() and time.sleep() with WebDriverWait. More reliable and faster tests.
+                </div>
+
+                <div class="tip-box">
+                    <strong>📦 Keep Tests DRY:</strong> Use fixtures (Pytest) or setup/teardown to avoid code duplication. Create reusable utility functions.
+                </div>
+
+                <div class="tip-box">
+                    <strong>🐛 Debug Like a Pro:</strong> Use screenshots, page source dumps, and logging. Never use print() - use proper logging framework.
+                </div>
+
+                <div class="tip-box">
+                    <strong>🔄 Page Object Model Best Practice:</strong> Create BasePage with common methods, inherit in specific pages. One method = one user action.
+                </div>
+
+                <div class="tip-box">
+                    <strong>📊 Test Data Management:</strong> Use JSON files or databases, not hardcoded values. Makes tests more maintainable and scalable.
+                </div>
+
+                <div class="tip-box">
+                    <strong>🚀 CI/CD Integration:</strong> Always add tests to your pipeline. Run in headless mode for speed. Archive reports and screenshots.
+                </div>
+
+                <div class="tip-box">
+                    <strong>🎓 Learn by Doing:</strong> Build small projects, read other's code, contribute to open source. Practice is key to mastery.
+                </div>
+
+                <!-- Keyboard Shortcuts -->
+                <h2 style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">⌨️ IDE & Editor Shortcuts</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #667eea; margin-top: 0;">VS Code</h4>
+                        <ul class="shortcut-list">
+                            <li><span class="key">Ctrl+K Ctrl+0</span> Fold all</li>
+                            <li><span class="key">Ctrl+Shift+P</span> Command palette</li>
+                            <li><span class="key">Ctrl+/</span> Comment line</li>
+                            <li><span class="key">Ctrl+D</span> Select word</li>
+                            <li><span class="key">Alt+Up/Down</span> Move line</li>
+                            <li><span class="key">F12</span> Go to definition</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #667eea; margin-top: 0;">PyCharm</h4>
+                        <ul class="shortcut-list">
+                            <li><span class="key">Ctrl+Alt+L</span> Format code</li>
+                            <li><span class="key">Ctrl+Shift+F10</span> Run file</li>
+                            <li><span class="key">Ctrl+Shift+A</span> Find action</li>
+                            <li><span class="key">Alt+Enter</span> Quick fix</li>
+                            <li><span class="key">Ctrl+B</span> Go to definition</li>
+                            <li><span class="key">Ctrl+/</span> Comment</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #667eea; margin-top: 0;">Chrome DevTools</h4>
+                        <ul class="shortcut-list">
+                            <li><span class="key">F12</span> Open DevTools</li>
+                            <li><span class="key">Ctrl+Shift+C</span> Inspect element</li>
+                            <li><span class="key">Ctrl+Shift+J</span> Open Console</li>
+                            <li><span class="key">Ctrl+Shift+K</span> Network tab</li>
+                            <li><span class="key">Ctrl+Shift+I</span> Elements tab</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="glossary.html">Glossary</a>
+                    <a href="advanced-concepts.html">Advanced</a>
+                    <a href="../getting-started.html">Getting Started</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <a href="python.html">Python</a>
+                    <a href="selenium.html">Selenium</a>
+                    <a href="api-testing.html">API Testing</a>
+                    <a href="playwright.html">Playwright</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="robotframework.html">Robot Framework</a>
+                    <a href="jenkins.html">Jenkins</a>
+                    <a href="cheatsheet.html">Cheatsheet</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. Quick reference guides and cheat sheets for test automation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

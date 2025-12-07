@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Tutorial - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="robotframework.html">Robot Framework</a></li>
+                <li><a href="selenium.html">Selenium</a></li>
+                <li><a href="api-testing.html">API Testing</a></li>
+                <li><a href="playwright.html">Playwright</a></li>
+                <li><a href="jenkins.html">Jenkins</a></li>
+                <li><a href="advanced-concepts.html">Advanced</a></li>
+                <li><a href="glossary.html" style="color: #667eea; font-weight: bold;">Glossary</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section style="background: white; padding: 2rem 0;">
+        <div class="container">
+            <div class="tutorial-content">
+                <h1>🐍 Complete Python Tutorial for Test Automation</h1>
+                
+                <div class="toc">
+                    <h4>Table of Contents</h4>
+                    <ul>
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#setup">Setup & Installation</a></li>
+                        <li><a href="#basics">Python Basics</a></li>
+                        <li><a href="#oop">Object-Oriented Programming</a></li>
+                        <li><a href="#modules">Important Modules</a></li>
+                        <li><a href="#testing">Testing Frameworks</a></li>
+                        <li><a href="#best">Best Practices</a></li>
+                    </ul>
+                </div>
+
+                <!-- Introduction Section -->
+                <h2 id="intro">1. Introduction to Python</h2>
+                <p>Python is one of the most popular programming languages for test automation due to its simplicity, readability, and powerful testing frameworks. It's used by QA engineers, DevOps professionals, and automation specialists worldwide.</p>
+
+                <h3>Why Python for Test Automation?</h3>
+                <ul>
+                    <li><strong>Easy to Learn:</strong> Simple syntax that's easy to read and understand</li>
+                    <li><strong>Powerful Libraries:</strong> Rich ecosystem with Selenium, Requests, PyTest, Robot Framework</li>
+                    <li><strong>Cross-Platform:</strong> Runs on Windows, Mac, and Linux</li>
+                    <li><strong>Community Support:</strong> Large community with extensive documentation</li>
+                    <li><strong>Integration:</strong> Works seamlessly with CI/CD pipelines</li>
+                </ul>
+
+                <!-- Setup Section -->
+                <h2 id="setup">2. Setup & Installation</h2>
+
+                <h3>Download and Install Python</h3>
+                <ol>
+                    <li>Visit <a href="https://www.python.org">python.org</a></li>
+                    <li>Download Python 3.8 or higher</li>
+                    <li>Run the installer and check "Add Python to PATH"</li>
+                    <li>Verify installation in terminal:</li>
+                </ol>
+
+                <div class="code-block"><code>python --version
+pip --version</code></div>
+
+                <h3>Install Essential Testing Libraries</h3>
+                <div class="code-block"><code># Install Pytest
+pip install pytest
+
+# Install Requests for API testing
+pip install requests
+
+# Install Selenium for web automation
+pip install selenium
+
+# Install Playwright
+pip install playwright
+
+# Install Robot Framework
+pip install robotframework
+
+# Install all in one command
+pip install pytest requests selenium playwright robotframework</code></div>
+
+                <!-- Python Basics -->
+                <h2 id="basics">3. Python Basics for Testing</h2>
+
+                <h3>Variables and Data Types</h3>
+                <div class="code-block"><code># Strings
+name = "John"
+message = 'Hello, World!'
+
+# Numbers
+age = 30
+price = 19.99
+
+# Lists
+fruits = ["apple", "banana", "orange"]
+numbers = [1, 2, 3, 4, 5]
+
+# Dictionaries
+user = {"name": "John", "age": 30, "email": "john@example.com"}
+
+# Tuples (immutable)
+coordinates = (10, 20)
+
+# Boolean
+is_active = True
+is_deleted = False</code></div>
+
+                <h3>Conditional Statements</h3>
+                <div class="code-block"><code>age = 25
+
+if age >= 18:
+    print("You are an adult")
+elif age >= 13:
+    print("You are a teenager")
+else:
+    print("You are a child")
+
+# Ternary operator
+status = "active" if age >= 18 else "inactive"</code></div>
+
+                <h3>Loops</h3>
+                <div class="code-block"><code># For loop
+fruits = ["apple", "banana", "orange"]
+for fruit in fruits:
+    print(fruit)
+
+# While loop
+counter = 0
+while counter < 5:
+    print(f"Count: {counter}")
+    counter += 1
+
+# Loop with range
+for i in range(1, 6):  # 1 to 5
+    print(f"Number: {i}")</code></div>
+
+                <h3>Functions</h3>
+                <div class="code-block"><code># Simple function
+def greet(name):
+    return f"Hello, {name}!"
+
+result = greet("Alice")
+print(result)  # Output: Hello, Alice!
+
+# Function with default parameters
+def add(a, b=5):
+    return a + b
+
+print(add(10))      # Output: 15
+print(add(10, 20))  # Output: 30
+
+# Function with multiple returns
+def get_user_info():
+    return "John", 30, "john@example.com"
+
+name, age, email = get_user_info()</code></div>
+
+                <h3>String Operations</h3>
+                <div class="code-block"><code>text = "Hello, Python!"
+
+# String methods
+print(text.lower())           # hello, python!
+print(text.upper())           # HELLO, PYTHON!
+print(text.replace("Python", "World"))  # Hello, World!
+
+# String formatting
+name = "Alice"
+age = 25
+print(f"Name: {name}, Age: {age}")  # f-string (modern)
+print("Name: {}, Age: {}".format(name, age))  # format method
+
+# String slicing
+substring = text[0:5]  # "Hello"
+first_char = text[0]   # "H"
+last_char = text[-1]   # "!"</code></div>
+
+                <!-- OOP Section -->
+                <h2 id="oop">4. Object-Oriented Programming</h2>
+
+                <h3>Classes and Objects</h3>
+                <div class="code-block"><code">class TestCase:
+    def __init__(self, name, status):
+        self.name = name
+        self.status = status
+        self.result = None
+    
+    def run_test(self):
+        print(f"Running test: {self.name}")
+        self.result = "PASSED"
+        return self.result
+    
+    def get_status(self):
+        return self.status
+
+# Create instance
+test = TestCase("Login Test", "Active")
+print(test.run_test())  # Running test: Login Test
+
+# Access attributes
+print(test.name)    # Login Test
+print(test.result)  # PASSED</code></div>
+
+                <h3>Inheritance</h3>
+                <div class="code-block"><code>class BaseTest:
+    def __init__(self, test_name):
+        self.test_name = test_name
+    
+    def setup(self):
+        print(f"Setting up {self.test_name}")
+    
+    def teardown(self):
+        print(f"Tearing down {self.test_name}")
+
+class LoginTest(BaseTest):
+    def __init__(self, test_name):
+        super().__init__(test_name)
+    
+    def test_login(self):
+        self.setup()
+        print("Testing login functionality")
+        self.teardown()
+
+test = LoginTest("User Login")
+test.test_login()</code></div>
+
+                <!-- Important Modules -->
+                <h2 id="modules">5. Important Modules for Testing</h2>
+
+                <h3>Requests Module (HTTP Requests)</h3>
+                <div class="code-block"><code">import requests
+
+# GET request
+response = requests.get("https://api.example.com/users")
+print(response.status_code)  # 200
+print(response.json())       # Response as JSON
+
+# POST request
+payload = {"name": "John", "email": "john@example.com"}
+response = requests.post("https://api.example.com/users", json=payload)
+print(response.status_code)
+
+# With headers and authentication
+headers = {"Authorization": "Bearer token123"}
+response = requests.get("https://api.example.com/protected", headers=headers)</code></div>
+
+                <h3>Collections Module</h3>
+                <div class="code-block"><code">from collections import Counter, namedtuple
+
+# Counter for counting occurrences
+test_results = ["PASS", "PASS", "FAIL", "PASS", "SKIP"]
+result_count = Counter(test_results)
+print(result_count)  # Counter({'PASS': 3, 'FAIL': 1, 'SKIP': 1})
+
+# Named tuple for structured data
+TestResult = namedtuple("TestResult", ["name", "status", "duration"])
+result = TestResult("Login Test", "PASSED", 2.5)
+print(result.name)      # Login Test
+print(result.status)    # PASSED</code></div>
+
+                <h3>JSON Module</h3>
+                <div class="code-block"><code">import json
+
+# Parse JSON string
+json_data = '{"name": "John", "age": 30, "active": true}'
+data = json.loads(json_data)
+print(data["name"])  # John
+
+# Convert Python object to JSON
+user_data = {
+    "name": "Alice",
+    "age": 25,
+    "skills": ["Python", "Selenium", "Testing"]
+}
+json_string = json.dumps(user_data, indent=2)
+print(json_string)
+
+# Read JSON from file
+with open("data.json", "r") as file:
+    data = json.load(file)
+
+# Write JSON to file
+with open("output.json", "w") as file:
+    json.dump(user_data, file, indent=2)</code></div>
+
+                <!-- Testing Frameworks -->
+                <h2 id="testing">6. Testing Frameworks</h2>
+
+                <h3>Pytest - Modern Testing Framework</h3>
+                <div class="code-block"><code">import pytest
+
+def test_addition():
+    assert 2 + 2 == 4
+    assert 2 + 2 != 5
+
+def test_string_operations():
+    text = "Hello"
+    assert text.lower() == "hello"
+    assert len(text) == 5
+
+class TestCalculator:
+    def setup_method(self):
+        self.calc_result = 0
+    
+    def test_add(self):
+        self.calc_result = 2 + 2
+        assert self.calc_result == 4
+    
+    def test_subtract(self):
+        self.calc_result = 5 - 2
+        assert self.calc_result == 3
+
+# Run with: pytest test_file.py -v</code></div>
+
+                <h3>Assertions in Testing</h3>
+                <div class="code-block"><code">def test_assertions():
+    # Basic assertions
+    assert True
+    assert 5 > 3
+    assert "test" in "test automation"
+    
+    # Compare values
+    assert 10 == 10
+    assert [1, 2, 3] == [1, 2, 3]
+    
+    # Type checking
+    assert isinstance("hello", str)
+    assert isinstance(42, int)
+    
+    # None checking
+    value = None
+    assert value is None
+    
+    # Exception testing
+    with pytest.raises(ValueError):
+        int("not a number")</code></div>
+
+                <!-- Best Practices -->
+                <h2 id="best">7. Best Practices</h2>
+
+                <h3>Code Organization</h3>
+                <ul>
+                    <li><span class="highlight">Use meaningful variable names:</span> use `test_result` instead of `tr`</li>
+                    <li><span class="highlight">Follow PEP 8:</span> Use 4 spaces for indentation, keep lines under 80 characters</li>
+                    <li><span class="highlight">Write docstrings:</span> Document your functions and classes</li>
+                    <li><span class="highlight">Keep functions small:</span> Each function should do one thing</li>
+                    <li><span class="highlight">Use type hints:</span> Help with code clarity and IDE support</li>
+                </ul>
+
+                <h3>Example: Well-Structured Test</h3>
+                <div class="code-block"><code">"""
+Module for user authentication tests
+"""
+
+import pytest
+import requests
+
+
+class TestUserAuthentication:
+    \"\"\"Test suite for user authentication functionality\"\"\"
+    
+    BASE_URL = "https://api.example.com"
+    
+    def setup_method(self):
+        \"\"\"Setup before each test\"\"\"
+        self.session = requests.Session()
+    
+    def teardown_method(self):
+        \"\"\"Cleanup after each test\"\"\"
+        self.session.close()
+    
+    def test_valid_login(self):
+        \"\"\"Test successful login with valid credentials\"\"\"
+        credentials = {
+            "username": "testuser",
+            "password": "securepass123"
+        }
+        
+        response = self.session.post(
+            f"{self.BASE_URL}/auth/login",
+            json=credentials
+        )
+        
+        assert response.status_code == 200
+        assert "token" in response.json()
+    
+    def test_invalid_password(self):
+        \"\"\"Test login failure with invalid password\"\"\"
+        credentials = {
+            "username": "testuser",
+            "password": "wrongpass"
+        }
+        
+        response = self.session.post(
+            f"{self.BASE_URL}/auth/login",
+            json=credentials
+        )
+        
+        assert response.status_code == 401</code></div>
+
+                <h3>Virtual Environments</h3>
+                <p>Always use virtual environments to isolate project dependencies:</p>
+                <div class="code-block"><code"># Create virtual environment
+python -m venv venv
+
+# Activate on Windows
+venv\Scripts\activate
+
+# Activate on macOS/Linux
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Deactivate
+deactivate</code></div>
+
+                <h3>Requirements File</h3>
+                <p>Create a <span class="highlight">requirements.txt</span> to manage dependencies:</p>
+                <div class="code-block"><code">pytest==7.4.3
+selenium==4.15.2
+requests==2.31.0
+playwright==1.40.0
+robotframework==6.1.1
+python-dotenv==1.0.0</code></div>
+
+                <h3>Error Handling</h3>
+                <div class="code-block"><code">try:
+    response = requests.get("https://api.example.com/data", timeout=5)
+    response.raise_for_status()  # Raise exception for bad status codes
+    data = response.json()
+    
+except requests.exceptions.Timeout:
+    print("Request timed out")
+except requests.exceptions.ConnectionError:
+    print("Connection failed")
+except ValueError:
+    print("Invalid JSON response")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+else:
+    print("Request successful")
+finally:
+    print("Cleanup code here")</code></div>
+
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Use clear, readable code with meaningful names</li>
+                    <li>Follow PEP 8 style guidelines</li>
+                    <li>Write comprehensive tests with pytest</li>
+                    <li>Handle exceptions properly</li>
+                    <li>Use virtual environments for project isolation</li>
+                    <li>Document your code with docstrings</li>
+                    <li>Version control your requirements</li>
+                </ul>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section style="background: #f9f9f9; padding: 3rem 0;">
+        <div class="container" style="text-align: center;">
+            <h3 style="margin-bottom: 2rem;">Next Steps</h3>
+            <p style="margin-bottom: 2rem; color: #666;">Now that you understand Python basics, explore automation frameworks:</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="selenium.html" class="btn btn-primary">Learn Selenium</a>
+                <a href="api-testing.html" class="btn btn-primary">Learn API Testing</a>
+                <a href="robotframework.html" class="btn btn-primary">Learn Robot Framework</a>
+                <a href="playwright.html" class="btn btn-primary">Learn Playwright</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <a href="python.html">Python</a>
+                    <a href="robotframework.html">Robot Framework</a>
+                    <a href="selenium.html">Selenium</a>
+                    <a href="api-testing.html">API Testing</a>
+                    <a href="playwright.html">Playwright</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="#">Code Examples</a>
+                    <a href="#">Best Practices</a>
+                    <a href="#">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

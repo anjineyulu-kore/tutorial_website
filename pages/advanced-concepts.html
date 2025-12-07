@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Concepts & Visual Guide - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .concept-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .concept-card h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 1rem;
+        }
+
+        .diagram {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .flow-box {
+            background: #667eea;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            min-width: 150px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: #667eea;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table .plus {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .comparison-table .minus {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .visual-example {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .visual-example strong {
+            color: #667eea;
+        }
+
+        .architecture-box {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .architecture-box.highlight {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-color: #f5576c;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .concept-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .concept-item:hover {
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .concept-item h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .pros, .cons {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid;
+        }
+
+        .pros {
+            border-left-color: #27ae60;
+        }
+
+        .cons {
+            border-left-color: #e74c3c;
+        }
+
+        .pros h4, .cons h4 {
+            margin-top: 0;
+        }
+
+        .pros ul li {
+            color: #27ae60;
+        }
+
+        .cons ul li {
+            color: #e74c3c;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-right: 2rem;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 2px solid #667eea;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .badge.advanced {
+            background: #e74c3c;
+        }
+
+        .badge.beginner {
+            background: #27ae60;
+        }
+
+        .badge.intermediate {
+            background: #f39c12;
+        }
+
+        @media (max-width: 768px) {
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="robotframework.html">Robot Framework</a></li>
+                <li><a href="selenium.html">Selenium</a></li>
+                <li><a href="api-testing.html">API Testing</a></li>
+                <li><a href="playwright.html">Playwright</a></li>
+                <li><a href="jenkins.html">Jenkins CI/CD</a></li>
+                <li><a href="advanced-concepts.html" style="color: #667eea; font-weight: bold;">Advanced</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section style="background: white; padding: 2rem 0;">
+        <div class="container">
+            <div class="tutorial-content">
+                <h1>🎓 Advanced Concepts & Visual Learning Guide</h1>
+                <p style="font-size: 1.1rem; color: #555;">Deep dive into advanced testing concepts with visual examples, diagrams, and real-world applications across all frameworks.</p>
+
+                <div class="toc">
+                    <h4>📚 Table of Contents</h4>
+                    <ul>
+                        <li><a href="#oop">Object-Oriented Programming</a></li>
+                        <li><a href="#design-patterns">Design Patterns</a></li>
+                        <li><a href="#testing-pyramid">Testing Pyramid</a></li>
+                        <li><a href="#page-object">Page Object Model</a></li>
+                        <li><a href="#api-flows">API Request Flows</a></li>
+                        <li><a href="#automation-arch">Test Automation Architecture</a></li>
+                        <li><a href="#best-practices">Advanced Best Practices</a></li>
+                        <li><a href="#troubleshooting">Debugging & Troubleshooting</a></li>
+                    </ul>
+                </div>
+
+                <!-- OOP Section -->
+                <h2 id="oop" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">1. Object-Oriented Programming (OOP) in Testing</h2>
+
+                <p>OOP is fundamental to writing maintainable, scalable test automation code. Let's explore the four pillars of OOP with practical testing examples.</p>
+
+                <h3>📍 The Four Pillars of OOP</h3>
+
+                <div class="concept-grid">
+                    <div class="concept-item">
+                        <h4>🎯 Encapsulation</h4>
+                        <p>Bundle data and methods together, hiding internal implementation details.</p>
+                        <div class="visual-example">
+                            <strong>Example:</strong> A login page class encapsulates username field, password field, and login method.
+                        </div>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>🔄 Inheritance</h4>
+                        <p>Child classes inherit properties and methods from parent classes.</p>
+                        <div class="visual-example">
+                            <strong>Example:</strong> LoginPage inherits common functions from BasePage class.
+                        </div>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>🎭 Polymorphism</h4>
+                        <p>Objects can be used in many forms; same method, different behaviors.</p>
+                        <div class="visual-example">
+                            <strong>Example:</strong> click() method works on button, link, and checkbox differently.
+                        </div>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>🏗️ Abstraction</h4>
+                        <p>Show only essential features, hide complex implementation details.</p>
+                        <div class="visual-example">
+                            <strong>Example:</strong> WebDriver.find_element() abstracts browser finding logic.
+                        </div>
+                    </div>
+                </div>
+
+                <h3>📊 OOP Architecture Diagram</h3>
+                <div class="diagram">
+                    <pre>┌─────────────────────────────────────┐
+│         BasePage (Parent)            │
+│  ─────────────────────────────────  │
+│  • driver                            │
+│  • wait                              │
+│  • find_element()                    │
+│  • click()                           │
+│  • send_keys()                       │
+│  • wait_for_element()                │
+└─────────────────────────────────────┘
+           ▲           ▲           ▲
+           │           │           │
+           │           │           │
+    ┌──────┴───┐   ┌───┴──────┐   ┌──┴─────────┐
+    │           │   │          │   │            │
+┌──────────┐ ┌──────────┐ ┌────────────────┐
+│LoginPage │ │HomePage  │ │CheckoutPage    │
+└──────────┘ └──────────┘ └────────────────┘
+  (Child)      (Child)        (Child)
+                    </pre>
+                </div>
+
+                <h3>✨ OOP Best Practices for Testing</h3>
+                <div class="code-block"><code># ❌ Bad: Procedural approach
+def test_login():
+    driver.find_element(By.ID, "username").send_keys("user")
+    driver.find_element(By.ID, "password").send_keys("pass")
+    driver.find_element(By.ID, "login").click()
+    assert "Dashboard" in driver.title
+
+# ✅ Good: OOP approach with Page Object Model
+class BasePage:
+    def __init__(self, driver):
+        self.driver = driver
+        self.wait = WebDriverWait(driver, 10)
+    
+    def find_element(self, locator):
+        return self.wait.until(EC.presence_of_element_located(locator))
+    
+    def click(self, locator):
+        self.find_element(locator).click()
+
+class LoginPage(BasePage):
+    USERNAME = (By.ID, "username")
+    PASSWORD = (By.ID, "password")
+    LOGIN_BTN = (By.ID, "login")
+    
+    def login(self, username, password):
+        self.find_element(self.USERNAME).send_keys(username)
+        self.find_element(self.PASSWORD).send_keys(password)
+        self.click(self.LOGIN_BTN)
+        return HomePage(self.driver)
+
+# Test using OOP
+def test_login_oop(driver):
+    login_page = LoginPage(driver)
+    home_page = login_page.login("user@example.com", "password123")
+    assert "Dashboard" in home_page.get_title()</code></div>
+
+                <!-- Design Patterns Section -->
+                <h2 id="design-patterns" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">2. Design Patterns in Test Automation</h2>
+
+                <p>Design patterns are reusable solutions to common problems. They improve code quality, maintainability, and scalability.</p>
+
+                <h3>🎯 Common Design Patterns</h3>
+
+                <div class="concept-card" style="background: white; color: #333; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; border-bottom: 2px solid #667eea;">🏛️ Page Object Model (POM)</h3>
+                    <p><strong>Purpose:</strong> Encapsulate page elements and actions in separate classes</p>
+                    <p><strong>Benefits:</strong></p>
+                    <ul>
+                        <li>Maintainability: Locators in one place</li>
+                        <li>Reusability: Methods can be reused across tests</li>
+                        <li>Scalability: Easy to add new pages</li>
+                        <li>Readability: Tests are more readable</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Use Case</th>
+                            <th>Complexity</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Page Object Model</strong></td>
+                            <td>Web UI Automation</td>
+                            <td>Moderate</td>
+                            <td>Selenium, Playwright, Cypress</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Singleton</strong></td>
+                            <td>Single instance needed</td>
+                            <td>Simple</td>
+                            <td>WebDriver instance, Logger</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Factory</strong></td>
+                            <td>Create objects dynamically</td>
+                            <td>Moderate</td>
+                            <td>Browser creation, Test data</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Builder</strong></td>
+                            <td>Complex object creation</td>
+                            <td>Moderate</td>
+                            <td>Test data builders, Request builders</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Decorator</strong></td>
+                            <td>Add behavior dynamically</td>
+                            <td>Advanced</td>
+                            <td>Retry logic, Logging, Performance</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>💡 Pattern Implementation Example: Factory Pattern</h3>
+                <div class="code-block"><code"># Factory Pattern for WebDriver Creation
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+
+class BrowserFactory:
+    @staticmethod
+    def get_driver(browser_name):
+        if browser_name.lower() == "chrome":
+            return BrowserFactory.create_chrome_driver()
+        elif browser_name.lower() == "firefox":
+            return BrowserFactory.create_firefox_driver()
+        elif browser_name.lower() == "edge":
+            return BrowserFactory.create_edge_driver()
+        else:
+            raise ValueError(f"Browser '{browser_name}' not supported")
+    
+    @staticmethod
+    def create_chrome_driver():
+        options = ChromeOptions()
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_argument("--headless")
+        return webdriver.Chrome(options=options)
+    
+    @staticmethod
+    def create_firefox_driver():
+        return webdriver.Firefox()
+    
+    @staticmethod
+    def create_edge_driver():
+        return webdriver.Edge()
+
+# Usage
+def test_with_factory(browser_type="chrome"):
+    driver = BrowserFactory.get_driver(browser_type)
+    # Test code here
+    driver.quit()</code></div>
+
+                <!-- Testing Pyramid -->
+                <h2 id="testing-pyramid" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">3. Testing Pyramid & Test Distribution</h2>
+
+                <p>The testing pyramid shows the ideal distribution of different test types for efficient and cost-effective testing.</p>
+
+                <div class="diagram">
+                    <pre>
+                           /\
+                          /  \         UI/E2E Tests (10%)
+                         / E2E \       - Selenium, Playwright
+                        /______\
+                       /\      /\
+                      /  \    /  \    Integration Tests (20%)
+                     / INT \  / INT \  - API + Database
+                    /______\/______\
+                   /\      /\      /\
+                  /  \    /  \    /  \  Unit Tests (70%)
+                 / UNT \  / UNT \  / UNT \ - PyTest, JUnit
+                /______\/______\/______\
+                    </pre>
+                </div>
+
+                <h3>📊 Test Type Comparison</h3>
+
+                <div class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Test Type</th>
+                            <th>Speed</th>
+                            <th>Cost</th>
+                            <th>Coverage</th>
+                            <th>Tools</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Unit Tests</strong></td>
+                            <td>⚡ Very Fast</td>
+                            <td>💰 Low</td>
+                            <td>📍 Narrow</td>
+                            <td>PyTest, JUnit, xUnit</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integration Tests</strong></td>
+                            <td>⚡⚡ Fast</td>
+                            <td>💰💰 Medium</td>
+                            <td>📍📍 Medium</td>
+                            <td>PyTest, Requests, Docker</td>
+                        </tr>
+                        <tr>
+                            <td><strong>E2E/UI Tests</strong></td>
+                            <td>🐢 Slow</td>
+                            <td>💰💰💰 High</td>
+                            <td>📍📍📍 Wide</td>
+                            <td>Selenium, Playwright, Cypress</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Page Object Model Section -->
+                <h2 id="page-object" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">4. Page Object Model - Deep Dive</h2>
+
+                <p>The Page Object Model is the most popular design pattern for web automation. It separates test logic from page element locators.</p>
+
+                <h3>🏗️ Page Object Model Architecture</h3>
+
+                <div class="flow-diagram">
+                    <div class="flow-box">Test File</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Page Object</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Locators</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Web Element</div>
+                </div>
+
+                <h3>🎯 POM Structure Best Practices</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <strong>Define Page Elements</strong>
+                            <p>Use tuples with By locator to define all page elements at class level.</p>
+                            <div class="code-block"><code>class LoginPage(BasePage):
+    USERNAME_FIELD = (By.ID, "username")
+    PASSWORD_FIELD = (By.NAME, "password")
+    LOGIN_BUTTON = (By.XPATH, "//button[@type='submit']")
+    ERROR_MESSAGE = (By.CLASS_NAME, "error")</code></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <strong>Create Action Methods</strong>
+                            <p>Create methods for user interactions without using locators in tests.</p>
+                            <div class="code-block"><code>def login(self, username, password):
+    self.find_element(self.USERNAME_FIELD).send_keys(username)
+    self.find_element(self.PASSWORD_FIELD).send_keys(password)
+    self.click(self.LOGIN_BUTTON)
+
+def get_error_message(self):
+    return self.find_element(self.ERROR_MESSAGE).text</code></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <strong>Use in Tests</strong>
+                            <p>Tests should be simple and readable, using only page methods.</p>
+                            <div class="code-block"><code>def test_valid_login(driver):
+    login_page = LoginPage(driver)
+    home_page = login_page.login("user@test.com", "password123")
+    assert home_page.is_dashboard_visible()
+
+def test_invalid_login(driver):
+    login_page = LoginPage(driver)
+    login_page.login("user@test.com", "wrongpass")
+    assert "Invalid credentials" in login_page.get_error_message()</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>📋 POM Best Practices Checklist</h3>
+
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✅ Do's</h4>
+                        <ul>
+                            <li>Keep locators at class level</li>
+                            <li>One method per user action</li>
+                            <li>Use meaningful method names</li>
+                            <li>Return page objects from methods</li>
+                            <li>Inherit from BasePage</li>
+                            <li>Use explicit waits</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>❌ Don'ts</h4>
+                        <ul>
+                            <li>Don't use locators in tests</li>
+                            <li>Don't create methods for assertions</li>
+                            <li>Don't hardcode wait times</li>
+                            <li>Don't use implicit waits</li>
+                            <li>Don't make methods do too much</li>
+                            <li>Don't duplicate locators</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- API Flows Section -->
+                <h2 id="api-flows" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">5. API Request/Response Flows</h2>
+
+                <p>Understanding the complete lifecycle of an API request is crucial for effective API testing.</p>
+
+                <h3>🔄 Complete API Request Flow</h3>
+
+                <div class="flow-diagram">
+                    <div class="flow-box">Prepare<br/>Request</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Set<br/>Headers</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Add<br/>Body</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Send<br/>Request</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Receive<br/>Response</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Validate<br/>Response</div>
+                </div>
+
+                <h3>📡 HTTP Status Codes & Meanings</h3>
+
+                <div class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Status Code</th>
+                            <th>Category</th>
+                            <th>Meaning</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>200</strong></td>
+                            <td>2xx Success</td>
+                            <td>Request succeeded</td>
+                            <td>GET user successful</td>
+                        </tr>
+                        <tr>
+                            <td><strong>201</strong></td>
+                            <td>2xx Success</td>
+                            <td>Resource created</td>
+                            <td>POST new user created</td>
+                        </tr>
+                        <tr>
+                            <td><strong>400</strong></td>
+                            <td>4xx Client Error</td>
+                            <td>Bad request syntax</td>
+                            <td>Missing required field</td>
+                        </tr>
+                        <tr>
+                            <td><strong>401</strong></td>
+                            <td>4xx Client Error</td>
+                            <td>Authentication failed</td>
+                            <td>Invalid token</td>
+                        </tr>
+                        <tr>
+                            <td><strong>403</strong></td>
+                            <td>4xx Client Error</td>
+                            <td>No permission</td>
+                            <td>User not authorized</td>
+                        </tr>
+                        <tr>
+                            <td><strong>404</strong></td>
+                            <td>4xx Client Error</td>
+                            <td>Resource not found</td>
+                            <td>User doesn't exist</td>
+                        </tr>
+                        <tr>
+                            <td><strong>500</strong></td>
+                            <td>5xx Server Error</td>
+                            <td>Server error</td>
+                            <td>Database connection failed</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🔐 API Authentication Flows</h3>
+
+                <div class="concept-grid">
+                    <div class="concept-item">
+                        <h4>🔑 API Key Authentication</h4>
+                        <div class="code-block"><code>import requests
+
+headers = {
+    'X-API-Key': 'your-api-key-here'
+}
+
+response = requests.get(
+    'https://api.example.com/users',
+    headers=headers
+)</code></div>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>🎫 Bearer Token (OAuth)</h4>
+                        <div class="code-block"><code">import requests
+
+headers = {
+    'Authorization': 'Bearer eyJhbGc...'
+}
+
+response = requests.get(
+    'https://api.example.com/users',
+    headers=headers
+)</code></div>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>👤 Basic Authentication</h4>
+                        <div class="code-block"><code>import requests
+from requests.auth import HTTPBasicAuth
+
+response = requests.get(
+    'https://api.example.com/users',
+    auth=HTTPBasicAuth('username', 'password')
+)</code></div>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>🔒 Custom Headers</h4>
+                        <div class="code-block"><code>import requests
+
+headers = {
+    'Content-Type': 'application/json',
+    'Custom-Header': 'value',
+    'Authorization': 'Bearer token'
+}
+
+response = requests.post(
+    'https://api.example.com/users',
+    headers=headers,
+    json={'name': 'John'}
+)</code></div>
+                    </div>
+                </div>
+
+                <h3>📝 Complete API Testing Example</h3>
+
+                <div class="code-block"><code"># Complete API Test with All Validations
+import requests
+import json
+from datetime import datetime
+
+class APITester:
+    BASE_URL = "https://api.example.com"
+    
+    @staticmethod
+    def test_user_workflow():
+        # Step 1: Create a new user
+        user_data = {
+            "name": "John Doe",
+            "email": "john@example.com",
+            "role": "admin"
+        }
+        
+        # Step 2: Send POST request
+        response = requests.post(
+            f"{APITester.BASE_URL}/users",
+            json=user_data,
+            headers={"Content-Type": "application/json"}
+        )
+        
+        # Step 3: Validate response
+        assert response.status_code == 201, f"Expected 201, got {response.status_code}"
+        
+        data = response.json()
+        user_id = data['id']
+        
+        assert data['name'] == "John Doe"
+        assert data['email'] == "john@example.com"
+        assert 'created_at' in data
+        
+        # Step 4: Retrieve the user
+        get_response = requests.get(f"{APITester.BASE_URL}/users/{user_id}")
+        assert get_response.status_code == 200
+        assert get_response.json()['id'] == user_id
+        
+        # Step 5: Update the user
+        update_data = {"role": "user"}
+        update_response = requests.put(
+            f"{APITester.BASE_URL}/users/{user_id}",
+            json=update_data
+        )
+        assert update_response.status_code == 200
+        assert update_response.json()['role'] == "user"
+        
+        # Step 6: Delete the user
+        delete_response = requests.delete(f"{APITester.BASE_URL}/users/{user_id}")
+        assert delete_response.status_code == 204
+        
+        print("✅ All API tests passed!")
+
+# Run the test
+APITester.test_user_workflow()</code></div>
+
+                <!-- Test Automation Architecture -->
+                <h2 id="automation-arch" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">6. Test Automation Architecture</h2>
+
+                <p>A well-designed architecture is crucial for scalable, maintainable test automation.</p>
+
+                <h3>🏛️ Recommended Project Structure</h3>
+
+                <div class="code-block"><code>test_automation/
+├── tests/
+│   ├── ui/
+│   │   ├── test_login.py
+│   │   ├── test_checkout.py
+│   │   └── test_dashboard.py
+│   ├── api/
+│   │   ├── test_users_api.py
+│   │   └── test_products_api.py
+│   └── integration/
+│       └── test_end_to_end.py
+│
+├── pages/
+│   ├── __init__.py
+│   ├── base_page.py
+│   ├── login_page.py
+│   ├── home_page.py
+│   └── checkout_page.py
+│
+├── api/
+│   ├── __init__.py
+│   ├── base_api.py
+│   └── user_api.py
+│
+├── utils/
+│   ├── __init__.py
+│   ├── browser_factory.py
+│   ├── config.py
+│   ├── logger.py
+│   └── helper.py
+│
+├── data/
+│   ├── test_data.json
+│   └── credentials.json
+│
+├── conftest.py
+├── requirements.txt
+├── pytest.ini
+└── README.md</code></div>
+
+                <h3>🔗 Architecture Layers</h3>
+
+                <div class="diagram">
+                    <pre>┌──────────────────────────────────────┐
+│        Test Layer                    │
+│  (Test files - describe what to do)  │
+├──────────────────────────────────────┤
+│        Page/API Layer                │
+│  (Page Objects - how to interact)    │
+├──────────────────────────────────────┤
+│        Utility Layer                 │
+│  (Helpers - reusable functions)      │
+├──────────────────────────────────────┤
+│        Framework Layer               │
+│  (Selenium/Playwright/Requests)      │
+├──────────────────────────────────────┤
+│        Application Under Test        │
+│  (Web App / API / Mobile App)        │
+└──────────────────────────────────────┘</code></div>
+
+                <!-- Best Practices Section -->
+                <h2 id="best-practices" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">7. Advanced Best Practices</h2>
+
+                <h3>⚡ Performance Optimization</h3>
+
+                <div class="visual-example">
+                    <strong>Parallel Test Execution:</strong> Run multiple tests simultaneously to reduce execution time.
+                    <div class="code-block"><code"># pytest-xdist for parallel execution
+# Run tests in 4 processes
+pytest -n 4
+
+# Run tests in auto mode (uses CPU count)
+pytest -n auto</code></div>
+                </div>
+
+                <div class="visual-example">
+                    <strong>Headless Browsing:</strong> Run browsers in headless mode for faster execution.
+                    <div class="code-block"><code">from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.add_argument("--headless")
+options.add_argument("--disable-gpu")
+driver = webdriver.Chrome(options=options)</code></div>
+                </div>
+
+                <h3>🛡️ Reliability & Flakiness Prevention</h3>
+
+                <div class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Problem</th>
+                            <th>Cause</th>
+                            <th>Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Timing Issues</td>
+                            <td>Hard-coded sleep()</td>
+                            <td>Use explicit waits with WebDriverWait</td>
+                        </tr>
+                        <tr>
+                            <td>Stale Elements</td>
+                            <td>Accessing elements after DOM change</td>
+                            <td>Re-find element or catch StaleElementException</td>
+                        </tr>
+                        <tr>
+                            <td>Flaky Clicks</td>
+                            <td>Element not in view or clickable</td>
+                            <td>Scroll to element, use ActionChains</td>
+                        </tr>
+                        <tr>
+                            <td>Network Issues</td>
+                            <td>Timeout too short</td>
+                            <td>Increase timeout, use retry logic</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🔄 Retry Logic with Decorators</h3>
+
+                <div class="code-block"><code">import functools
+import time
+
+def retry(max_attempts=3, delay=1):
+    """Decorator to retry failed test functions"""
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_attempts):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if attempt == max_attempts - 1:
+                        raise
+                    print(f"Attempt {attempt + 1} failed, retrying in {delay}s...")
+                    time.sleep(delay)
+        return wrapper
+    return decorator
+
+# Usage
+@retry(max_attempts=3, delay=2)
+def test_flaky_feature():
+    # Test code that might fail occasionally
+    assert some_condition()</code></div>
+
+                <h3>📊 Test Reporting & Logging</h3>
+
+                <div class="code-block"><code">import logging
+from datetime import datetime
+
+class TestLogger:
+    @staticmethod
+    def setup_logger(name):
+        logger = logging.getLogger(name)
+        logger.setLevel(logging.DEBUG)
+        
+        # File handler
+        fh = logging.FileHandler(f'logs/{datetime.now()}.log')
+        fh.setLevel(logging.DEBUG)
+        
+        # Console handler
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.INFO)
+        
+        # Formatter
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
+        fh.setFormatter(formatter)
+        ch.setFormatter(formatter)
+        
+        logger.addHandler(fh)
+        logger.addHandler(ch)
+        
+        return logger
+
+# Usage in tests
+logger = TestLogger.setup_logger(__name__)
+
+def test_feature():
+    logger.info("Starting test_feature")
+    logger.debug("Navigating to login page")
+    # Test code
+    logger.info("Test passed")</code></div>
+
+                <!-- Troubleshooting Section -->
+                <h2 id="troubleshooting" style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">8. Debugging & Troubleshooting</h2>
+
+                <h3>🔍 Common Issues & Solutions</h3>
+
+                <div class="concept-grid">
+                    <div class="concept-item">
+                        <h4>❌ NoSuchElementException</h4>
+                        <p><strong>Cause:</strong> Element not found on page</p>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Verify locator is correct</li>
+                            <li>Add explicit waits</li>
+                            <li>Check if element is in iframe</li>
+                            <li>Verify element visibility</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>❌ StaleElementReferenceException</h4>
+                        <p><strong>Cause:</strong> DOM changed after element reference</p>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Re-find element before interaction</li>
+                            <li>Use dynamic locators</li>
+                            <li>Catch and retry</li>
+                            <li>Avoid storing element references</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>❌ TimeoutException</h4>
+                        <p><strong>Cause:</strong> Element not found within timeout</p>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Increase timeout value</li>
+                            <li>Check network/server issues</li>
+                            <li>Verify element will appear</li>
+                            <li>Check browser capabilities</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>❌ ElementNotClickableException</h4>
+                        <p><strong>Cause:</strong> Element not clickable or not visible</p>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Scroll to element</li>
+                            <li>Use ActionChains to click</li>
+                            <li>Wait for element to be clickable</li>
+                            <li>Check for overlaying elements</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>❌ Flaky Tests</h4>
+                        <p><strong>Cause:</strong> Tests fail intermittently</p>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Use explicit waits properly</li>
+                            <li>Avoid hard-coded delays</li>
+                            <li>Handle async operations</li>
+                            <li>Implement retry logic</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>❌ WebDriver Session Issues</h4>
+                        <p><strong>Cause:</strong> Driver crashed or lost connection</p>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Implement proper cleanup</li>
+                            <li>Use try-finally blocks</li>
+                            <li>Close all windows</li>
+                            <li>Clear browser cache</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🐛 Debugging Techniques</h3>
+
+                <div class="code-block"><code"># Technique 1: Screenshots on failure
+import pytest
+from selenium.webdriver.common.by import By
+
+def take_screenshot(driver, name):
+    screenshot_path = f"screenshots/{name}.png"
+    driver.save_screenshot(screenshot_path)
+    print(f"Screenshot saved: {screenshot_path}")
+
+# Technique 2: Detailed logging
+def log_element_info(driver, locator):
+    element = driver.find_element(*locator)
+    print(f"Element text: {element.text}")
+    print(f"Element visible: {element.is_displayed()}")
+    print(f"Element enabled: {element.is_enabled()}")
+    print(f"Element location: {element.location}")
+
+# Technique 3: JavaScript execution for debugging
+def debug_element(driver, locator):
+    element = driver.find_element(*locator)
+    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+    driver.execute_script("arguments[0].style.border='3px solid red'", element)
+    time.sleep(2)  # Pause to see highlighted element
+
+# Technique 4: Print page source for investigation
+def save_page_source(driver):
+    with open("page_source.html", "w", encoding="utf-8") as f:
+        f.write(driver.page_source)
+
+# Technique 5: Network logging (for API/AJAX)
+def check_console_logs(driver):
+    logs = driver.get_log('browser')
+    for log in logs:
+        print(f"[{log['level']}] {log['message']}")</code></div>
+
+                <h3>📋 Debugging Checklist</h3>
+
+                <div class="visual-example">
+                    <strong>When a test fails, check:</strong>
+                    <ul style="padding-left: 1.5rem;">
+                        <li>✅ Is the locator correct? (Use developer tools)</li>
+                        <li>✅ Is the element visible on page? (Take screenshot)</li>
+                        <li>✅ Is there a timing issue? (Add explicit waits)</li>
+                        <li>✅ Is the element in an iframe? (Switch to iframe)</li>
+                        <li>✅ Are there overlaying elements? (Scroll/use ActionChains)</li>
+                        <li>✅ Is there a network issue? (Check server/internet)</li>
+                        <li>✅ Is the browser up to date? (Update WebDriver)</li>
+                        <li>✅ Are there stale elements? (Re-find after DOM change)</li>
+                        <li>✅ Check logs for JavaScript errors (Get browser logs)</li>
+                        <li>✅ Run test individually vs in suite (Isolation issues)</li>
+                    </ul>
+                </div>
+
+                <!-- Summary -->
+                <h2 style="border-top: 3px solid #667eea; padding-top: 2rem; margin-top: 3rem;">📚 Summary</h2>
+
+                <p style="font-size: 1.1rem;">This advanced concepts guide covers:</p>
+
+                <div class="concept-grid">
+                    <div class="concept-item" style="border: 2px solid #667eea;">
+                        <h4>✅ OOP Principles</h4>
+                        <p>Encapsulation, Inheritance, Polymorphism, and Abstraction applied to test automation</p>
+                    </div>
+
+                    <div class="concept-item" style="border: 2px solid #667eea;">
+                        <h4>✅ Design Patterns</h4>
+                        <p>POM, Singleton, Factory, Builder, and Decorator patterns with practical examples</p>
+                    </div>
+
+                    <div class="concept-item" style="border: 2px solid #667eea;">
+                        <h4>✅ Testing Strategies</h4>
+                        <p>Testing pyramid, test distribution, and right-sizing test automation</p>
+                    </div>
+
+                    <div class="concept-item" style="border: 2px solid #667eea;">
+                        <h4>✅ API Testing</h4>
+                        <p>Request flows, authentication, status codes, and comprehensive API validation</p>
+                    </div>
+
+                    <div class="concept-item" style="border: 2px solid #667eea;">
+                        <h4>✅ Architecture</h4>
+                        <p>Project structure, layer organization, and scalable automation frameworks</p>
+                    </div>
+
+                    <div class="concept-item" style="border: 2px solid #667eea;">
+                        <h4>✅ Best Practices</h4>
+                        <p>Performance, reliability, debugging, logging, and troubleshooting techniques</p>
+                    </div>
+                </div>
+
+                <p style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; text-align: center; font-size: 1.1rem;">
+                    <strong>🎯 Master these advanced concepts and you'll become an expert in test automation architecture and best practices!</strong>
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="python.html">Python</a></li>
+                        <li><a href="robotframework.html">Robot Framework</a></li>
+                        <li><a href="selenium.html">Selenium</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <ul>
+                        <li><a href="api-testing.html">API Testing</a></li>
+                        <li><a href="playwright.html">Playwright</a></li>
+                        <li><a href="jenkins.html">Jenkins CI/CD</a></li>
+                        <li><a href="advanced-concepts.html">Advanced Concepts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../getting-started.html">Getting Started</a></li>
+                        <li><a href="../index.html">Learning Paths</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. Complete guide for test automation frameworks.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

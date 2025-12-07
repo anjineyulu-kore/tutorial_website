@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright Tutorial - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="robotframework.html">Robot Framework</a></li>
+                <li><a href="selenium.html">Selenium</a></li>
+                <li><a href="api-testing.html">API Testing</a></li>
+                <li><a href="playwright.html">Playwright</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section style="background: white; padding: 2rem 0;">
+        <div class="container">
+            <div class="tutorial-content">
+                <h1>🎭 Complete Playwright Tutorial</h1>
+                
+                <div class="toc">
+                    <h4>Table of Contents</h4>
+                    <ul>
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#setup">Installation & Setup</a></li>
+                        <li><a href="#basics">Basic Usage</a></li>
+                        <li><a href="#selectors">Selectors & Locators</a></li>
+                        <li><a href="#interactions">User Interactions</a></li>
+                        <li><a href="#waits">Waits & Timeouts</a></li>
+                        <li><a href="#advanced">Advanced Features</a></li>
+                        <li><a href="#examples">Practical Examples</a></li>
+                        <li><a href="#best">Best Practices</a></li>
+                    </ul>
+                </div>
+
+                <!-- Introduction -->
+                <h2 id="intro">1. Introduction to Playwright</h2>
+                <p>Playwright is a modern, open-source browser automation library developed by Microsoft. It provides a unified API to automate Chromium, Firefox, and WebKit browsers with a single codebase.</p>
+
+                <h3>Why Choose Playwright?</h3>
+                <ul>
+                    <li><strong>Multi-Browser:</strong> Test across Chromium, Firefox, and WebKit</li>
+                    <li><strong>Fast:</strong> Optimized for speed and performance</li>
+                    <li><strong>Reliable:</strong> Auto-waits and smart retry mechanisms</li>
+                    <li><strong>Modern API:</strong> Clean, intuitive, async-first design</li>
+                    <li><strong>Powerful:</strong> Network interception, geolocation, emulation</li>
+                    <li><strong>Cross-Platform:</strong> Works on Windows, Mac, and Linux</li>
+                    <li><strong>Multiple Languages:</strong> Python, JavaScript, Java, .NET</li>
+                </ul>
+
+                <h3>Playwright vs Selenium</h3>
+                <ul>
+                    <li>Playwright is more modern with better wait mechanisms</li>
+                    <li>Playwright supports multiple browsers with same code</li>
+                    <li>Playwright has built-in recording and debugging tools</li>
+                    <li>Selenium has more community support and resources</li>
+                </ul>
+
+                <!-- Setup -->
+                <h2 id="setup">2. Installation & Setup</h2>
+
+                <h3>Install Playwright</h3>
+                <div class="code-block"><code">pip install playwright
+
+# Install browser binaries
+playwright install
+
+# Install specific browser
+playwright install chromium
+playwright install firefox
+playwright install webkit</code></div>
+
+                <h3>First Test</h3>
+                <div class="code-block"><code">from playwright.sync_api import sync_playwright
+
+def main():
+    with sync_playwright() as p:
+        # Launch browser
+        browser = p.chromium.launch()
+        
+        # Create new page
+        page = browser.new_page()
+        
+        # Navigate to URL
+        page.goto("https://example.com")
+        
+        # Get title
+        title = page.title()
+        print(f"Page title: {title}")
+        
+        # Close browser
+        browser.close()
+
+if __name__ == "__main__":
+    main()</code></div>
+
+                <h3>Async vs Sync API</h3>
+                <div class="code-block"><code"># Synchronous API (easier for most tests)
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto("https://example.com")
+
+# Asynchronous API (for concurrent tests)
+import asyncio
+from playwright.async_api import async_playwright
+
+async def main():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page()
+        await page.goto("https://example.com")
+        await browser.close()
+
+asyncio.run(main())</code></div>
+
+                <!-- Basics -->
+                <h2 id="basics">3. Basic Page Operations</h2>
+
+                <h3>Browser & Page Setup</h3>
+                <div class="code-block"><code">from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    # Launch browser with options
+    browser = p.chromium.launch(
+        headless=False,  # Show browser
+        slow_mo=1000     # Slow down by 1 second
+    )
+    
+    # Create context with options
+    context = browser.new_context(
+        viewport={"width": 1920, "height": 1080},
+        user_agent="Custom User Agent"
+    )
+    
+    # Create page
+    page = context.new_page()
+    
+    # Navigate to URL
+    page.goto("https://example.com", wait_until="networkidle")
+    
+    # Get page information
+    print(page.url)              # Current URL
+    print(page.title())          # Page title
+    print(len(page.frames()))    # Number of frames
+    
+    # Take screenshot
+    page.screenshot(path="screenshot.png")
+    
+    # Get page content
+    content = page.content()
+    
+    # Close
+    page.close()
+    context.close()
+    browser.close()</code></div>
+
+                <h3>Navigation</h3>
+                <div class="code-block"><code"># Navigate to URL
+page.goto("https://example.com")
+
+# Navigate with wait options
+page.goto(
+    "https://example.com",
+    wait_until="domcontentloaded"  # wait for DOMContentLoaded
+)
+
+# Go back and forward
+page.go_back()
+page.go_forward()
+
+# Reload page
+page.reload()
+
+# Wait for URL
+page.wait_for_url("https://example.com/success")</code></div>
+
+                <!-- Selectors -->
+                <h2 id="selectors">4. Selectors and Locators</h2>
+
+                <h3>Basic Selectors</h3>
+                <div class="code-block"><code"># CSS selectors
+element = page.locator("button.submit")
+
+# XPath
+element = page.locator("//button[@type='submit']")
+
+# Text content
+button = page.locator("text=Submit")
+
+# Internal text
+link = page.locator("a:has-text('Click here')")
+
+# Combining selectors
+element = page.locator("form >> input[name='email']")
+
+# By role
+button = page.locator("role=button[name='Submit']")</code></div>
+
+                <h3>Locator Methods</h3>
+                <div class="code-block"><code"># Get single element
+element = page.locator("id=submit-btn")
+
+# Get multiple elements
+buttons = page.locator("button")
+
+# Count elements
+count = page.locator("button").count()
+
+# Get element by index
+first_button = page.locator("button").first
+last_button = page.locator("button").last
+nth_button = page.locator("button").nth(2)
+
+# Filter elements
+visible_buttons = page.locator("button").locator("visible=true")
+
+# Get parent and children
+parent = page.locator("input").locator("..")
+children = page.locator("div").locator(">> *")</code></div>
+
+                <!-- Interactions -->
+                <h2 id="interactions">5. User Interactions</h2>
+
+                <h3>Basic Interactions</h3>
+                <div class="code-block"><code"># Click element
+page.locator("button").click()
+
+# Double click
+page.locator("button").dblclick()
+
+# Right click
+page.locator("button").click(button="right")
+
+# Type text
+page.locator("input[name='email']").fill("user@example.com")
+
+# Type with delay
+page.locator("input").type("text", delay=100)
+
+# Clear input
+page.locator("input").clear()
+
+# Press key
+page.locator("input").press("Enter")
+
+# Keyboard combinations
+page.locator("input").press("Control+A")
+page.locator("input").press("Control+C")
+page.locator("input").press("Control+V")</code></div>
+
+                <h3>Checkbox, Radio, and Select</h3>
+                <div class="code-block"><code"># Check checkbox
+page.locator("input[type='checkbox']").check()
+
+# Uncheck checkbox
+page.locator("input[type='checkbox']").uncheck()
+
+# Check if checked
+is_checked = page.locator("input[type='checkbox']").is_checked()
+
+# Select option
+page.locator("select").select_option("value1")
+page.locator("select").select_option(label="Option 1")
+
+# Get selected value
+selected = page.locator("select").input_value()
+
+# Radio button
+page.locator("input[value='option1']").check()</code></div>
+
+                <h3>Upload Files</h3>
+                <div class="code-block"><code"># Upload single file
+page.locator("input[type='file']").set_input_files("path/to/file.txt")
+
+# Upload multiple files
+page.locator("input[type='file']").set_input_files([
+    "file1.txt",
+    "file2.txt"
+])
+
+# Remove file selection
+page.locator("input[type='file']").set_input_files([])</code></div>
+
+                <h3>Hovering and Focus</h3>
+                <div class="code-block"><code"># Hover over element
+page.locator("element").hover()
+
+# Focus on element
+page.locator("input").focus()
+
+# Blur element
+page.locator("input").blur()
+
+# Scroll element into view
+page.locator("element").scroll_into_view_if_needed()</code></div>
+
+                <!-- Waits -->
+                <h2 id="waits">6. Waits and Timeouts</h2>
+
+                <h3>Automatic Waiting</h3>
+                <div class="code-block"><code"># Playwright auto-waits for elements
+# This automatically waits for element to appear
+page.locator("button").click()
+
+# Set default timeout (30 seconds)
+page.set_default_timeout(30000)
+
+# Set default navigation timeout
+page.set_default_navigation_timeout(30000)</code></div>
+
+                <h3>Explicit Waits</h3>
+                <div class="code-block"><code"># Wait for element to be visible
+page.locator("button").wait_for(state="visible")
+
+# Wait for element to be hidden
+page.locator("loading").wait_for(state="hidden")
+
+# Wait for element to be attached to DOM
+page.locator("element").wait_for(state="attached")
+
+# Wait for function to return true
+def check_value():
+    return page.locator("span").text_content() == "Done"
+
+page.wait_for_function(check_value, timeout=5000)</code></div>
+
+                <h3>Wait Conditions</h3>
+                <div class="code-block"><code"># Wait for element property
+page.locator("input").wait_for(state="visible")
+
+# Wait for URL
+page.wait_for_url("**/success")
+
+# Wait for navigation
+page.wait_for_load_state("networkidle")
+
+# Wait for selector
+page.wait_for_selector("button.ready", timeout=10000)
+
+# Wait for function
+def is_ready():
+    return page.evaluate("() => window.isReady") == True
+
+page.wait_for_function(is_ready)</code></div>
+
+                <!-- Advanced Features -->
+                <h2 id="advanced">7. Advanced Features</h2>
+
+                <h3>Network Interception</h3>
+                <div class="code-block"><code"># Mock API responses
+def handle_route(route):
+    if "api/data" in route.request.url:
+        route.abort()  # Block request
+    else:
+        route.continue_()  # Allow request
+
+page.route("**/*", handle_route)
+
+# Intercept and modify response
+def modify_response(route):
+    response = route.fetch()
+    if "api/users" in route.request.url:
+        body = response.json()
+        body["data"] = []
+        route.fulfill(response=response, body=body)
+    else:
+        route.continue_()
+
+page.route("**/api/**", modify_response)</code></div>
+
+                <h3>Emulation</h3>
+                <div class="code-block"><code">from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    # Mobile emulation
+    iphone = p.devices["iPhone 12"]
+    browser = p.chromium.launch()
+    context = browser.new_context(**iphone)
+    page = context.new_page()
+    
+    # Emulate device
+    context = browser.new_context(
+        viewport={"width": 375, "height": 812},
+        device_scale_factor=3,
+        has_touch=True,
+        is_mobile=True
+    )
+    
+    # Emulate geolocation
+    context = browser.new_context(
+        geolocation={"latitude": 37.7749, "longitude": -122.4194},
+        permissions=["geolocation"]
+    )
+    
+    # Emulate timezone
+    context = browser.new_context(
+        timezone_id="America/New_York"
+    )</code></div>
+
+                <h3>Console and Error Handling</h3>
+                <div class="code-block"><code"># Listen to console messages
+def handle_console(msg):
+    print(f"Console {msg.type}: {msg.text}")
+
+page.on("console", handle_console)
+
+# Listen to page crashes
+def handle_crash():
+    print("Page crashed!")
+
+page.on("crash", handle_crash)
+
+# Listen to errors
+def handle_error(error):
+    print(f"Error: {error}")
+
+page.on("error", handle_error)
+
+# Evaluate JavaScript
+result = page.evaluate("() => 1 + 1")  # Returns 2
+
+# Get page state
+page_state = page.evaluate("""
+    () => ({
+        url: window.location.href,
+        title: document.title,
+        height: window.innerHeight
+    })
+""")</code></div>
+
+                <!-- Practical Examples -->
+                <h2 id="examples">8. Practical Examples</h2>
+
+                <h3>Complete Login Test</h3>
+                <div class="code-block"><code">from playwright.sync_api import sync_playwright
+import pytest
+
+class TestLogin:
+    @pytest.fixture(autouse=True)
+    def setup(self):
+        self.p = sync_playwright().start()
+        self.browser = self.p.chromium.launch()
+        self.page = self.browser.new_page()
+        self.page.goto("https://example.com/login")
+        yield
+        self.browser.close()
+        self.p.stop()
+    
+    def test_valid_login(self):
+        # Fill email
+        self.page.locator("input[name='email']").fill("user@example.com")
+        
+        # Fill password
+        self.page.locator("input[name='password']").fill("Password123")
+        
+        # Click login button
+        self.page.locator("button:has-text('Login')").click()
+        
+        # Wait for dashboard
+        self.page.wait_for_url("**/dashboard")
+        
+        # Verify page title
+        assert "Dashboard" in self.page.title()
+    
+    def test_invalid_credentials(self):
+        # Fill email
+        self.page.locator("input[name='email']").fill("user@example.com")
+        
+        # Fill wrong password
+        self.page.locator("input[name='password']").fill("WrongPassword")
+        
+        # Click login
+        self.page.locator("button:has-text('Login')").click()
+        
+        # Check error message
+        error = self.page.locator(".error-message")
+        assert error.is_visible()
+        assert "Invalid credentials" in error.text_content()</code></div>
+
+                <h3>Shopping Cart Test</h3>
+                <div class="code-block"><code">from playwright.sync_api import sync_playwright
+
+def test_shopping_workflow():
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
+        
+        # Navigate to shop
+        page.goto("https://shop.example.com")
+        
+        # Search for product
+        page.locator("input[placeholder='Search']").fill("laptop")
+        page.locator("button:has-text('Search')").click()
+        
+        # Select first product
+        page.locator(".product-item").first.click()
+        
+        # Add to cart
+        page.locator("button:has-text('Add to Cart')").click()
+        
+        # Go to cart
+        page.locator("a[href='/cart']").click()
+        
+        # Verify item in cart
+        assert page.locator("text=laptop").is_visible()
+        
+        # Checkout
+        page.locator("button:has-text('Checkout')").click()
+        
+        # Fill shipping info
+        page.locator("input[name='first_name']").fill("John")
+        page.locator("input[name='last_name']").fill("Doe")
+        page.locator("input[name='address']").fill("123 Main St")
+        page.locator("input[name='city']").fill("New York")
+        page.locator("input[name='zip']").fill("10001")
+        
+        # Select shipping method
+        page.locator("input[value='express']").check()
+        
+        # Fill payment
+        page.locator("input[name='card_number']").fill("4532123456789010")
+        page.locator("input[name='expiry']").fill("12/25")
+        page.locator("input[name='cvv']").fill("123")
+        
+        # Place order
+        page.locator("button:has-text('Place Order')").click()
+        
+        # Verify success
+        page.wait_for_url("**/order-confirmation")
+        assert "Order Confirmed" in page.content()
+        
+        browser.close()</code></div>
+
+                <h3>Multi-Browser Testing</h3>
+                <div class="code-block"><code">from playwright.sync_api import sync_playwright
+
+def test_across_browsers():
+    with sync_playwright() as p:
+        for browser_type in [p.chromium, p.firefox, p.webkit]:
+            browser = browser_type.launch()
+            page = browser.new_page()
+            
+            # Run test
+            page.goto("https://example.com")
+            title = page.title()
+            assert title != ""
+            
+            browser.close()
+            print(f"✓ Test passed on {browser_type.name}")</code></div>
+
+                <!-- Best Practices -->
+                <h2 id="best">9. Best Practices</h2>
+
+                <h3>Code Structure</h3>
+                <div class="code-block"><code">from playwright.sync_api import sync_playwright
+import pytest
+
+class BasePage:
+    def __init__(self, page):
+        self.page = page
+    
+    def navigate_to(self, url):
+        self.page.goto(url)
+    
+    def get_title(self):
+        return self.page.title()
+
+class LoginPage(BasePage):
+    # Selectors
+    EMAIL_INPUT = "input[name='email']"
+    PASSWORD_INPUT = "input[name='password']"
+    LOGIN_BUTTON = "button:has-text('Login')"
+    
+    def login(self, email, password):
+        self.page.locator(self.EMAIL_INPUT).fill(email)
+        self.page.locator(self.PASSWORD_INPUT).fill(password)
+        self.page.locator(self.LOGIN_BUTTON).click()
+
+class TestAuthFlow:
+    @pytest.fixture(autouse=True)
+    def setup(self):
+        self.p = sync_playwright().start()
+        self.browser = self.p.chromium.launch()
+        self.page = self.browser.new_page()
+        yield
+        self.browser.close()
+        self.p.stop()
+    
+    def test_login_flow(self):
+        login_page = LoginPage(self.page)
+        login_page.navigate_to("https://example.com/login")
+        login_page.login("user@example.com", "password123")
+        
+        self.page.wait_for_url("**/dashboard")
+        assert "Dashboard" in self.page.title()</code></div>
+
+                <h3>Key Guidelines</h3>
+                <ul>
+                    <li><span class="highlight">Use Page Objects:</span> Encapsulate page logic</li>
+                    <li><span class="highlight">Meaningful Selectors:</span> Use data-testid for test stability</li>
+                    <li><span class="highlight">Auto-Wait:</span> Leverage Playwright's automatic waiting</li>
+                    <li><span class="highlight">Error Handling:</span> Use proper exception handling</li>
+                    <li><span class="highlight">Fixture Management:</span> Use pytest fixtures for setup/teardown</li>
+                    <li><span class="highlight">Screenshot on Failure:</span> Capture screenshots for debugging</li>
+                    <li><span class="highlight">Headless Mode:</span> Use for CI/CD pipelines</li>
+                    <li><span class="highlight">Tracing:</span> Enable tracing for debugging complex scenarios</li>
+                </ul>
+
+                <h3>Enable Tracing for Debugging</h3>
+                <div class="code-block"><code">from playwright.sync_api import sync_playwright
+
+def test_with_tracing():
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        context = browser.new_context()
+        
+        # Start tracing
+        context.tracing.start(screenshots=True, snapshots=True)
+        
+        page = context.new_page()
+        page.goto("https://example.com")
+        
+        # Stop tracing
+        context.tracing.stop(path="trace.zip")
+        
+        browser.close()
+        
+# View trace with: playwright show-trace trace.zip</code></div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section style="background: #f9f9f9; padding: 3rem 0;">
+        <div class="container" style="text-align: center;">
+            <h3 style="margin-bottom: 2rem;">Explore More Tutorials</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="python.html" class="btn btn-primary">Python Basics</a>
+                <a href="selenium.html" class="btn btn-primary">Selenium</a>
+                <a href="robotframework.html" class="btn btn-primary">Robot Framework</a>
+                <a href="api-testing.html" class="btn btn-primary">API Testing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <a href="python.html">Python</a>
+                    <a href="robotframework.html">Robot Framework</a>
+                    <a href="selenium.html">Selenium</a>
+                    <a href="api-testing.html">API Testing</a>
+                    <a href="playwright.html">Playwright</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="#">Code Examples</a>
+                    <a href="#">Best Practices</a>
+                    <a href="#">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

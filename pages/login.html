@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .login-container { max-width:480px; margin:3rem auto; background:white; padding:1.5rem; border-radius:8px }
+        input { width:100%; padding:0.6rem; margin-bottom:0.75rem; border-radius:6px; border:1px solid #ddd }
+        button { padding:0.6rem 1rem; border-radius:6px; border:none; background:#667eea; color:white }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="login-container">
+            <h1>Login</h1>
+            <p>Enter your registered email. Only approved users can log in.</p>
+            <input id="email" placeholder="your@email.com" type="email" />
+            <div style="display:flex;gap:.5rem">
+                <button id="btnLogin">Login</button>
+                <a href="register.html" style="align-self:center;color:#667eea">Register</a>
+            </div>
+            <div id="loginFeedback" style="margin-top:1rem;color:#333"></div>
+        </div>
+    </main>
+
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        const btnLogin = document.getElementById('btnLogin');
+        const emailInput = document.getElementById('email');
+        const feedback = document.getElementById('loginFeedback');
+        // read next param so we can redirect back
+        const params = new URLSearchParams(window.location.search);
+        const next = params.get('next');
+
+        btnLogin.addEventListener('click', async () => {
+            const email = emailInput.value && emailInput.value.trim();
+            if (!email) { feedback.innerText = 'Please enter your email.'; return; }
+            feedback.innerText = 'Logging in...';
+            try {
+                const data = await loginUser(email);
+                feedback.innerText = `Welcome, ${data.name}. Redirecting...`;
+                // Give cookie a moment, then redirect to requested page or python tutorial
+                const dest = next && (next.startsWith('/pages/') || next.startsWith('/concepts/') || next === '/' || next.startsWith('/index')) ? next : '../pages/python.html';
+                setTimeout(() => { window.location.href = dest; }, 700);
+            } catch (err) {
+                feedback.innerText = 'Login failed: ' + err.message;
+            }
+        });
+    </script>
+</body>
+</html>

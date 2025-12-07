@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Testing Tutorial - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="robotframework.html">Robot Framework</a></li>
+                <li><a href="selenium.html">Selenium</a></li>
+                <li><a href="api-testing.html">API Testing</a></li>
+                <li><a href="playwright.html">Playwright</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section style="background: white; padding: 2rem 0;">
+        <div class="container">
+            <div class="tutorial-content">
+                <h1>📡 Complete REST API Testing Tutorial</h1>
+                
+                <div class="toc">
+                    <h4>Table of Contents</h4>
+                    <ul>
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#http">HTTP Methods</a></li>
+                        <li><a href="#requests">Using Requests Library</a></li>
+                        <li><a href="#testing">Testing APIs</a></li>
+                        <li><a href="#authentication">Authentication</a></li>
+                        <li><a href="#examples">Practical Examples</a></li>
+                        <li><a href="#tools">Testing Tools</a></li>
+                        <li><a href="#best">Best Practices</a></li>
+                    </ul>
+                </div>
+
+                <!-- Introduction -->
+                <h2 id="intro">1. Introduction to API Testing</h2>
+                <p>API (Application Programming Interface) testing is the process of testing APIs directly and as part of integration testing to check for functionality, reliability, performance, and security. APIs are the backbone of modern web applications.</p>
+
+                <h3>Types of APIs</h3>
+                <ul>
+                    <li><strong>REST API:</strong> Uses HTTP methods and is stateless (most common)</li>
+                    <li><strong>SOAP API:</strong> XML-based protocol, more complex</li>
+                    <li><strong>GraphQL:</strong> Query language for APIs, more flexible</li>
+                    <li><strong>WebSocket:</strong> For real-time, bidirectional communication</li>
+                </ul>
+
+                <h3>Why Test APIs?</h3>
+                <ul>
+                    <li>Core business logic lives in APIs</li>
+                    <li>Faster testing than UI automation</li>
+                    <li>Catch bugs early in development</li>
+                    <li>Platform-independent testing</li>
+                    <li>Better for load and performance testing</li>
+                </ul>
+
+                <!-- HTTP Methods -->
+                <h2 id="http">2. HTTP Methods & Status Codes</h2>
+
+                <h3>HTTP Methods</h3>
+                <ul>
+                    <li><span class="highlight">GET:</span> Retrieve data from server</li>
+                    <li><span class="highlight">POST:</span> Create new resource</li>
+                    <li><span class="highlight">PUT:</span> Update entire resource</li>
+                    <li><span class="highlight">PATCH:</span> Partially update resource</li>
+                    <li><span class="highlight">DELETE:</span> Remove resource</li>
+                    <li><span class="highlight">HEAD:</span> Like GET but without response body</li>
+                    <li><span class="highlight">OPTIONS:</span> Describe communication options</li>
+                </ul>
+
+                <h3>HTTP Status Codes</h3>
+                <div class="code-block"><code"># 2xx Success
+200 OK - Request successful
+201 Created - Resource created successfully
+204 No Content - Successful but no content returned
+
+# 3xx Redirection
+301 Moved Permanently
+302 Found / Temporary Redirect
+304 Not Modified
+
+# 4xx Client Error
+400 Bad Request - Invalid request
+401 Unauthorized - Authentication required
+403 Forbidden - Authenticated but not authorized
+404 Not Found - Resource doesn't exist
+409 Conflict - Request conflicts with current state
+
+# 5xx Server Error
+500 Internal Server Error
+502 Bad Gateway
+503 Service Unavailable</code></div>
+
+                <!-- Requests Library -->
+                <h2 id="requests">3. Python Requests Library</h2>
+
+                <h3>Installation</h3>
+                <div class="code-block"><code">pip install requests</code></div>
+
+                <h3>Basic GET Request</h3>
+                <div class="code-block"><code">import requests
+
+# Simple GET request
+response = requests.get("https://api.example.com/users")
+
+# Check status
+print(response.status_code)      # 200
+print(response.ok)               # True
+
+# Get response data
+print(response.text)             # Response as string
+print(response.json())           # Response as JSON dictionary
+print(response.headers)          # Response headers
+print(response.url)              # Final URL (after redirects)</code></div>
+
+                <h3>POST Request</h3>
+                <div class="code-block"><code">import requests
+
+# Create new resource
+url = "https://api.example.com/users"
+data = {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "age": 30
+}
+
+response = requests.post(url, json=data)
+print(response.status_code)      # 201
+print(response.json())           # New user with ID
+
+# With headers
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer token123"
+}
+response = requests.post(url, json=data, headers=headers)</code></div>
+
+                <h3>PUT & PATCH Requests</h3>
+                <div class="code-block"><code">import requests
+
+# PUT - Update entire resource
+url = "https://api.example.com/users/123"
+data = {
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "age": 28
+}
+response = requests.put(url, json=data)
+
+# PATCH - Partially update
+data = {"name": "Jane Smith"}
+response = requests.patch(url, json=data)
+
+# DELETE - Remove resource
+response = requests.delete(url)</code></div>
+
+                <h3>Request Parameters & Query Strings</h3>
+                <div class="code-block"><code">import requests
+
+# Query parameters
+params = {
+    "page": 1,
+    "limit": 10,
+    "sort": "name"
+}
+response = requests.get("https://api.example.com/users", params=params)
+# URL becomes: https://api.example.com/users?page=1&limit=10&sort=name
+
+# Form data (not JSON)
+data = {"username": "john", "password": "secret"}
+response = requests.post("https://api.example.com/login", data=data)
+
+# File upload
+files = {"file": open("document.pdf", "rb")}
+response = requests.post("https://api.example.com/upload", files=files)</code></div>
+
+                <h3>Headers & Authentication</h3>
+                <div class="code-block"><code">import requests
+from requests.auth import HTTPBasicAuth, HTTPDigestAuth
+
+# Custom headers
+headers = {
+    "User-Agent": "My API Client",
+    "Accept": "application/json",
+    "Authorization": "Bearer eyJhbGc..."
+}
+response = requests.get("https://api.example.com/data", headers=headers)
+
+# Basic authentication
+response = requests.get(
+    url,
+    auth=HTTPBasicAuth("username", "password")
+)
+
+# Bearer token
+headers = {"Authorization": "Bearer your_token_here"}
+response = requests.get(url, headers=headers)
+
+# API Key
+headers = {"X-API-Key": "your_api_key"}
+response = requests.get(url, headers=headers)</code></div>
+
+                <!-- Testing APIs -->
+                <h2 id="testing">4. Testing REST APIs</h2>
+
+                <h3>Validation Examples</h3>
+                <div class="code-block"><code">import requests
+import json
+
+def test_get_user():
+    response = requests.get("https://api.example.com/users/1")
+    
+    # Check status code
+    assert response.status_code == 200
+    
+    # Check response time
+    assert response.elapsed.total_seconds() < 2  # Less than 2 seconds
+    
+    # Parse JSON
+    data = response.json()
+    
+    # Validate response structure
+    assert "id" in data
+    assert "name" in data
+    assert "email" in data
+    
+    # Validate data types
+    assert isinstance(data["id"], int)
+    assert isinstance(data["name"], str)
+    assert isinstance(data["email"], str)
+    
+    # Validate specific values
+    assert data["id"] == 1
+    assert len(data["name"]) > 0
+    
+    # Validate email format
+    assert "@" in data["email"]
+
+def test_create_user():
+    payload = {
+        "name": "Alice Johnson",
+        "email": "alice@example.com"
+    }
+    
+    response = requests.post(
+        "https://api.example.com/users",
+        json=payload
+    )
+    
+    # Check status
+    assert response.status_code == 201
+    
+    # Validate response
+    data = response.json()
+    assert data["name"] == payload["name"]
+    assert data["email"] == payload["email"]
+    assert "id" in data  # ID should be generated
+    
+    return data["id"]
+
+def test_update_user():
+    user_id = 1
+    updated_data = {"name": "Bob Smith"}
+    
+    response = requests.patch(
+        f"https://api.example.com/users/{user_id}",
+        json=updated_data
+    )
+    
+    assert response.status_code == 200
+    assert response.json()["name"] == "Bob Smith"
+
+def test_delete_user():
+    user_id = 1
+    
+    response = requests.delete(f"https://api.example.com/users/{user_id}")
+    
+    assert response.status_code == 204
+    
+    # Verify deletion
+    response = requests.get(f"https://api.example.com/users/{user_id}")
+    assert response.status_code == 404</code></div>
+
+                <!-- Authentication -->
+                <h2 id="authentication">5. Authentication Methods</h2>
+
+                <h3>API Key Authentication</h3>
+                <div class="code-block"><code">import requests
+
+def test_with_api_key():
+    api_key = "sk_live_abc123xyz"
+    
+    headers = {
+        "X-API-Key": api_key,
+        "Content-Type": "application/json"
+    }
+    
+    response = requests.get(
+        "https://api.example.com/protected",
+        headers=headers
+    )
+    
+    assert response.status_code == 200</code></div>
+
+                <h3>Bearer Token Authentication</h3>
+                <div class="code-block"><code">import requests
+
+def test_with_bearer_token():
+    # Get token (login)
+    login_response = requests.post(
+        "https://api.example.com/auth/login",
+        json={
+            "username": "user@example.com",
+            "password": "password123"
+        }
+    )
+    
+    token = login_response.json()["token"]
+    
+    # Use token in requests
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+    
+    response = requests.get(
+        "https://api.example.com/user/profile",
+        headers=headers
+    )
+    
+    assert response.status_code == 200</code></div>
+
+                <h3>OAuth 2.0</h3>
+                <div class="code-block"><code">from requests_oauthlib import OAuth2Session
+
+def test_with_oauth():
+    # OAuth2 credentials
+    client_id = "your_client_id"
+    client_secret = "your_client_secret"
+    token_url = "https://api.example.com/oauth/token"
+    api_url = "https://api.example.com/data"
+    
+    # Get access token
+    client = OAuth2Session(client_id)
+    token = client.fetch_token(
+        token_url,
+        client_secret=client_secret
+    )
+    
+    # Make authenticated request
+    response = client.get(api_url)
+    assert response.status_code == 200</code></div>
+
+                <!-- Practical Examples -->
+                <h2 id="examples">6. Practical Testing Examples</h2>
+
+                <h3>Complete User API Test Suite</h3>
+                <div class="code-block"><code">import pytest
+import requests
+
+class TestUserAPI:
+    BASE_URL = "https://api.example.com"
+    
+    @pytest.fixture(autouse=True)
+    def setup(self):
+        self.headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer test_token_123"
+        }
+    
+    def test_get_all_users(self):
+        response = requests.get(
+            f"{self.BASE_URL}/users",
+            headers=self.headers
+        )
+        
+        assert response.status_code == 200
+        users = response.json()
+        assert isinstance(users, list)
+        assert len(users) > 0
+    
+    def test_get_user_by_id(self):
+        user_id = 1
+        response = requests.get(
+            f"{self.BASE_URL}/users/{user_id}",
+            headers=self.headers
+        )
+        
+        assert response.status_code == 200
+        user = response.json()
+        assert user["id"] == user_id
+    
+    def test_create_user(self):
+        new_user = {
+            "name": "Test User",
+            "email": "test@example.com",
+            "age": 25
+        }
+        
+        response = requests.post(
+            f"{self.BASE_URL}/users",
+            json=new_user,
+            headers=self.headers
+        )
+        
+        assert response.status_code == 201
+        created_user = response.json()
+        assert created_user["name"] == new_user["name"]
+        assert "id" in created_user
+        
+        return created_user["id"]
+    
+    def test_update_user(self):
+        user_id = 1
+        updated_data = {"name": "Updated Name", "age": 26}
+        
+        response = requests.patch(
+            f"{self.BASE_URL}/users/{user_id}",
+            json=updated_data,
+            headers=self.headers
+        )
+        
+        assert response.status_code == 200
+        user = response.json()
+        assert user["name"] == "Updated Name"
+        assert user["age"] == 26
+    
+    def test_delete_user(self):
+        user_id = 1
+        
+        response = requests.delete(
+            f"{self.BASE_URL}/users/{user_id}",
+            headers=self.headers
+        )
+        
+        assert response.status_code == 204
+        
+        # Verify deletion
+        response = requests.get(
+            f"{self.BASE_URL}/users/{user_id}",
+            headers=self.headers
+        )
+        assert response.status_code == 404
+    
+    def test_validation_errors(self):
+        # Missing required field
+        invalid_user = {"name": "Test"}
+        
+        response = requests.post(
+            f"{self.BASE_URL}/users",
+            json=invalid_user,
+            headers=self.headers
+        )
+        
+        assert response.status_code == 400
+        error = response.json()
+        assert "error" in error</code></div>
+
+                <h3>API Chaining Test</h3>
+                <div class="code-block"><code">import requests
+
+def test_user_workflow():
+    BASE_URL = "https://api.example.com"
+    
+    # Step 1: Create user
+    user_data = {
+        "name": "John Doe",
+        "email": "john@example.com"
+    }
+    
+    response = requests.post(f"{BASE_URL}/users", json=user_data)
+    assert response.status_code == 201
+    user_id = response.json()["id"]
+    
+    # Step 2: Get user
+    response = requests.get(f"{BASE_URL}/users/{user_id}")
+    assert response.status_code == 200
+    
+    # Step 3: Update user
+    update_data = {"name": "Jane Doe"}
+    response = requests.patch(f"{BASE_URL}/users/{user_id}", json=update_data)
+    assert response.status_code == 200
+    
+    # Step 4: Delete user
+    response = requests.delete(f"{BASE_URL}/users/{user_id}")
+    assert response.status_code == 204</code></div>
+
+                <!-- Testing Tools -->
+                <h2 id="tools">7. API Testing Tools</h2>
+
+                <h3>Postman</h3>
+                <ul>
+                    <li>Visual API testing tool</li>
+                    <li>Collection-based organization</li>
+                    <li>Environment variables support</li>
+                    <li>Built-in testing and assertions</li>
+                    <li>Team collaboration features</li>
+                </ul>
+
+                <h3>Insomnia</h3>
+                <ul>
+                    <li>REST client with clean interface</li>
+                    <li>GraphQL support</li>
+                    <li>Request/response chaining</li>
+                    <li>Environment management</li>
+                </ul>
+
+                <h3>REST Client Extension (VS Code)</h3>
+                <div class="code-block"><code">### Get all users
+GET https://api.example.com/users
+Authorization: Bearer token123
+
+### Create new user
+POST https://api.example.com/users
+Content-Type: application/json
+Authorization: Bearer token123
+
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+
+### Update user
+PATCH https://api.example.com/users/1
+Content-Type: application/json
+
+{
+  "name": "Jane Doe"
+}
+
+### Delete user
+DELETE https://api.example.com/users/1</code></div>
+
+                <!-- Best Practices -->
+                <h2 id="best">8. Best Practices</h2>
+
+                <h3>API Testing Best Practices</h3>
+                <ul>
+                    <li><span class="highlight">Test HTTP Methods:</span> GET, POST, PUT, PATCH, DELETE</li>
+                    <li><span class="highlight">Validate Status Codes:</span> Check correct HTTP response codes</li>
+                    <li><span class="highlight">Response Validation:</span> Verify structure, types, and values</li>
+                    <li><span class="highlight">Error Handling:</span> Test error responses and edge cases</li>
+                    <li><span class="highlight">Performance:</span> Monitor response times</li>
+                    <li><span class="highlight">Security:</span> Test authentication and authorization</li>
+                    <li><span class="highlight">Data Isolation:</span> Use test data that won't affect production</li>
+                    <li><span class="highlight">Documentation:</span> Document API endpoints and expected responses</li>
+                </ul>
+
+                <h3>Test Structure</h3>
+                <div class="code-block"><code">import requests
+import pytest
+from datetime import datetime
+
+class TestAPI:
+    @pytest.fixture(autouse=True)
+    def setup_teardown(self):
+        self.base_url = "https://api.example.com"
+        self.headers = self.get_auth_headers()
+        self.test_data = {}
+        yield
+        # Cleanup
+        self.cleanup_test_data()
+    
+    def get_auth_headers(self):
+        """Get authentication headers"""
+        return {
+            "Authorization": "Bearer test_token",
+            "Content-Type": "application/json"
+        }
+    
+    def log_request(self, method, url, **kwargs):
+        """Log API request for debugging"""
+        print(f"[{datetime.now()}] {method} {url}")
+        if "json" in kwargs:
+            print(f"Body: {kwargs['json']}")
+    
+    def test_endpoint(self):
+        """Test template"""
+        # Arrange
+        test_data = {"key": "value"}
+        
+        # Act
+        response = requests.post(
+            f"{self.base_url}/endpoint",
+            json=test_data,
+            headers=self.headers
+        )
+        
+        # Assert
+        assert response.status_code == 201
+        assert response.json()["key"] == "value"
+    
+    def cleanup_test_data(self):
+        """Clean up any created test data"""
+        for item_id in self.test_data.values():
+            requests.delete(
+                f"{self.base_url}/items/{item_id}",
+                headers=self.headers
+            )</code></div>
+
+                <h3>Error Handling</h3>
+                <div class="code-block"><code">import requests
+from requests.exceptions import RequestException, Timeout, ConnectionError
+
+def make_api_request(url, method="GET", **kwargs):
+    try:
+        if method == "GET":
+            response = requests.get(url, timeout=5, **kwargs)
+        elif method == "POST":
+            response = requests.post(url, timeout=5, **kwargs)
+        else:
+            response = requests.request(method, url, timeout=5, **kwargs)
+        
+        # Raise exception for bad status codes
+        response.raise_for_status()
+        
+        return response
+    
+    except Timeout:
+        print(f"Request to {url} timed out")
+        raise
+    
+    except ConnectionError:
+        print(f"Failed to connect to {url}")
+        raise
+    
+    except requests.HTTPError as e:
+        print(f"HTTP Error: {e.response.status_code}")
+        print(f"Response: {e.response.text}")
+        raise
+    
+    except RequestException as e:
+        print(f"Request failed: {e}")
+        raise</code></div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section style="background: #f9f9f9; padding: 3rem 0;">
+        <div class="container" style="text-align: center;">
+            <h3 style="margin-bottom: 2rem;">Continue Your Learning</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="python.html" class="btn btn-primary">Python Guide</a>
+                <a href="selenium.html" class="btn btn-primary">Web Testing</a>
+                <a href="robotframework.html" class="btn btn-primary">Robot Framework</a>
+                <a href="playwright.html" class="btn btn-primary">Playwright</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <a href="python.html">Python</a>
+                    <a href="robotframework.html">Robot Framework</a>
+                    <a href="selenium.html">Selenium</a>
+                    <a href="api-testing.html">API Testing</a>
+                    <a href="playwright.html">Playwright</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="#">Code Examples</a>
+                    <a href="#">Best Practices</a>
+                    <a href="#">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

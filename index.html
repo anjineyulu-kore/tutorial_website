@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Testing & Automation Tutorial Hub</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <!-- protected links: visible but clicking Learn will require login when not authenticated -->
+                <li class="protected-link"><a href="pages/python.html">Python</a></li>
+                <li class="protected-link"><a href="pages/robotframework.html">Robot Framework</a></li>
+                <li class="protected-link"><a href="pages/selenium.html">Selenium</a></li>
+                <li class="protected-link"><a href="pages/api-testing.html">API Testing</a></li>
+                <li class="protected-link"><a href="pages/playwright.html">Playwright</a></li>
+                <li class="protected-link"><a href="pages/jenkins.html">Jenkins CI/CD</a></li>
+                <li class="protected-link"><a href="pages/advanced-concepts.html" style="color: #667eea; font-weight: bold;">Advanced</a></li>
+                <li><a href="pages/register.html">Register</a></li>
+                <li id="authArea"><a href="pages/login.html">Login</a></li>
+                <li><a href="pages/admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="heroSection" class="hero">
+        <h1>Master Test Automation & API Testing</h1>
+        <p>Complete tutorials for Python, Selenium, Robot Framework, API Testing, and Playwright</p>
+        <div class="hero-buttons">
+            <a href="#tutorials" class="btn btn-primary">Start Learning</a>
+            <a href="pages/python.html" class="btn btn-secondary">Explore Tutorials</a>
+        </div>
+    </section>
+
+    <!-- Tutorials Section -->
+    <section id="tutorialsSection" class="tutorials">
+        <div class="container">
+            <h2 class="section-title">Featured Tutorials</h2>
+            
+            <div class="tutorial-grid" id="tutorials">
+                <!-- Python Tutorial Card -->
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">🐍 Python</div>
+                    <div class="tutorial-card-body">
+                        <h3>Python Programming</h3>
+                        <p>Learn Python fundamentals, advanced concepts, and how to use it for automation testing. From basics to expert level.</p>
+                        <a href="/concepts/python-complete-guide">Learn Python →</a>
+                    </div>
+                </div>
+
+                <!-- Robot Framework Card -->
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">🤖 Robot Framework</div>
+                    <div class="tutorial-card-body">
+                        <h3>Robot Framework</h3>
+                        <p>Master the Robot Framework for keyword-driven test automation. Build robust automated tests with ease.</p>
+                        <a href="/concepts/robot-framework-guide">Learn Robot Framework →</a>
+                    </div>
+                </div>
+
+                <!-- Selenium Card -->
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">🌐 Selenium</div>
+                    <div class="tutorial-card-body">
+                        <h3>Selenium WebDriver</h3>
+                        <p>Complete guide to Selenium WebDriver for browser automation. Web testing with Python, JavaScript, and more.</p>
+                        <a href="/concepts/selenium-webdriver-guide">Learn Selenium →</a>
+                    </div>
+                </div>
+
+                <!-- API Testing Card -->
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">📡 API Testing</div>
+                    <div class="tutorial-card-body">
+                        <h3>REST API Testing</h3>
+                        <p>Learn to test REST APIs using Requests, Postman, and other tools. Master API automation testing.</p>
+                        <a href="/concepts/api-testing-guide">Learn API Testing →</a>
+                    </div>
+                </div>
+
+                <!-- Playwright Card -->
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">🎭 Playwright</div>
+                    <div class="tutorial-card-body">
+                        <h3>Playwright Automation</h3>
+                        <p>Modern browser automation with Playwright. Test Chromium, Firefox, and WebKit with unified API.</p>
+                        <a href="/concepts/playwright-guide">Learn Playwright →</a>
+                    </div>
+                </div>
+
+                <!-- Jenkins CI/CD Card -->
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">🔄 Jenkins CI/CD</div>
+                    <div class="tutorial-card-body">
+                        <h3>Continuous Integration & Deployment</h3>
+                        <p>Master Jenkins for automating test execution. Build powerful CI/CD pipelines for continuous testing.</p>
+                        <a href="pages/jenkins.html">Learn Jenkins CI/CD →</a>
+                    </div>
+                </div>
+
+                <!-- Advanced Concepts Card -->
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">🎓 Advanced Concepts</div>
+                    <div class="tutorial-card-body">
+                        <h3>Deep Dive & Visual Learning</h3>
+                        <p>Advanced OOP, design patterns, test architecture, and visual diagrams with comprehensive examples.</p>
+                        <a href="pages/advanced-concepts.html">Explore Advanced Topics →</a>
+                    </div>
+                </div>
+
+                <!-- Combined Testing Card -->
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">🎯 Integration</div>
+                    <div class="tutorial-card-body">
+                        <h3>End-to-End Testing</h3>
+                        <p>Learn how to integrate multiple frameworks for comprehensive testing. Real-world examples and best practices.</p>
+                        <a href="pages/jenkins.html">View Integration Guide →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shown when user is not logged in/approved -->
+    <div id="notLoggedMessage" style="max-width:900px;margin:2rem auto;padding:1.5rem;background:#fff;border-radius:8px;text-align:center;">
+        <h2>Welcome — please log in or register to view tutorials</h2>
+        <p>To access full tutorials and course content, please <a href="pages/login.html">Login</a> or <a href="pages/register.html">Register</a>. After logging in approved users will see the tutorials here.</p>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Tutorials?</h2>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>📚 Comprehensive Content</h4>
+                    <p>In-depth tutorials covering basics to advanced topics with real-world examples and use cases.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>👨‍💻 Hands-On Examples</h4>
+                    <p>Every concept includes practical code examples you can copy, run, and modify immediately.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🚀 Best Practices</h4>
+                    <p>Learn industry best practices and conventions followed by professional testing teams worldwide.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔗 Framework Integration</h4>
+                    <p>Understand how to combine different frameworks and tools for powerful automation solutions.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📈 Progressive Learning</h4>
+                    <p>Content is structured to build upon previous knowledge, making it easy to follow and understand.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🎓 Free Resources</h4>
+                    <p>All tutorials are completely free with downloadable examples and reference guides.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Master Test Automation?</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Start with Python basics and progress through advanced automation testing frameworks and techniques.</p>
+            <a href="pages/python.html" class="btn btn-primary" style="background-color: white; color: #667eea;">Begin Your Journey</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <a href="pages/python.html">Python</a>
+                    <a href="pages/robotframework.html">Robot Framework</a>
+                    <a href="pages/selenium.html">Selenium</a>
+                    <a href="pages/api-testing.html">API Testing</a>
+                    <a href="pages/playwright.html">Playwright</a>
+                    <a href="pages/jenkins.html">Jenkins</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="pages/advanced-concepts.html">Advanced Concepts</a>
+                    <a href="pages/glossary.html">Glossary</a>
+                    <a href="pages/cheatsheet.html">Cheatsheet</a>
+                    <a href="getting-started.html">Getting Started</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Reference</h4>
+                    <a href="pages/glossary.html">Terminology</a>
+                    <a href="pages/cheatsheet.html">Quick Lookup</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. All rights reserved. | Learn Test Automation the Right Way</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script>
+        // Toggle header login/logout state and show/hide tutorials based on auth
+        (async function(){
+            const authArea = document.getElementById('authArea');
+            const tutorials = document.getElementById('tutorialsSection');
+            const notLogged = document.getElementById('notLoggedMessage');
+            const hero = document.getElementById('heroSection');
+
+            function showTutorials() {
+                if (tutorials) tutorials.style.display = '';
+                if (notLogged) notLogged.style.display = 'none';
+                // move tutorials above hero
+                try {
+                    if (tutorials && hero && hero.parentNode) {
+                        hero.parentNode.insertBefore(tutorials, hero);
+                    }
+                } catch (e) {
+                    // ignore DOM move errors
+                }
+                // reveal protected header links
+                try {
+                    document.querySelectorAll('.protected-link').forEach(el => el.style.display = '');
+                } catch (e) {}
+            }
+
+            function hideTutorials() {
+                if (tutorials) tutorials.style.display = '';
+                if (notLogged) notLogged.style.display = '';
+                // hide header links when not logged in
+                try {
+                    document.querySelectorAll('.protected-link').forEach(el => el.style.display = 'none');
+                } catch (e) {}
+            }
+
+            try {
+                const user = await fetchMe();
+                // show logout (without user name)
+                authArea.innerHTML = `<a href="#" id="btnHeaderLogout">Logout</a>`;
+                document.getElementById('btnHeaderLogout').addEventListener('click', async (e)=>{
+                    e.preventDefault();
+                    try {
+                        await logoutUser();
+                        location.reload();
+                    } catch (err) {
+                        alert('Logout failed: ' + err.message);
+                    }
+                });
+
+                // user is logged in — show tutorials
+                showTutorials();
+            } catch (err) {
+                // not logged in — hide tutorials and show message
+                hideTutorials();
+            }
+
+            // Intercept tutorial "Learn" clicks so unauthenticated users are redirected to login
+            (function attachTutorialClickGuard(){
+                const tutorialsGrid = document.getElementById('tutorials');
+                if (tutorialsGrid) {
+                    tutorialsGrid.addEventListener('click', async function(e){
+                        const a = e.target.closest && e.target.closest('a');
+                        if (!a) return;
+                        const href = a.getAttribute('href') || '';
+                        if (!href.startsWith('pages/')) return;
+                        e.preventDefault();
+                        try {
+                            await fetchMe(); // will throw if not authenticated/approved
+                            window.location = href;
+                        } catch (err) {
+                            const next = '/' + href;
+                            window.location = '/pages/login.html?next=' + encodeURIComponent(next);
+                        }
+                    });
+                }
+
+                // Also intercept header/nav tutorial links (protected links)
+                document.addEventListener('click', async function(e){
+                    const a = e.target.closest && e.target.closest('a');
+                    if (!a) return;
+                    const href = a.getAttribute('href') || '';
+                    if (!href.startsWith('pages/')) return;
+                    const base = href.split('/').pop();
+                    if (['login.html','register.html','admin.html'].includes(base)) return; // allow these
+                    e.preventDefault();
+                    try {
+                        await fetchMe();
+                        window.location = href;
+                    } catch (err) {
+                        const next = '/' + href;
+                        window.location = '/pages/login.html?next=' + encodeURIComponent(next);
+                    }
+                });
+            })();
+        })();
+    </script>
+</body>
+</html>

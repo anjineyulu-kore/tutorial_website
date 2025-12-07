@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Register - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .reg-container { max-width:600px; margin:2rem auto; background:white; padding:1.5rem; border-radius:8px; }
+        .form-row { margin-bottom:1rem }
+        label { display:block; font-weight:600; margin-bottom:0.25rem }
+        input, select { width:100%; padding:0.5rem; border-radius:4px; border:1px solid #ddd }
+        .feedback { margin-top:1rem; color:#333 }
+        .btn { background:#667eea; color:white; border:none; padding:0.6rem 1rem; border-radius:6px; cursor:pointer }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="../pages/glossary.html">Glossary</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="reg-container">
+            <h1>Student Registration</h1>
+            <p>Register to access course materials. Admin will approve your request.</p>
+            <form id="registerForm">
+                <div class="form-row">
+                    <label for="name">Full Name</label>
+                    <input id="name" name="name" required />
+                </div>
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" required />
+                </div>
+                <div class="form-row">
+                    <label for="course">Course / Track</label>
+                    <select id="course" name="course">
+                        <option value="general">General Automation</option>
+                        <option value="python">Python & Pytest</option>
+                        <option value="selenium">Selenium Web Automation</option>
+                        <option value="api">API Testing</option>
+                        <option value="playwright">Playwright</option>
+                    </select>
+                </div>
+                <button class="btn" type="submit">Register</button>
+            </form>
+            <div id="feedback" class="feedback"></div>
+            <p style="margin-top:1rem; font-size:0.9rem; color:#666">Note: This example uses a local server. Run the API server before registering (see README).</p>
+        </div>
+    </main>
+
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        const form = document.getElementById('registerForm');
+        const feedback = document.getElementById('feedback');
+        form.addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            feedback.innerText = 'Submitting...';
+            await registerStudent(form, feedback);
+        });
+    </script>
+</body>
+</html>

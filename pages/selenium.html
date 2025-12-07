@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium Tutorial - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="robotframework.html">Robot Framework</a></li>
+                <li><a href="selenium.html">Selenium</a></li>
+                <li><a href="api-testing.html">API Testing</a></li>
+                <li><a href="playwright.html">Playwright</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section style="background: white; padding: 2rem 0;">
+        <div class="container">
+            <div class="tutorial-content">
+                <h1>🌐 Complete Selenium WebDriver Tutorial</h1>
+                
+                <div class="toc">
+                    <h4>Table of Contents</h4>
+                    <ul>
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#setup">Setup & Installation</a></li>
+                        <li><a href="#basics">Basic Operations</a></li>
+                        <li><a href="#locators">Locator Strategies</a></li>
+                        <li><a href="#waits">Waits & Timeouts</a></li>
+                        <li><a href="#actions">Advanced Actions</a></li>
+                        <li><a href="#examples">Practical Examples</a></li>
+                        <li><a href="#best">Best Practices</a></li>
+                    </ul>
+                </div>
+
+                <!-- Introduction -->
+                <h2 id="intro">1. Introduction to Selenium</h2>
+                <p>Selenium is the most popular open-source framework for automated web application testing. It provides tools and libraries for automating browser-based applications across different platforms and programming languages.</p>
+
+                <h3>Selenium Components</h3>
+                <ul>
+                    <li><strong>Selenium WebDriver:</strong> Programmatic interface for controlling browsers</li>
+                    <li><strong>Selenium IDE:</strong> Browser extension for record and playback</li>
+                    <li><strong>Selenium Grid:</strong> Server for running tests in parallel</li>
+                </ul>
+
+                <h3>Supported Browsers</h3>
+                <ul>
+                    <li>Chrome / Chromium</li>
+                    <li>Firefox</li>
+                    <li>Safari</li>
+                    <li>Edge</li>
+                    <li>Internet Explorer (legacy)</li>
+                </ul>
+
+                <!-- Setup -->
+                <h2 id="setup">2. Setup & Installation</h2>
+
+                <h3>Install Selenium</h3>
+                <div class="code-block"><code">pip install selenium
+
+# Install specific version
+pip install selenium==4.15.2</code></div>
+
+                <h3>Download WebDriver</h3>
+                <p>Download the WebDriver for your browser:</p>
+                <ul>
+                    <li><a href="https://chromedriver.chromium.org/">ChromeDriver</a> - For Chrome/Chromium</li>
+                    <li><a href="https://github.com/mozilla/geckodriver/releases">GeckoDriver</a> - For Firefox</li>
+                    <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/">EdgeDriver</a> - For Edge</li>
+                </ul>
+
+                <h3>Project Structure</h3>
+                <div class="code-block"><code">selenium_project/
+├── tests/
+│   ├── test_login.py
+│   └── test_checkout.py
+├── pages/
+│   ├── login_page.py
+│   ├── home_page.py
+│   └── base_page.py
+├── utilities/
+│   ├── driver_factory.py
+│   └── wait_helpers.py
+├── conftest.py
+└── requirements.txt</code></div>
+
+                <!-- Basic Operations -->
+                <h2 id="basics">3. Basic WebDriver Operations</h2>
+
+                <h3>Launching and Closing Browser</h3>
+                <div class="code-block"><code">from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+
+# Simple way
+driver = webdriver.Chrome()
+
+# With explicit path
+service = Service("/path/to/chromedriver")
+driver = webdriver.Chrome(service=service)
+
+# With options
+from selenium.webdriver.chrome.options import Options
+options = Options()
+options.add_argument("--headless")  # Run in headless mode
+options.add_argument("--disable-gpu")
+driver = webdriver.Chrome(options=options)
+
+# Close specific tab
+driver.close()
+
+# Close entire browser
+driver.quit()</code></div>
+
+                <h3>Navigation</h3>
+                <div class="code-block"><code">from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+# Navigate to URL
+driver.get("https://example.com")
+
+# Get current URL
+current_url = driver.current_url
+
+# Get page title
+title = driver.title
+
+# Navigate back
+driver.back()
+
+# Navigate forward
+driver.forward()
+
+# Refresh page
+driver.refresh()</code></div>
+
+                <h3>Window Management</h3>
+                <div class="code-block"><code"># Maximize window
+driver.maximize_window()
+
+# Set window size
+driver.set_window_size(1024, 768)
+
+# Get window size
+size = driver.get_window_size()
+
+# Get window position
+position = driver.get_window_position()
+
+# Switch between windows
+all_windows = driver.window_handles
+driver.switch_to.window(all_windows[1])
+
+# Switch to alert
+alert = driver.switch_to.alert</code></div>
+
+                <!-- Locators -->
+                <h2 id="locators">4. Locating Elements</h2>
+
+                <h3>Locator Strategies</h3>
+                <div class="code-block"><code">from selenium.webdriver.common.by import By
+
+# ID
+element = driver.find_element(By.ID, "element_id")
+
+# Class Name
+element = driver.find_element(By.CLASS_NAME, "class_name")
+
+# CSS Selector
+element = driver.find_element(By.CSS_SELECTOR, "div.class > span")
+
+# XPath
+element = driver.find_element(By.XPATH, "//button[@class='login']")
+
+# Name
+element = driver.find_element(By.NAME, "username")
+
+# Link Text
+element = driver.find_element(By.LINK_TEXT, "Click Here")
+
+# Partial Link Text
+element = driver.find_element(By.PARTIAL_LINK_TEXT, "Click")
+
+# Tag Name
+elements = driver.find_elements(By.TAG_NAME, "button")</code></div>
+
+                <h3>Finding Multiple Elements</h3>
+                <div class="code-block"><code">from selenium.webdriver.common.by import By
+
+# Find all elements
+all_buttons = driver.find_elements(By.TAG_NAME, "button")
+
+# Iterate through elements
+for button in all_buttons:
+    print(button.text)
+
+# Find elements relative to parent
+parent = driver.find_element(By.CLASS_NAME, "container")
+children = parent.find_elements(By.CLASS_NAME, "item")</code></div>
+
+                <h3>XPath Examples</h3>
+                <div class="code-block"><code"># By text
+element = driver.find_element(By.XPATH, "//button[text()='Submit']")
+
+# By partial text
+element = driver.find_element(By.XPATH, "//button[contains(text(), 'Sub')]")
+
+# By attribute
+element = driver.find_element(By.XPATH, "//input[@type='email']")
+
+# By multiple attributes
+element = driver.find_element(By.XPATH, "//input[@type='text'][@name='username']")
+
+# By attribute value partial match
+element = driver.find_element(By.XPATH, "//div[contains(@class, 'error')]")
+
+# Parent element
+parent = driver.find_element(By.XPATH, "//input[@id='email']/parent::form")
+
+# Following sibling
+sibling = driver.find_element(By.XPATH, "//label[text()='Email']/following-sibling::input")
+
+# Index
+third_button = driver.find_element(By.XPATH, "//button[3]")</code></div>
+
+                <!-- Waits -->
+                <h2 id="waits">5. Waits and Explicit Waits</h2>
+
+                <h3>Implicit Wait</h3>
+                <div class="code-block"><code">from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+# Set implicit wait (applies to all find_element calls)
+driver.implicitly_wait(10)  # 10 seconds
+
+# Now all element searches will wait up to 10 seconds
+element = driver.find_element(By.ID, "dynamic_element")</code></div>
+
+                <h3>Explicit Wait (WebDriverWait)</h3>
+                <div class="code-block"><code">from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+# Create WebDriverWait instance
+wait = WebDriverWait(driver, 10)
+
+# Wait for element to be visible
+element = wait.until(
+    EC.presence_of_element_located((By.ID, "element_id"))
+)
+
+# Wait for element to be clickable
+button = wait.until(
+    EC.element_to_be_clickable((By.CLASS_NAME, "submit-btn"))
+)
+
+# Wait for text in element
+wait.until(
+    EC.text_to_be_present_in_element(
+        (By.ID, "message"), 
+        "Success"
+    )
+)
+
+# Wait for element invisibility
+wait.until(
+    EC.invisibility_of_element_located((By.CLASS_NAME, "loading"))
+)</code></div>
+
+                <h3>Common Expected Conditions</h3>
+                <div class="code-block"><code">from selenium.webdriver.support import expected_conditions as EC
+
+# Element is present in DOM
+EC.presence_of_element_located(locator)
+
+# Element is visible
+EC.visibility_of_element_located(locator)
+
+# Element is clickable
+EC.element_to_be_clickable(locator)
+
+# Element is selected
+EC.element_to_be_selected(locator)
+
+# Text present in element
+EC.text_to_be_present_in_element(locator, text)
+
+# Element has specific attribute value
+EC.element_has_css_class(element, class_name)
+
+# URL matches
+EC.url_contains("example.com")
+
+# All elements present
+EC.presence_of_all_elements_located(locator)</code></div>
+
+                <!-- Advanced Actions -->
+                <h2 id="actions">6. Advanced WebDriver Actions</h2>
+
+                <h3>Interactions with Elements</h3>
+                <div class="code-block"><code">from selenium.webdriver.common.action_chains import ActionChains
+
+# Click element
+element = driver.find_element(By.ID, "button")
+element.click()
+
+# Double click
+action = ActionChains(driver)
+action.double_click(element).perform()
+
+# Right click
+action.context_click(element).perform()
+
+# Hover over element
+action.move_to_element(element).perform()
+
+# Drag and drop
+source = driver.find_element(By.ID, "draggable")
+target = driver.find_element(By.ID, "droppable")
+action.drag_and_drop(source, target).perform()
+
+# Enter text
+input_field = driver.find_element(By.ID, "email")
+input_field.send_keys("user@example.com")
+
+# Clear text
+input_field.clear()
+
+# Submit form
+form = driver.find_element(By.TAG_NAME, "form")
+form.submit()</code></div>
+
+                <h3>Keyboard and Mouse Actions</h3>
+                <div class="code-block"><code">from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+
+# Type text with special keys
+input_field = driver.find_element(By.ID, "search")
+input_field.send_keys("selenium", Keys.ENTER)
+
+# Select all and delete
+input_field.send_keys(Keys.CONTROL + "a")
+input_field.send_keys(Keys.DELETE)
+
+# Tab to next field
+input_field.send_keys(Keys.TAB)
+
+# Copy, paste
+action = ActionChains(driver)
+action.key_down(Keys.CONTROL).send_keys("c").key_up(Keys.CONTROL).perform()
+action.key_down(Keys.CONTROL).send_keys("v").key_up(Keys.CONTROL).perform()
+
+# Release key
+action.key_up(Keys.CONTROL).perform()</code></div>
+
+                <h3>Handling Alerts, Windows, and Frames</h3>
+                <div class="code-block"><code"># Handle JavaScript Alert
+alert = driver.switch_to.alert
+alert.accept()  # Click OK
+alert.dismiss()  # Click Cancel
+alert.send_keys("text")  # Enter text in prompt
+alert_text = alert.text  # Get alert message
+
+# Switch to iframe
+iframe = driver.find_element(By.TAG_NAME, "iframe")
+driver.switch_to.frame(iframe)
+
+# Switch back to main content
+driver.switch_to.default_content()
+
+# Switch to window
+windows = driver.window_handles
+driver.switch_to.window(windows[1])
+
+# Get/Switch to active element
+active = driver.switch_to.active_element
+active.send_keys("text")</code></div>
+
+                <h3>JavaScript Execution</h3>
+                <div class="code-block"><code"># Execute JavaScript
+result = driver.execute_script("return 1 + 1")
+print(result)  # 2
+
+# Get element property
+element = driver.find_element(By.ID, "element")
+value = driver.execute_script("return arguments[0].value", element)
+
+# Scroll to element
+driver.execute_script("arguments[0].scrollIntoView();", element)
+
+# Set element style
+driver.execute_script("arguments[0].style.display = 'block';", element)
+
+# Get all local storage
+local_storage = driver.execute_script("return window.localStorage")</code></div>
+
+                <!-- Practical Examples -->
+                <h2 id="examples">7. Practical Examples</h2>
+
+                <h3>Login Test with Page Object Model</h3>
+                <div class="code-block"><code">from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+class LoginPage:
+    def __init__(self, driver):
+        self.driver = driver
+        self.wait = WebDriverWait(driver, 10)
+    
+    # Locators
+    USERNAME_INPUT = (By.ID, "username")
+    PASSWORD_INPUT = (By.ID, "password")
+    LOGIN_BUTTON = (By.CLASS_NAME, "login-btn")
+    ERROR_MESSAGE = (By.CLASS_NAME, "error-msg")
+    
+    # Methods
+    def enter_username(self, username):
+        element = self.wait.until(
+            EC.presence_of_element_located(self.USERNAME_INPUT)
+        )
+        element.clear()
+        element.send_keys(username)
+    
+    def enter_password(self, password):
+        element = self.wait.until(
+            EC.presence_of_element_located(self.PASSWORD_INPUT)
+        )
+        element.clear()
+        element.send_keys(password)
+    
+    def click_login(self):
+        button = self.wait.until(
+            EC.element_to_be_clickable(self.LOGIN_BUTTON)
+        )
+        button.click()
+    
+    def get_error_message(self):
+        message = self.wait.until(
+            EC.visibility_of_element_located(self.ERROR_MESSAGE)
+        )
+        return message.text
+    
+    def login(self, username, password):
+        self.enter_username(username)
+        self.enter_password(password)
+        self.click_login()
+
+# Test using Page Object
+import pytest
+
+class TestLogin:
+    @pytest.fixture(autouse=True)
+    def setup_teardown(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get("https://example.com/login")
+        yield
+        self.driver.quit()
+    
+    def test_valid_login(self):
+        login_page = LoginPage(self.driver)
+        login_page.login("testuser@example.com", "Password123")
+        assert "Dashboard" in self.driver.title
+    
+    def test_invalid_password(self):
+        login_page = LoginPage(self.driver)
+        login_page.login("testuser@example.com", "WrongPassword")
+        error = login_page.get_error_message()
+        assert "Invalid credentials" in error</code></div>
+
+                <h3>E-Commerce Checkout Test</h3>
+                <div class="code-block"><code">from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait, Select
+from selenium.webdriver.support import expected_conditions as EC
+
+class ShoppingTest:
+    def __init__(self):
+        self.driver = webdriver.Chrome()
+        self.wait = WebDriverWait(self.driver, 10)
+    
+    def test_complete_purchase(self):
+        # Navigate to shop
+        self.driver.get("https://shop.example.com")
+        
+        # Search for product
+        search_box = self.driver.find_element(By.ID, "search")
+        search_box.send_keys("laptop")
+        search_box.send_keys(Keys.ENTER)
+        
+        # Select first product
+        product = self.wait.until(
+            EC.element_to_be_clickable(
+                (By.XPATH, "//div[@class='product'][1]")
+            )
+        )
+        product.click()
+        
+        # Add to cart
+        add_btn = self.driver.find_element(By.CLASS_NAME, "add-to-cart")
+        add_btn.click()
+        
+        # Go to cart
+        cart_link = self.driver.find_element(By.LINK_TEXT, "Cart")
+        cart_link.click()
+        
+        # Proceed to checkout
+        checkout_btn = self.driver.find_element(
+            By.CLASS_NAME, "checkout-btn"
+        )
+        checkout_btn.click()
+        
+        # Fill shipping details
+        first_name = self.driver.find_element(By.ID, "first_name")
+        first_name.send_keys("John")
+        
+        last_name = self.driver.find_element(By.ID, "last_name")
+        last_name.send_keys("Doe")
+        
+        address = self.driver.find_element(By.ID, "address")
+        address.send_keys("123 Main Street")
+        
+        # Select country
+        country_select = Select(
+            self.driver.find_element(By.ID, "country")
+        )
+        country_select.select_by_value("US")
+        
+        # Select shipping method
+        shipping_options = self.driver.find_elements(
+            By.NAME, "shipping_method"
+        )
+        shipping_options[1].click()  # Select second option
+        
+        # Fill payment details
+        card_number = self.driver.find_element(By.ID, "card_number")
+        card_number.send_keys("4532123456789010")
+        
+        # Submit order
+        submit_btn = self.driver.find_element(By.ID, "submit_order")
+        submit_btn.click()
+        
+        # Verify order confirmation
+        self.wait.until(
+            EC.visibility_of_element_located(
+                (By.CLASS_NAME, "order-confirmation")
+            )
+        )
+        
+        assert "Order Confirmed" in self.driver.page_source
+        self.driver.quit()
+
+# Run test
+test = ShoppingTest()
+test.test_complete_purchase()</code></div>
+
+                <!-- Best Practices -->
+                <h2 id="best">8. Best Practices</h2>
+
+                <h3>Key Guidelines</h3>
+                <ul>
+                    <li><span class="highlight">Use Page Object Model:</span> Encapsulate page elements and actions</li>
+                    <li><span class="highlight">Explicit Waits:</span> Use WebDriverWait instead of sleep()</li>
+                    <li><span class="highlight">Unique Locators:</span> Prefer ID and Name over CSS/XPath</li>
+                    <li><span class="highlight">Error Handling:</span> Handle NoSuchElementException gracefully</li>
+                    <li><span class="highlight">Headless Mode:</span> Use for CI/CD pipelines</li>
+                    <li><span class="highlight">Close Driver:</span> Always quit driver in teardown</li>
+                </ul>
+
+                <h3>Avoiding Common Pitfalls</h3>
+                <div class="code-block"><code"># ❌ Don't: Hard sleep
+import time
+time.sleep(5)
+
+# ✅ Do: Use WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+wait.until(EC.presence_of_element_located((By.ID, "element")))
+
+# ❌ Don't: Fragile XPath
+driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/form/input[3]")
+
+# ✅ Do: More specific locators
+driver.find_element(By.ID, "submit_button")
+driver.find_element(By.CLASS_NAME, "submit-btn")
+
+# ❌ Don't: Catch all exceptions
+try:
+    element = driver.find_element(By.ID, "element")
+except:
+    pass
+
+# ✅ Do: Catch specific exceptions
+from selenium.common.exceptions import NoSuchElementException
+try:
+    element = driver.find_element(By.ID, "element")
+except NoSuchElementException:
+    print("Element not found")</code></div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section style="background: #f9f9f9; padding: 3rem 0;">
+        <div class="container" style="text-align: center;">
+            <h3 style="margin-bottom: 2rem;">Continue Learning</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="python.html" class="btn btn-primary">Python Guide</a>
+                <a href="api-testing.html" class="btn btn-primary">API Testing</a>
+                <a href="robotframework.html" class="btn btn-primary">Robot Framework</a>
+                <a href="playwright.html" class="btn btn-primary">Playwright</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tutorials</h4>
+                    <a href="python.html">Python</a>
+                    <a href="robotframework.html">Robot Framework</a>
+                    <a href="selenium.html">Selenium</a>
+                    <a href="api-testing.html">API Testing</a>
+                    <a href="playwright.html">Playwright</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="#">Code Examples</a>
+                    <a href="#">Best Practices</a>
+                    <a href="#">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test Automation Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

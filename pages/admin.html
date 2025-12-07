@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Admin Panel - Test Automation Hub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .admin-container { max-width:900px; margin:2rem auto; background:white; padding:1.5rem; border-radius:8px; }
+        .controls { display:flex; gap:1rem; align-items:center; margin-bottom:1rem }
+        input { padding:0.5rem; border-radius:4px; border:1px solid #ddd }
+        button { padding:0.5rem 0.8rem; border-radius:6px; border:none; cursor:pointer }
+        .btn-primary { background:#667eea; color:white }
+        .btn-ghost { background:#f5f5f5 }
+        .user-row { border:1px solid #eee; padding:0.75rem; margin-bottom:0.5rem; border-radius:4px }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🚀 Test Automation Hub - Admin</div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="../pages/glossary.html">Glossary</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="admin-container">
+            <h1>Admin Panel</h1>
+            <p>Provide your admin token to view and manage registrations.</p>
+            <div class="controls" style="flex-wrap:wrap;gap:.5rem;">
+                <input id="adminToken" placeholder="Admin token (default: admin123)" />
+                <button id="btnLoad" class="btn-primary">Load Users</button>
+                <button id="btnRefresh" class="btn-ghost">Refresh</button>
+                <input id="searchInput" placeholder="Search name or email" style="flex:1;min-width:180px;padding:0.5rem;border-radius:6px;border:1px solid #ddd" />
+                <button id="btnBulkApprove" class="btn-primary" style="background:#22c55e">Bulk Approve</button>
+                <button id="btnBulkReject" class="btn-ghost">Bulk Reject</button>
+                <button id="btnDownload" class="btn-ghost">Download JSON</button>
+            </div>
+            <div style="margin-bottom:.5rem;color:#444">Showing <span id="count">0</span> users — <span id="statusSummary"></span></div>
+            <div id="usersContainer"></div>
+            <div id="adminFeedback" style="margin-top:1rem;color:#333"></div>
+            <hr style="margin:1.5rem 0" />
+            <h2>Manage Concepts</h2>
+            <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.5rem;flex-wrap:wrap">
+                <button id="btnLoadConcepts" class="btn-primary">Load Concepts</button>
+                <button id="btnNewConcept" class="btn-ghost">New Concept</button>
+                <div id="conceptsContainer" style="flex:1"></div>
+            </div>
+            <div id="conceptEditor" style="display:none;background:#fff;padding:1rem;border-radius:8px;margin-top:1rem">
+                <h3 id="conceptEditorTitle">New Concept</h3>
+                <input id="conceptTitle" placeholder="Title" style="width:100%;padding:.5rem;margin-bottom:.5rem" />
+                <input id="conceptSlug" placeholder="Slug (optional)" style="width:100%;padding:.5rem;margin-bottom:.5rem" />
+                <textarea id="conceptContent" placeholder="HTML content" style="width:100%;height:160px;padding:.5rem"></textarea>
+                <div style="margin-top:.5rem">
+                    <button id="btnSaveConcept" class="btn-primary">Save</button>
+                    <button id="btnCancelConcept" class="btn-ghost">Cancel</button>
+                </div>
+                <div id="conceptEditorFeedback" style="margin-top:.5rem;color:#333"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        const btnLoad = document.getElementById('btnLoad');
+        const btnRefresh = document.getElementById('btnRefresh');
+        const btnBulkApprove = document.getElementById('btnBulkApprove');
+        const btnBulkReject = document.getElementById('btnBulkReject');
+        const btnDownload = document.getElementById('btnDownload');
+        const adminTokenInput = document.getElementById('adminToken');
+        const usersContainer = document.getElementById('usersContainer');
+        const adminFeedback = document.getElementById('adminFeedback');
+        const searchInput = document.getElementById('searchInput');
+        const countEl = document.getElementById('count');
+        const statusSummary = document.getElementById('statusSummary');
+
+        let currentUsers = [];
+
+        async function loadUsers() {
+            const token = adminTokenInput.value || 'admin123';
+            adminFeedback.innerText = 'Loading...';
+            try {
+                const users = await fetchUsers(token);
+                currentUsers = users;
+                renderUsersTable(users, usersContainer, token);
+                adminFeedback.innerText = `Loaded ${users.length} users.`;
+                countEl.innerText = users.length;
+                const approved = users.filter(u=>u.status==='approved').length;
+                statusSummary.innerText = `${approved} approved`; 
+            } catch (err) {
+                adminFeedback.innerText = 'Error: ' + err.message;
+                usersContainer.innerHTML = '';
+            }
+        }
+
+        btnLoad.addEventListener('click', loadUsers);
+        btnRefresh.addEventListener('click', loadUsers);
+
+        // Search/filter
+        searchInput.addEventListener('input', () => {
+            const q = searchInput.value.trim().toLowerCase();
+            if (!currentUsers.length) return;
+            const filtered = currentUsers.filter(u => (u.name||'').toLowerCase().includes(q) || (u.email||'').toLowerCase().includes(q));
+            renderUsersTable(filtered, usersContainer, adminTokenInput.value || 'admin123');
+            countEl.innerText = filtered.length;
+        });
+
+        // Bulk actions
+        btnBulkApprove.addEventListener('click', async () => {
+            const token = adminTokenInput.value || 'admin123';
+            const selected = Array.from(document.querySelectorAll('.sel:checked')).map(c => c.getAttribute('data-id'));
+            if (!selected.length) { alert('Select users to approve'); return; }
+            if (!confirm(`Approve ${selected.length} users?`)) return;
+            try {
+                await bulkApprove(token, selected);
+                alert('Bulk approve executed');
+                loadUsers();
+            } catch (err) { alert('Error: ' + err.message); }
+        });
+
+        btnBulkReject.addEventListener('click', async () => {
+            const token = adminTokenInput.value || 'admin123';
+            const selected = Array.from(document.querySelectorAll('.sel:checked')).map(c => c.getAttribute('data-id'));
+            if (!selected.length) { alert('Select users to reject'); return; }
+            if (!confirm(`Reject ${selected.length} users?`)) return;
+            try {
+                await bulkReject(token, selected);
+                alert('Bulk reject executed');
+                loadUsers();
+            } catch (err) { alert('Error: ' + err.message); }
+        });
+
+        btnDownload.addEventListener('click', async () => {
+            const token = adminTokenInput.value || 'admin123';
+            try {
+                const data = await downloadUsersJson(token);
+                const txt = JSON.stringify(data, null, 2);
+                const w = window.open();
+                w.document.write('<pre>'+txt.replace(/</g,'&lt;')+'</pre>');
+            } catch (err) { alert('Error: ' + err.message); }
+        });
+
+        // Concepts management
+        const btnLoadConcepts = document.getElementById('btnLoadConcepts');
+        const btnNewConcept = document.getElementById('btnNewConcept');
+        const conceptsContainer = document.getElementById('conceptsContainer');
+        const conceptEditor = document.getElementById('conceptEditor');
+        const conceptEditorTitle = document.getElementById('conceptEditorTitle');
+        const conceptTitle = document.getElementById('conceptTitle');
+        const conceptSlug = document.getElementById('conceptSlug');
+        const conceptContent = document.getElementById('conceptContent');
+        const btnSaveConcept = document.getElementById('btnSaveConcept');
+        const btnCancelConcept = document.getElementById('btnCancelConcept');
+        const conceptEditorFeedback = document.getElementById('conceptEditorFeedback');
+
+        let editingConceptId = null;
+
+        async function loadConcepts() {
+            const token = adminTokenInput.value || 'admin123';
+            conceptsContainer.innerHTML = 'Loading...';
+            try {
+                const concepts = await fetchConcepts(token);
+                if (!concepts.length) conceptsContainer.innerHTML = '<em>No concepts yet</em>';
+                else {
+                    conceptsContainer.innerHTML = '';
+                    concepts.forEach(c => {
+                        const div = document.createElement('div');
+                        div.style.border = '1px solid #eee';
+                        div.style.padding = '.5rem';
+                        div.style.marginBottom = '.4rem';
+                        div.innerHTML = `<strong>${c.title}</strong> <small style="color:#666">/${c.slug}</small> <div style="margin-top:.4rem">` +
+                            `<button data-id="${c.id}" class="btn-edit-concept">Edit</button> ` +
+                            `<button data-id="${c.id}" class="btn-del-concept">Delete</button> ` +
+                            `<a href="/concepts/${c.slug}" target="_blank">View</a>` +
+                            `</div>`;
+                        conceptsContainer.appendChild(div);
+                    });
+                    // attach handlers
+                    conceptsContainer.querySelectorAll('.btn-edit-concept').forEach(b => {
+                        b.addEventListener('click', async (ev) => {
+                            const id = ev.target.getAttribute('data-id');
+                            const token = adminTokenInput.value || 'admin123';
+                            const concepts = await fetchConcepts(token);
+                            const c = concepts.find(x=>x.id===id);
+                            if (c) {
+                                editingConceptId = c.id;
+                                conceptEditorTitle.innerText = 'Edit Concept';
+                                conceptTitle.value = c.title;
+                                conceptSlug.value = c.slug;
+                                conceptContent.value = c.content;
+                                conceptEditor.style.display = 'block';
+                            }
+                        });
+                    });
+                    conceptsContainer.querySelectorAll('.btn-del-concept').forEach(b => {
+                        b.addEventListener('click', async (ev) => {
+                            const id = ev.target.getAttribute('data-id');
+                            const token = adminTokenInput.value || 'admin123';
+                            if (!confirm('Delete this concept?')) return;
+                            try {
+                                await deleteConcept(token, id);
+                                alert('Deleted');
+                                loadConcepts();
+                            } catch (err) { alert('Error: ' + err.message); }
+                        });
+                    });
+                }
+            } catch (err) {
+                conceptsContainer.innerText = 'Error: ' + err.message;
+            }
+        }
+
+        btnLoadConcepts.addEventListener('click', loadConcepts);
+        btnNewConcept.addEventListener('click', () => {
+            editingConceptId = null;
+            conceptEditorTitle.innerText = 'New Concept';
+            conceptTitle.value = '';
+            conceptSlug.value = '';
+            conceptContent.value = '';
+            conceptEditorFeedback.innerText = '';
+            conceptEditor.style.display = 'block';
+        });
+
+        btnCancelConcept.addEventListener('click', () => { conceptEditor.style.display = 'none'; });
+
+        btnSaveConcept.addEventListener('click', async () => {
+            const token = adminTokenInput.value || 'admin123';
+            const data = { title: conceptTitle.value.trim(), slug: conceptSlug.value.trim(), content: conceptContent.value };
+            try {
+                if (!data.title) { conceptEditorFeedback.innerText = 'Title required'; return; }
+                if (editingConceptId) {
+                    await updateConcept(token, editingConceptId, data);
+                    conceptEditorFeedback.innerText = 'Updated';
+                } else {
+                    await createConcept(token, data);
+                    conceptEditorFeedback.innerText = 'Created';
+                }
+                loadConcepts();
+                setTimeout(()=>{ conceptEditor.style.display='none'; }, 600);
+            } catch (err) { conceptEditorFeedback.innerText = 'Error: ' + err.message; }
+        });
+    </script>
+</body>
+</html>
